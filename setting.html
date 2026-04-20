@@ -687,38 +687,61 @@
     // 加载数据
     async function loadData() {
       try {
-        // 只从 Supabase 加载
+        // 尝试从 Supabase 加载
         const { data: catData, error: catError } = await supabase
           .from('categories')
           .select('*');
-
-        if (catError) {
-          console.error('加载分类失败:', catError);
-          showNotification('加载分类数据失败: ' + catError.message, 'error');
-        } else {
-          categories = catData || [];
-        }
 
         const { data: itemData, error: itemError } = await supabase
           .from('items')
           .select('*');
 
-        if (itemError) {
-          console.error('加载藏品失败:', itemError);
-          showNotification('加载藏品数据失败: ' + itemError.message, 'error');
+        if ((catError || itemError) || (!catData || catData.length === 0) || (!itemData || itemData.length === 0)) {
+          console.log('Supabase加载失败，尝试从本地JSON加载');
+          // 从本地JSON加载作为备份
+          await loadFromLocalJSON();
         } else {
+          categories = catData || [];
           items = itemData || [];
         }
       } catch (error) {
         console.error('数据加载失败:', error);
-        showNotification('数据加载失败: ' + error.message, 'error');
-        return;
+        showNotification('数据加载失败，尝试从本地JSON加载', 'warning');
+        // 从本地JSON加载作为备份
+        await loadFromLocalJSON();
       }
 
       updateStats();
       renderCategories();
       renderItems();
       populateCategorySelects();
+    }
+
+    // 从本地JSON文件加载数据
+    async function loadFromLocalJSON() {
+      try {
+        const [catResponse, itemResponse] = await Promise.all([
+          fetch('assets/data/categories.json'),
+          fetch('assets/data/items.json')
+        ]);
+
+        if (!catResponse.ok || !itemResponse.ok) {
+          throw new Error('本地JSON文件加载失败');
+        }
+
+        const catData = await catResponse.json();
+        const itemData = await itemResponse.json();
+
+        categories = catData || [];
+        items = itemData || [];
+
+        showNotification('从本地JSON加载数据成功！', 'success');
+      } catch (error) {
+        console.error('本地JSON加载失败:', error);
+        showNotification('本地JSON加载失败，请检查文件是否存在', 'error');
+        categories = [];
+        items = [];
+      }
     }
 
     // 更新统计数据
