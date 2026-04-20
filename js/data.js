@@ -1,11 +1,11 @@
 // 初始化 Supabase 客户端
 const supabaseUrl = 'https://yykqbhuzsnwdrlyhbwdu.supabase.co';
 const supabaseKey = 'sb_publishable_cwKH3e5N24GE65spjuz8aQ_lQp78Hol';
-// 使用全局的 supabase 变量
+// 确保 supabase 客户端被正确初始化
 if (!window.supabase) {
-    window.supabase = supabase.createClient(supabaseUrl, supabaseKey);
+    window.supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 }
-const supabase = window.supabase;
+// 直接使用全局的 supabase 变量
 
 // 数据管理模块
 const DataManager = {
@@ -22,7 +22,7 @@ const DataManager = {
             const localCategories = await categoriesResponse.json();
             
             for (const category of localCategories) {
-                const { error } = await supabase
+                const { error } = await window.supabase
                     .from('categories')
                     .insert(category)
                     .onConflict('id')
@@ -37,7 +37,7 @@ const DataManager = {
             const localItems = await itemsResponse.json();
             
             for (const item of localItems) {
-                const { error } = await supabase
+                const { error } = await window.supabase
                     .from('items')
                     .insert({
                         ...item,
@@ -61,11 +61,11 @@ const DataManager = {
             await this.initDatabase();
             
             // 从 Supabase 加载数据
-            const { data: categories, error: categoriesError } = await supabase
+            const { data: categories, error: categoriesError } = await window.supabase
                 .from('categories')
                 .select('*');
 
-            const { data: items, error: itemsError } = await supabase
+            const { data: items, error: itemsError } = await window.supabase
                 .from('items')
                 .select('*');
 
