@@ -1,0 +1,20 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景圆形 -->
+  <circle cx="50" cy="50" r="45" fill="#8b4513"/>
+  
+  <!-- 内圈 -->
+  <circle cx="50" cy="50" r="40" fill="#d2b48c"/>
+  
+  <!-- 印章效果 -->
+  <circle cx="50" cy="50" r="35" fill="#8b4513"/>
+  
+  <!-- 中式花纹装饰 -->
+  <path d="M50 15 L65 30 L50 45 L35 30 Z" fill="#d2b48c"/>
+  <path d="M15 50 L30 65 L15 80 L0 65 Z" fill="#d2b48c"/>
+  <path d="M85 50 L70 65 L85 80 L100 65 Z" fill="#d2b48c"/>
+  <path d="M50 85 L65 70 L50 55 L35 70 Z" fill="#d2b48c"/>
+  
+  <!-- 中心印章文字 -->
+  <text x="50" y="50" font-family="ZCOOL XiaoWei" font-size="12" text-anchor="middle" dominant-baseline="middle" fill="#d2b48c">大元收藏</text>
+  <text x="50" y="65" font-family="ZCOOL XiaoWei" font-size="8" text-anchor="middle" dominant-baseline="middle" fill="#d2b48c">私人博物馆</text>
+</svg>

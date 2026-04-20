@@ -13,8 +13,8 @@
   --shadow-hover: 0 15px 40px rgba(139, 69, 19, 0.15);
   
   /* 字体 */
-  --font-serif: 'ZCOOL XiaoWei', 'Noto Serif SC', serif;
-  --font-sans: 'Noto Sans SC', sans-serif;
+  --font-serif: 'ZCOOL XiaoWei', serif;
+  --font-sans: 'ZCOOL XiaoWei', sans-serif;
   --font-calligraphy: 'ZCOOL XiaoWei', cursive;
   
   /* 间距 */
@@ -41,10 +41,11 @@
 }
 
 /* 导入中式字体 */
-@import url('https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&family=Noto+Serif+SC:wght@400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
 
 body {
-  font-family: var(--font-sans);
+  font-family: var(--font-serif);
   line-height: 1.6;
   color: var(--text-color);
   background-color: var(--background-color);
@@ -115,9 +116,8 @@ body::before {
   text-decoration: none;
   color: #fff;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.25rem;
+  align-items: center;
+  gap: 1rem;
 }
 
 .logo-text {
