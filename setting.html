@@ -5,11 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>大元收藏品集 - 后台管理</title>
   <meta name="description" content="大元私人收藏品集后台管理系统">
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="shortcut icon" type="image/svg+xml" href="favicon.svg">
   <!-- 预加载字体 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&family=Noto+Sans+SC:wght=300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <style>
     /* 后台管理专用样式 */
@@ -632,12 +635,8 @@
           <textarea id="item-form-notes" rows="3" placeholder="其他备注信息..."></textarea>
         </div>
         <div class="form-group">
-          <label>图片管理</label>
-          <div class="image-preview" id="item-image-preview"></div>
-          <input type="file" id="item-image-upload" multiple accept="image/*" style="margin-top: 1rem;">
-          <button type="button" class="btn btn-secondary" id="item-upload-btn" style="margin-top: 1rem;">上传图片</button>
-          <textarea id="item-form-images" rows="4" placeholder="images/item-001-1.jpg&#10;images/item-001-2.jpg" style="margin-top: 1rem;"></textarea>
-          <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--admin-text-light);">提示：可以通过上传按钮添加图片，也可以直接在文本框中输入图片路径</p>
+          <label>图片路径（一行一个）</label>
+          <textarea id="item-form-images" rows="4" placeholder="images/item-001-1.jpg&#10;images/item-001-2.jpg"></textarea>
         </div>
         <div class="btn-group" style="margin-top: 1.5rem;">
           <button type="submit" class="btn btn-primary">保存藏品</button>
@@ -1004,8 +1003,6 @@
       document.getElementById('item-modal-title').textContent = '添加藏品';
       document.getElementById('item-form').reset();
       document.getElementById('item-id').value = '';
-      // 清空图片预览
-      document.getElementById('item-image-preview').innerHTML = '';
       document.getElementById('item-modal').classList.add('active');
     });
 
@@ -1025,122 +1022,8 @@
       document.getElementById('item-form-notes').value = item.notes || '';
       document.getElementById('item-form-category').value = item.category_id;
       document.getElementById('item-form-images').value = item.images ? item.images.join('\n') : '';
-      
-      // 显示现有图片预览
-      renderImagePreview(item.images || []);
-      
       document.getElementById('item-modal').classList.add('active');
     }
-
-    // 渲染图片预览
-    function renderImagePreview(imagePaths) {
-      const previewContainer = document.getElementById('item-image-preview');
-      previewContainer.innerHTML = '';
-      
-      imagePaths.forEach((path, index) => {
-        const previewItem = document.createElement('div');
-        previewItem.className = 'image-preview-item';
-        previewItem.style.position = 'relative';
-        
-        const img = document.createElement('img');
-        img.src = path;
-        img.alt = `Preview ${index + 1}`;
-        
-        const removeBtn = document.createElement('button');
-        removeBtn.className = 'btn btn-danger';
-        removeBtn.style.position = 'absolute';
-        removeBtn.style.top = '5px';
-        removeBtn.style.right = '5px';
-        removeBtn.style.width = '20px';
-        removeBtn.style.height = '20px';
-        removeBtn.style.padding = '0';
-        removeBtn.style.fontSize = '12px';
-        removeBtn.textContent = '×';
-        removeBtn.onclick = () => removeImage(index);
-        
-        previewItem.appendChild(img);
-        previewItem.appendChild(removeBtn);
-        previewContainer.appendChild(previewItem);
-      });
-    }
-
-    // 移除图片
-    function removeImage(index) {
-      const imagesText = document.getElementById('item-form-images').value;
-      const imagePaths = imagesText.split('\n').map(img => img.trim()).filter(img => img);
-      imagePaths.splice(index, 1);
-      document.getElementById('item-form-images').value = imagePaths.join('\n');
-      renderImagePreview(imagePaths);
-    }
-
-    // 图片上传处理
-    document.getElementById('item-upload-btn').addEventListener('click', async () => {
-      const fileInput = document.getElementById('item-image-upload');
-      const files = fileInput.files;
-      
-      if (!files || files.length === 0) {
-        showNotification('请先选择图片文件', 'warning');
-        return;
-      }
-      
-      showNotification('正在上传图片...', 'success');
-      
-      try {
-        const imagesText = document.getElementById('item-form-images').value;
-        const existingPaths = imagesText.split('\n').map(img => img.trim()).filter(img => img);
-        const newPaths = [];
-        
-        // 上传每个文件到 Supabase Storage
-        for (let i = 0; i < files.length; i++) {
-          const file = files[i];
-          const timestamp = Date.now();
-          const filename = `items/${timestamp}-${i + 1}.${file.name.split('.').pop()}`;
-          
-          // 上传到 Supabase Storage
-          const { data, error } = await supabaseClient
-            .storage
-            .from('dayuan-collection')
-            .upload(filename, file, {
-              cacheControl: '3600',
-              upsert: false
-            });
-          
-          if (error) {
-            console.error('上传图片失败:', error);
-            showNotification(`上传图片 ${i + 1} 失败: ${error.message}`, 'error');
-            continue;
-          }
-          
-          // 获取公开访问 URL
-          const { data: urlData } = supabaseClient
-            .storage
-            .from('dayuan-collection')
-            .getPublicUrl(filename);
-          
-          newPaths.push(urlData.publicUrl);
-        }
-        
-        const allPaths = [...existingPaths, ...newPaths];
-        document.getElementById('item-form-images').value = allPaths.join('\n');
-        renderImagePreview(allPaths);
-        
-        // 清空文件输入
-        fileInput.value = '';
-        
-        showNotification(`成功上传 ${newPaths.length} 张图片`, 'success');
-      } catch (error) {
-        console.error('上传过程出错:', error);
-        showNotification('上传失败，请重试', 'error');
-      }
-    });
-
-    // 监听文件选择变化，自动预览
-    document.getElementById('item-image-upload').addEventListener('change', (e) => {
-      const files = e.target.files;
-      if (files && files.length > 0) {
-        showNotification(`已选择 ${files.length} 张图片，点击上传按钮开始上传`, 'success');
-      }
-    });
 
     document.getElementById('item-form').addEventListener('submit', async (e) => {
       e.preventDefault();

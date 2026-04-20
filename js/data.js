@@ -35,8 +35,6 @@ const DataManager = {
             const localItems = await itemsResponse.json();
             
             for (const item of localItems) {
-                // 检查图片路径是否为本地路径，如果是则保持不变
-                // 后续可以添加逻辑将本地图片上传到 Supabase Storage
                 const { error } = await window.supabase
                     .from('items')
                     .upsert({
@@ -55,51 +53,30 @@ const DataManager = {
     // 加载所有数据
     async loadData() {
         try {
-            // 先尝试从本地存储加载缓存数据
-            const cachedData = localStorage.getItem('dayuan-collection-data');
-            if (cachedData) {
-                try {
-                    const parsedData = JSON.parse(cachedData);
-                    this.categories = parsedData.categories;
-                    this.items = parsedData.items;
-                    console.log('从本地缓存加载数据成功');
-                    // 异步更新数据，不阻塞页面加载
-                    this.updateDataInBackground();
-                    return true;
-                } catch (e) {
-                    console.error('解析缓存数据失败:', e);
-                }
-            }
-            
             // 初始化数据库
             await this.initDatabase();
             
-            // 并行加载数据
-            const [categoriesResult, itemsResult] = await Promise.all([
-                window.supabase.from('categories').select('*'),
-                window.supabase.from('items').select('*')
-            ]);
+            // 从 Supabase 加载数据
+            const { data: categories, error: categoriesError } = await window.supabase
+                .from('categories')
+                .select('*');
 
-            if (categoriesResult.error || itemsResult.error) {
-                console.error('从 Supabase 加载数据失败:', categoriesResult.error, itemsResult.error);
+            const { data: items, error: itemsError } = await window.supabase
+                .from('items')
+                .select('*');
+
+            if (categoriesError || itemsError) {
+                console.error('从 Supabase 加载数据失败:', categoriesError, itemsError);
                 // 失败时使用本地数据
-                const [categoriesResponse, itemsResponse] = await Promise.all([
-                    fetch('assets/data/categories.json'),
-                    fetch('assets/data/items.json')
-                ]);
-                
+                const categoriesResponse = await fetch('assets/data/categories.json');
                 this.categories = await categoriesResponse.json();
+                
+                const itemsResponse = await fetch('assets/data/items.json');
                 this.items = await itemsResponse.json();
             } else {
-                this.categories = categoriesResult.data;
-                this.items = itemsResult.data;
+                this.categories = categories;
+                this.items = items;
             }
-            
-            // 缓存数据到本地存储
-            localStorage.setItem('dayuan-collection-data', JSON.stringify({
-                categories: this.categories,
-                items: this.items
-            }));
             
             console.log('数据加载成功:', {
                 categories: this.categories.length,
@@ -111,50 +88,16 @@ const DataManager = {
             console.error('数据加载失败:', error);
             // 失败时使用本地数据
             try {
-                const [categoriesResponse, itemsResponse] = await Promise.all([
-                    fetch('assets/data/categories.json'),
-                    fetch('assets/data/items.json')
-                ]);
-                
+                const categoriesResponse = await fetch('assets/data/categories.json');
                 this.categories = await categoriesResponse.json();
+                
+                const itemsResponse = await fetch('assets/data/items.json');
                 this.items = await itemsResponse.json();
-                
-                // 缓存数据到本地存储
-                localStorage.setItem('dayuan-collection-data', JSON.stringify({
-                    categories: this.categories,
-                    items: this.items
-                }));
-                
                 return true;
             } catch (localError) {
                 console.error('本地数据加载失败:', localError);
                 return false;
             }
-        }
-    },
-    
-    // 后台更新数据
-    async updateDataInBackground() {
-        try {
-            const [categoriesResult, itemsResult] = await Promise.all([
-                window.supabase.from('categories').select('*'),
-                window.supabase.from('items').select('*')
-            ]);
-
-            if (!categoriesResult.error && !itemsResult.error) {
-                this.categories = categoriesResult.data;
-                this.items = itemsResult.data;
-                
-                // 更新缓存
-                localStorage.setItem('dayuan-collection-data', JSON.stringify({
-                    categories: this.categories,
-                    items: this.items
-                }));
-                
-                console.log('后台数据更新成功');
-            }
-        } catch (error) {
-            console.error('后台数据更新失败:', error);
         }
     },
     
