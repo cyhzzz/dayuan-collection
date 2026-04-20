@@ -667,7 +667,7 @@
     // 初始化 Supabase 客户端
     const supabaseUrl = 'https://yykqbhuzsnwdrlyhbwdu.supabase.co';
     const supabaseKey = 'sb_publishable_cwKH3e5N24GE65spjuz8aQ_lQp78Hol';
-    const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+    const supabase = createClient(supabaseUrl, supabaseKey);
 
     // 数据管理器
     let categories = [];
@@ -692,21 +692,26 @@
           .from('categories')
           .select('*');
 
+        if (catError) {
+          console.error('加载分类失败:', catError);
+          showNotification('加载分类数据失败: ' + catError.message, 'error');
+        } else {
+          categories = catData || [];
+        }
+
         const { data: itemData, error: itemError } = await supabase
           .from('items')
           .select('*');
 
-        if (catError || itemError) {
-          console.error('从数据库加载失败:', catError, itemError);
-          showNotification('数据加载失败，请检查网络连接', 'error');
-          return;
+        if (itemError) {
+          console.error('加载藏品失败:', itemError);
+          showNotification('加载藏品数据失败: ' + itemError.message, 'error');
+        } else {
+          items = itemData || [];
         }
-
-        categories = catData;
-        items = itemData;
       } catch (error) {
         console.error('数据加载失败:', error);
-        showNotification('数据加载失败，请检查网络连接', 'error');
+        showNotification('数据加载失败: ' + error.message, 'error');
         return;
       }
 
