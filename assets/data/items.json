@@ -1,0 +1,449 @@
+[
+    {
+        "id": "item_001",
+        "name": "二月二龙抬头",
+        "category_id": "jade",
+        "date": "2026-03-20",
+        "period": "清代",
+        "material": "玉石",
+        "size": "不详",
+        "description": "二月二龙抬头主题玉器藏品，展现传统节日文化内涵。",
+        "notes": "这件藏品工艺精湛，寓意吉祥，是传统节日文化的重要载体。",
+        "images": [
+            "images/001_二月二龙抬头_1.jpg",
+            "images/001_二月二龙抬头_2.jpg",
+            "images/001_二月二龙抬头_3.jpg",
+            "images/001_二月二龙抬头_4.jpg",
+            "images/001_二月二龙抬头_5.jpg",
+            "images/001_二月二龙抬头_6.jpg",
+            "images/001_二月二龙抬头_7.jpg",
+            "images/001_二月二龙抬头_8.jpg",
+            "images/001_二月二龙抬头_9.jpg"
+        ],
+        "likes": 42,
+        "comments": 3,
+        "collections": 1,
+        "source": "私人收藏"
+    },
+    {
+        "id": "item_002",
+        "name": "错银香瓶",
+        "category_id": "porcelain",
+        "date": "2026-03-19",
+        "period": "清代",
+        "material": "瓷器",
+        "size": "不详",
+        "description": "精美的错银香瓶，工艺精湛，造型优雅。",
+        "notes": "这件香瓶采用错银工艺，纹饰精美，是清代瓷器中的精品。",
+        "images": [
+            "images/002_错银香瓶_1.jpg",
+            "images/002_错银香瓶_2.jpg",
+            "images/002_错银香瓶_3.jpg"
+        ],
+        "likes": 29,
+        "comments": 1,
+        "collections": 0,
+        "source": "私人收藏"
+    },
+    {
+        "id": "item_003",
+        "name": "路路通",
+        "category_id": "jade",
+        "date": "2026-03-18",
+        "period": "清代",
+        "material": "玉石",
+        "size": "不详",
+        "description": "传统路路通玉器，寓意吉祥如意，路路畅通。",
+        "notes": "路路通是传统玉器中的经典造型，象征着人生道路畅通无阻。",
+        "images": [
+            "images/003_路路通_1.jpg",
+            "images/003_路路通_2.jpg"
+        ],
+        "likes": 24,
+        "comments": 1,
+        "collections": 0,
+        "source": "私人收藏"
+    },
+    {
+        "id": "item_004",
+        "name": "松鹤牡丹",
+        "category_id": "wood",
+        "date": "2026-03-16",
+        "period": "清代",
+        "material": "木材",
+        "size": "不详",
+        "description": "精美的木雕作品，描绘松鹤牡丹图案，寓意长寿富贵。",
+        "notes": "这件木雕工艺精湛，图案寓意吉祥，是传统木雕艺术的代表作品。",
+        "images": [
+            "images/004_松鹤牡丹_1.jpg",
+            "images/004_松鹤牡丹_2.jpg",
+            "images/004_松鹤牡丹_3.jpg",
+            "images/004_松鹤牡丹_4.jpg"
+        ],
+        "likes": 17,
+        "comments": 1,
+        "collections": 0,
+        "source": "私人收藏"
+    },
+    {
+        "id": "item_005",
+        "name": "籽料白玉红沁藕片",
+        "category_id": "jade",
+        "date": "2026-03-11",
+        "period": "清代",
+        "material": "和田玉",
+        "size": "不详",
+        "description": "籽料白玉红沁藕片，玉质温润，沁色自然。",
+        "notes": "藕片造型象征着纯洁和吉祥，红沁增加了藏品的艺术价值。",
+        "images": [
+            "images/005_籽料白玉红沁藕片_1.jpg",
+            "images/005_籽料白玉红沁藕片_2.jpg"
+        ],
+        "likes": 22,
+        "comments": 2,
+        "collections": 0,
+        "source": "私人收藏"
+    },
+    {
+        "id": "item_006",
+        "name": "玉莲藕",
+        "category_id": "jade",
+        "date": "2026-03-09",
+        "period": "清代",
+        "material": "玉石",
+        "size": "不详",
+        "description": "精美的玉莲藕摆件，造型逼真，工艺精湛。",
+        "notes": "莲藕象征着纯洁和吉祥，是传统玉器中的常见题材。",
+        "images": [
+            "images/006_玉莲藕_1.jpg"
+        ],
+        "likes": 23,
+        "comments": 1,
+        "collections": 0,
+        "source": "私人收藏"
+    },
+    {
+        "id": "item_007",
+        "name": "37厘米，霸气",
+        "category_id": "wood",
+        "date": "2026-03-07",
+        "period": "清代",
+        "material": "木材",
+        "size": "37厘米",
+        "description": "大型木雕作品，气势恢宏，工艺精湛。",
+        "notes": "这件木雕作品尺寸较大，工艺复杂，展现了传统木雕的精湛技艺。",
+        "images": [
+            "images/007_37厘米，霸气_1.jpg"
+        ],
+        "likes": 30,
+        "comments": 0,
+        "collections": 0,
+        "source": "私人收藏"
+    },
+    {
+        "id": "item_008",
+        "name": "金玉满堂",
+        "category_id": "jade",
+        "date": "2026-03-06",
+        "period": "清代",
+        "material": "玉石",
+        "size": "不详",
+        "description": "金玉满堂主题玉器，寓意财富满堂，吉祥如意。",
+        "notes": "这件藏品工艺精湛，寓意吉祥，是传统玉器中的精品。",
+        "images": [
+            "images/008_金玉满堂_1.jpg",
+            "images/008_金玉满堂_2.jpg"
+        ],
+        "likes": 17,
+        "comments": 0,
+        "collections": 0,
+        "source": "私人收藏"
+    },
+    {
+        "id": "item_009",
+        "name": "将军剑",
+        "category_id": "wood",
+        "date": "2026-03-04",
+        "period": "清代",
+        "material": "木材",
+        "size": "不详",
+        "description": "精美的将军剑木雕，造型威武，工艺精湛。",
+        "notes": "这件木雕作品展现了传统工艺的精湛技艺，造型威武大气。",
+        "images": [
+            "images/009_将军剑_1.jpg",
+            "images/009_将军剑_2.jpg"
+        ],
+        "likes": 22,
+        "comments": 3,
+        "collections": 0,
+        "source": "私人收藏"
+    },
+    {
+        "id": "item_010",
+        "name": "清籽料路路通",
+        "category_id": "jade",
+        "date": "2026-03-03",
+        "period": "清代",
+        "material": "和田玉",
+        "size": "不详",
+        "description": "清代籽料路路通，玉质温润，工艺精湛。",
+        "notes": "籽料路路通是清代玉器中的常见品种，寓意吉祥如意。",
+        "images": [
+            "images/010_清籽料路路通_1.jpg",
+            "images/010_清籽料路路通_2.jpg"
+        ],
+        "likes": 20,
+        "comments": 0,
+        "collections": 0,
+        "source": "私人收藏"
+    },
+    {
+        "id": "item_011",
+        "name": "白王藕片。以玉之纯承莲之洁，以藕之偶祈缘之美，以孔之通祝路之达",
+        "category_id": "jade",
+        "date": "2026-03-02",
+        "period": "清代",
+        "material": "玉石",
+        "size": "不详",
+        "description": "精美的白玉藕片，玉质纯净，造型优雅。",
+        "notes": "藕片象征着纯洁和吉祥，这件藏品工艺精湛，寓意美好。",
+        "images": [
+            "images/011_白王藕片。以玉之纯承莲之洁，以藕之偶祈缘之美，以孔之通祝路之达_1.jpg",
+            "images/011_白王藕片。以玉之纯承莲之洁，以藕之偶祈缘之美，以孔之通祝路之达_2.jpg"
+        ],
+        "likes": 21,
+        "comments": 0,
+        "collections": 1,
+        "source": "私人收藏"
+    },
+    {
+        "id": "item_012",
+        "name": "聚宝盆",
+        "category_id": "porcelain",
+        "date": "2026-03-01",
+        "period": "清代",
+        "material": "瓷器",
+        "size": "不详",
+        "description": "精美的聚宝盆瓷器，造型圆润，纹饰精美。",
+        "notes": "聚宝盆象征着财富和吉祥，是传统瓷器中的经典题材。",
+        "images": [
+            "images/012_聚宝盆_1.jpg",
+            "images/012_聚宝盆_2.jpg"
+        ],
+        "likes": 21,
+        "comments": 0,
+        "collections": 1,
+        "source": "私人收藏"
+    },
+    {
+        "id": "item_013",
+        "name": "镜",
+        "category_id": "porcelain",
+        "date": "2026-02-28",
+        "period": "清代",
+        "material": "瓷器",
+        "size": "不详",
+        "description": "精美的瓷镜，工艺精湛，纹饰精美。",
+        "notes": "这件瓷镜造型优雅，纹饰精美，是清代瓷器中的精品。",
+        "images": [
+            "images/013_镜_1.jpg",
+            "images/013_镜_2.jpg",
+            "images/013_镜_3.jpg",
+            "images/013_镜_4.jpg",
+            "images/013_镜_5.jpg",
+            "images/013_镜_6.jpg",
+            "images/013_镜_7.jpg"
+        ],
+        "likes": 23,
+        "comments": 1,
+        "collections": 0,
+        "source": "私人收藏"
+    },
+    {
+        "id": "item_014",
+        "name": "炉",
+        "category_id": "porcelain",
+        "date": "2026-02-25",
+        "period": "清代",
+        "material": "瓷器",
+        "size": "不详",
+        "description": "精美的瓷炉，造型优雅，工艺精湛。",
+        "notes": "这件瓷炉造型端庄，工艺精湛，是清代瓷器中的精品。",
+        "images": [
+            "images/014_炉_1.jpg",
+            "images/014_炉_2.jpg",
+            "images/014_炉_3.jpg",
+            "images/014_炉_4.jpg",
+            "images/014_炉_5.jpg",
+            "images/014_炉_6.jpg",
+            "images/014_炉_7.jpg",
+            "images/014_炉_8.jpg",
+            "images/014_炉_9.jpg",
+            "images/014_炉_10.jpg"
+        ],
+        "likes": 33,
+        "comments": 0,
+        "collections": 2,
+        "source": "私人收藏"
+    },
+    {
+        "id": "item_015",
+        "name": "周元龙凤",
+        "category_id": "coin",
+        "date": "2026-02-23",
+        "period": "五代",
+        "material": "铜币",
+        "size": "不详",
+        "description": "周元通宝龙凤钱，历史悠久，品相完好。",
+        "notes": "周元通宝是五代时期的重要货币，龙凤纹增添了收藏价值。",
+        "images": [
+            "images/015_周元龙凤_1.jpg",
+            "images/015_周元龙凤_2.jpg"
+        ],
+        "likes": 24,
+        "comments": 0,
+        "collections": 0,
+        "source": "私人收藏"
+    },
+    {
+        "id": "item_016",
+        "name": "风花雪月",
+        "category_id": "jade",
+        "date": "2026-02-22",
+        "period": "清代",
+        "material": "玉石",
+        "size": "不详",
+        "description": "风花雪月主题玉器，工艺精湛，寓意美好。",
+        "notes": "这件藏品工艺精湛，题材优雅，展现了传统玉文化的魅力。",
+        "images": [
+            "images/016_风花雪月_1.jpg",
+            "images/016_风花雪月_2.jpg"
+        ],
+        "likes": 21,
+        "comments": 0,
+        "collections": 0,
+        "source": "私人收藏"
+    },
+    {
+        "id": "item_017",
+        "name": "（无标题）",
+        "category_id": "jade",
+        "date": "2026-02-22",
+        "period": "清代",
+        "material": "玉石",
+        "size": "不详",
+        "description": "精美的玉器藏品，工艺精湛，造型优雅。",
+        "notes": "这件藏品虽然没有标题，但工艺精湛，具有较高的收藏价值。",
+        "images": [
+            "images/017_（无标题）_1.jpg",
+            "images/017_（无标题）_2.jpg"
+        ],
+        "likes": 39,
+        "comments": 4,
+        "collections": 2,
+        "source": "私人收藏"
+    },
+    {
+        "id": "item_018",
+        "name": "正月初五迎财神",
+        "category_id": "wood",
+        "date": "2026-02-20",
+        "period": "清代",
+        "material": "木材",
+        "size": "不详",
+        "description": "正月初五迎财神主题木雕，工艺精湛，寓意吉祥。",
+        "notes": "这件木雕作品展现了传统节日文化，工艺精湛，寓意吉祥。",
+        "images": [
+            "images/018_正月初五迎财神_1.jpg",
+            "images/018_正月初五迎财神_2.jpg",
+            "images/018_正月初五迎财神_3.jpg",
+            "images/018_正月初五迎财神_4.jpg",
+            "images/018_正月初五迎财神_5.jpg",
+            "images/018_正月初五迎财神_6.jpg",
+            "images/018_正月初五迎财神_7.jpg",
+            "images/018_正月初五迎财神_8.jpg"
+        ],
+        "likes": 24,
+        "comments": 0,
+        "collections": 1,
+        "source": "私人收藏"
+    },
+    {
+        "id": "item_019",
+        "name": "石叟",
+        "category_id": "porcelain",
+        "date": "2026-02-09",
+        "period": "明代",
+        "material": "瓷器",
+        "size": "不详",
+        "description": "明代石叟款瓷器，工艺精湛，纹饰精美。",
+        "notes": "石叟是明代著名的工匠，其作品具有较高的收藏价值。",
+        "images": [
+            "images/019_石叟_1.jpg",
+            "images/019_石叟_2.jpg",
+            "images/019_石叟_3.jpg",
+            "images/019_石叟_4.jpg"
+        ],
+        "likes": 31,
+        "comments": 0,
+        "collections": 0,
+        "source": "私人收藏"
+    },
+    {
+        "id": "item_020",
+        "name": "烟壶",
+        "category_id": "porcelain",
+        "date": "2026-02-03",
+        "period": "清代",
+        "material": "瓷器",
+        "size": "不详",
+        "description": "精美的瓷烟壶，造型小巧，工艺精湛。",
+        "notes": "瓷烟壶是清代流行的文玩，这件藏品工艺精湛，具有较高的收藏价值。",
+        "images": [
+            "images/020_烟壶_1.jpg",
+            "images/020_烟壶_2.jpg"
+        ],
+        "likes": 30,
+        "comments": 2,
+        "collections": 0,
+        "source": "私人收藏"
+    },
+    {
+        "id": "item_247",
+        "name": "一根藤",
+        "category_id": "tiantai",
+        "date": "2022-11-26",
+        "period": "清代",
+        "material": "木材",
+        "size": "不详",
+        "description": "天台特产一根藤，古有东阳雕天台条之说，天台一根藤软条，由数百节弯曲小木条组成。",
+        "notes": "一根藤是天台县的传统工艺，具有独特的地方文化特色。",
+        "images": [
+            "images/247_一根藤。天台特产一根藤，古有东阳雕天台条之说，天台一根藤软条，由数百节弯曲小木条_1.jpg",
+            "images/247_一根藤。天台特产一根藤，古有东阳雕天台条之说，天台一根藤软条，由数百节弯曲小木条_2.jpg",
+            "images/247_一根藤。天台特产一根藤，古有东阳雕天台条之说，天台一根藤软条，由数百节弯曲小木条_3.jpg"
+        ],
+        "likes": 72,
+        "comments": 11,
+        "collections": 0,
+        "source": "私人收藏"
+    },
+    {
+        "id": "item_273",
+        "name": "床神",
+        "category_id": "tiantai",
+        "date": "2022-10-31",
+        "period": "清代",
+        "material": "木材",
+        "size": "不详",
+        "description": "天台特色床神木雕，工艺精湛，展现地方文化特色。",
+        "notes": "床神是天台地方文化的重要组成部分，这件藏品工艺精湛，具有较高的文化价值。",
+        "images": [
+            "images/273_床神_1.jpg"
+        ],
+        "likes": 33,
+        "comments": 2,
+        "collections": 0,
+        "source": "私人收藏"
+    }
+]

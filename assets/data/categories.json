@@ -1,0 +1,47 @@
+[
+    {
+        "id": "wood",
+        "name": "大元藏木",
+        "description": "收藏各种精美的木器藏品，包括花窗、床神、木雕等，展现中国传统木工艺的精湛技艺。",
+        "type": "木器",
+        "period": "明清时期",
+        "image": "images/284_朱红贴金花板_1.jpg",
+        "items_count": 50
+    },
+    {
+        "id": "jade",
+        "name": "大元藏玉",
+        "description": "收藏各种玉器珍品，包括玉璧、玉带钩、玉牌等，展现中国传统玉文化的魅力。",
+        "type": "玉器",
+        "period": "唐宋元明清",
+        "image": "images/005_籽料白玉红沁藕片_1.jpg",
+        "items_count": 120
+    },
+    {
+        "id": "coin",
+        "name": "大元藏币",
+        "description": "收藏各种古钱币，包括铜币、银币等，展现中国货币发展的历史轨迹。",
+        "type": "钱币",
+        "period": "唐宋元明清",
+        "image": "images/256_6个版别大观折十_1.jpg",
+        "items_count": 40
+    },
+    {
+        "id": "porcelain",
+        "name": "大元藏瓷",
+        "description": "收藏各种瓷器精品，包括青花瓷、五彩瓷等，展现中国陶瓷艺术的辉煌成就。",
+        "type": "瓷器",
+        "period": "明清时期",
+        "image": "images/251_室无瓷不雅_1.jpg",
+        "items_count": 30
+    },
+    {
+        "id": "tiantai",
+        "name": "天台山文化",
+        "description": "收藏与天台山文化相关的特色藏品，包括一根藤、床神等，展现天台地方文化的独特魅力。",
+        "type": "地方文化",
+        "period": "明清时期",
+        "image": "images/247_一根藤。天台特产一根藤，古有东阳雕天台条之说，天台一根藤软条，由数百节弯曲小木条_1.jpg",
+        "items_count": 54
+    }
+]

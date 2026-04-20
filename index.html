@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大元收藏品集 - 私人博物馆</title>
+    <meta name="description" content="大元私人收藏品集，展示木器、玉器、钱币、瓷器等珍贵藏品">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <div class="logo-text">大元收藏</div>
+                <div class="logo-subtext">私人博物馆</div>
+            </a>
+            <nav class="nav">
+                <button class="nav-btn active" data-view="home">首页</button>
+                <button class="nav-btn" data-view="search">搜索</button>
+                <button class="nav-btn" data-view="about">关于</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主内容区域 -->
+    <main class="main-content">
+        <div class="container">
+            <!-- 首页视图 -->
+            <div id="home-view" class="view">
+                <!-- Hero 区域 -->
+                <section class="hero fade-in-up">
+                    <div class="container">
+                        <h2>大元收藏品集</h2>
+                        <p>传承文化，珍藏历史，展示天台县收藏家大元的珍贵藏品</p>
+                    </div>
+                </section>
+
+                <!-- 分类网格 -->
+                <h2 class="section-title">藏品分类</h2>
+                <div class="categories-grid" id="categories-grid"></div>
+            </div>
+
+            <!-- 分类详情视图 -->
+            <div id="category-view" class="view" style="display: none;">
+                <div class="breadcrumb">
+                    <a href="#" class="breadcrumb-link" data-view="home">首页</a>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-current" id="breadcrumb-current"></span>
+                </div>
+                <div class="category-detail" id="category-detail"></div>
+                <h3 class="section-title">藏品列表</h3>
+                <div class="items-grid" id="items-grid"></div>
+            </div>
+
+            <!-- 藏品详情视图 -->
+            <div id="item-view" class="view" style="display: none;">
+                <div class="breadcrumb">
+                    <a href="#" class="breadcrumb-link" data-view="home">首页</a>
+                    <span class="breadcrumb-separator">/</span>
+                    <a href="#" class="breadcrumb-link" id="breadcrumb-category"></a>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-current" id="breadcrumb-item"></span>
+                </div>
+                <div class="item-detail" id="item-detail"></div>
+            </div>
+
+            <!-- 搜索视图 -->
+            <div id="search-view" class="view" style="display: none;">
+                <div class="search-page">
+                    <h2>藏品搜索</h2>
+                    <div class="search-controls">
+                        <input type="text" class="search-input" id="search-input" placeholder="输入藏品名称或关键词">
+                        <select class="search-filter" id="search-category">
+                            <option value="all">全部分类</option>
+                        </select>
+                        <button class="search-btn" id="search-btn">搜索</button>
+                    </div>
+                    <div class="results-count" id="results-count"></div>
+                    <div class="items-grid" id="search-results"></div>
+                    <div class="search-placeholder" id="search-placeholder">
+                        请输入关键词进行搜索
+                    </div>
+                    <div class="no-results" id="no-results" style="display: none;">
+                        未找到相关藏品
+                    </div>
+                </div>
+            </div>
+
+            <!-- 关于视图 -->
+            <div id="about-view" class="view" style="display: none;">
+                <div class="category-detail-header">
+                    <div class="category-detail-image">
+                        <div class="avatar-frame">
+                            <img src="images/252_济公_1.jpg" alt="大元收藏家">
+                        </div>
+                    </div>
+                    <div class="category-detail-info">
+                        <h2>关于收藏家</h2>
+                        <p>大元，浙江省天台县资深收藏家，致力于收藏和保护中国传统文物。收藏领域涵盖木器、玉器、钱币、瓷器等多个类别，尤其专注于天台山文化相关的历史文物。</p>
+                        <p>多年来，大元先生通过抖音平台分享藏品，传播传统文化，获得了众多收藏爱好者的关注和认可。本网站旨在系统展示其珍贵藏品，让更多人了解中国传统文化的魅力。</p>
+                        <div class="chinese-divider"></div>
+                        <div class="category-meta">
+                            <span class="tag">天台山文化</span>
+                            <span class="tag">传统收藏</span>
+                            <span class="tag">文化传承</span>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="section-title">收藏理念</h3>
+                <div class="item-detail">
+                    <div class="item-info-detail">
+                        <h3>传承与保护</h3>
+                        <p>大元先生认为，收藏不仅仅是个人爱好，更是对传统文化的传承与保护。每一件藏品都承载着历史的记忆，通过收藏和研究这些文物，我们能够更好地了解祖先的智慧和文化。</p>
+                        <p>在收藏过程中，大元先生注重藏品的真实性和历史价值，致力于收藏具有代表性的文物，为传统文化的传承做出贡献。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 底部 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>大元收藏</h3>
+                    <p>传承文化，珍藏历史</p>
+                    <p>浙江省天台县</p>
+                </div>
+                <div class="footer-section">
+                    <h3>联系方式</h3>
+                    <p>抖音：@dywm122308</p>
+                    <p>邮箱：contact@dayuan-collection.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>相关链接</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link">抖音</a>
+                        <a href="#" class="social-link">微信</a>
+                        <a href="#" class="social-link">微博</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 大元收藏品集. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Supabase 客户端库 -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- JavaScript 文件 -->
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

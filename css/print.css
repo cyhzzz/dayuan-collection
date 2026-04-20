@@ -1,0 +1,141 @@
+/* 打印样式 */
+@media print {
+  /* 隐藏不需要打印的元素 */
+  .header,
+  .footer,
+  .nav,
+  .search-controls,
+  .breadcrumb {
+    display: none !important;
+  }
+  
+  /* 调整页面边距 */
+  @page {
+    size: A4;
+    margin: 2cm;
+  }
+  
+  body {
+    background: none !important;
+    color: #000 !important;
+    font-family: 'ZCOOL XiaoWei', 'Noto Serif SC', serif;
+  }
+  
+  .container {
+    max-width: 100%;
+    padding: 0;
+  }
+  
+  /* 调整主内容区域 */
+  .main-content {
+    min-height: auto;
+    padding: 0;
+  }
+  
+  /* 调整卡片样式 */
+  .category-card,
+  .item-card,
+  .category-detail-header,
+  .item-detail,
+  .search-page {
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  
+  /* 调整图片 */
+  img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+  
+  /* 调整网格布局 */
+  .categories-grid,
+  .items-grid {
+    display: block;
+  }
+  
+  .category-card,
+  .item-card {
+    display: inline-block;
+    width: 48%;
+    margin: 1%;
+    vertical-align: top;
+  }
+  
+  /* 调整字体大小 */
+  h1, h2, h3, h4, h5, h6 {
+    color: #000 !important;
+    page-break-after: avoid;
+  }
+  
+  .hero h2 {
+    font-size: 2.5rem !important;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  /* 移除动画和过渡效果 */
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  /* 调整分隔线 */
+  .chinese-divider {
+    background: #ccc;
+    height: 1px;
+  }
+  
+  /* 确保内容不被分页截断 */
+  .category-detail-header,
+  .item-detail {
+    page-break-inside: avoid;
+  }
+  
+  /* 调整表格样式 */
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    page-break-inside: avoid;
+  }
+  
+  table, th, td {
+    border: 1px solid #ccc;
+  }
+  
+  th, td {
+    padding: 8px;
+    text-align: left;
+  }
+  
+  /* 调整链接样式 */
+  a {
+    color: #000 !important;
+    text-decoration: underline;
+  }
+  
+  /* 调整印章效果 */
+  .seal {
+    display: none !important;
+  }
+  
+  /* 调整搜索结果 */
+  .search-placeholder,
+  .no-results {
+    background: none !important;
+    border: 1px solid #ccc;
+    padding: 2rem;
+  }
+  
+  /* 确保图片质量 */
+  img {
+    max-resolution: 300dpi;
+  }
+  
+  /* 调整页脚 */
+  @bottom-center {
+    content: counter(page);
+  }
+}
