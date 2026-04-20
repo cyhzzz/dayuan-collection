@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>大元收藏品集 - 后台管理</title>
+  <meta name="description" content="大元私人收藏品集后台管理系统">
+  <!-- 预加载字体 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* 后台管理专用样式 */
+    :root {
+      --admin-bg: #f8f6f0;
+      --admin-card: #ffffff;
+      --admin-primary: #8b4513;
+      --admin-secondary: #d2b48c;
+      --admin-accent: #c19a6b;
+      --admin-text: #333333;
+      --admin-text-light: #666666;
+      --admin-border: #e0d6c2;
+      --admin-success: #28a745;
+      --admin-danger: #dc3545;
+      --admin-warning: #ffc107;
+    }
+
+    body {
+      background: var(--admin-bg);
+      font-family: 'ZCOOL XiaoWei', 'Noto Serif SC', serif;
+    }
+
+    .admin-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* 后台头部 */
+    .admin-header {
+      background: linear-gradient(135deg, var(--admin-primary) 0%, #654321 100%);
+      color: #fff;
+      padding: 2rem;
+      border-radius: 16px;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+
+    .admin-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      font-weight: 400;
+    }
+
+    .admin-header p {
+      opacity: 0.9;
+      font-size: 1.1rem;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #fff;
+      text-decoration: none;
+      margin-bottom: 1rem;
+      padding: 0.5rem 1rem;
+      background: rgba(255,255,255,0.1);
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+
+    .back-link:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    /* 统计卡片 */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: var(--admin-card);
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      text-align: center;
+      border: 1px solid var(--admin-border);
+    }
+
+    .stat-card .number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--admin-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-card .label {
+      color: var(--admin-text-light);
+      font-size: 1.1rem;
+    }
+
+    /* 标签页 */
+    .admin-tabs {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      background: var(--admin-card);
+      padding: 0.5rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .tab-btn {
+      padding: 1rem 2rem;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-family: inherit;
+      color: var(--admin-text-light);
+      border-radius: 8px;
+      transition: all 0.3s;
+    }
+
+    .tab-btn:hover {
+      background: var(--admin-bg);
+      color: var(--admin-primary);
+    }
+
+    .tab-btn.active {
+      background: var(--admin-primary);
+      color: #fff;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* 卡片样式 */
+    .admin-card {
+      background: var(--admin-card);
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      margin-bottom: 2rem;
+      border: 1px solid var(--admin-border);
+    }
+
+    .admin-card h2 {
+      color: var(--admin-primary);
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+      font-size: 1.8rem;
+    }
+
+    /* 按钮样式 */
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--admin-primary) 0%, #654321 100%);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(139, 69, 19, 0.3);
+    }
+
+    .btn-secondary {
+      background: var(--admin-secondary);
+      color: var(--admin-primary);
+    }
+
+    .btn-danger {
+      background: var(--admin-danger);
+      color: #fff;
+    }
+
+    .btn-success {
+      background: var(--admin-success);
+      color: #fff;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    /* 表单样式 */
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--admin-text);
+      font-weight: 600;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.875rem;
+      border: 2px solid var(--admin-border);
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--admin-primary);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    /* 列表样式 */
+    .list-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .item-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .list-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem;
+      background: var(--admin-bg);
+      border-radius: 12px;
+      border: 1px solid var(--admin-border);
+      transition: all 0.3s;
+    }
+
+    .list-item:hover {
+      transform: translateX(4px);
+      border-color: var(--admin-primary);
+    }
+
+    .list-item .item-info {
+      flex: 1;
+    }
+
+    .list-item .item-info h4 {
+      color: var(--admin-primary);
+      margin-bottom: 0.25rem;
+      font-size: 1.25rem;
+    }
+
+    .list-item .item-info p {
+      color: var(--admin-text-light);
+      font-size: 0.95rem;
+    }
+
+    .list-item .item-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .list-item .item-actions button {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+    }
+
+    /* 模态框 */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      padding: 2rem;
+      overflow-y: auto;
+    }
+
+    .modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: var(--admin-card);
+      padding: 2.5rem;
+      border-radius: 16px;
+      max-width: 800px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--admin-border);
+    }
+
+    .modal-header h2 {
+      color: var(--admin-primary);
+      font-weight: 400;
+      margin: 0;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
+      color: var(--admin-text-light);
+    }
+
+    /* 搜索和筛选 */
+    .search-bar {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .search-bar input {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    /* 图片预览 */
+    .image-preview {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .image-preview img {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 2px solid var(--admin-border);
+    }
+
+    /* 响应式 */
+    @media (max-width: 768px) {
+      .admin-container {
+        padding: 1rem;
+      }
+
+      .admin-header h1 {
+        font-size: 1.8rem;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .stat-card .number {
+        font-size: 2rem;
+      }
+
+      .admin-tabs {
+        overflow-x: auto;
+      }
+
+      .list-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+
+      .list-item .item-actions {
+        width: 100%;
+      }
+    }
+
+    /* 通知消息 */
+    .notification {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: 600;
+      z-index: 2000;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      transform: translateX(400px);
+      transition: transform 0.3s ease;
+    }
+
+    .notification.show {
+      transform: translateX(0);
+    }
+
+    .notification.success {
+      background: var(--admin-success);
+    }
+
+    .notification.error {
+      background: var(--admin-danger);
+    }
+
+    .notification.warning {
+      background: var(--admin-warning);
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-container">
+    <!-- 后台头部 -->
+    <header class="admin-header">
+      <a href="index.html" class="back-link">← 返回首页</a>
+      <h1>大元收藏品集 · 后台管理</h1>
+      <p>管理分类、藏品和数据维护</p>
+    </header>
+
+    <!-- 统计卡片 -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="number" id="total-categories">0</div>
+        <div class="label">总分类数</div>
+      </div>
+      <div class="stat-card">
+        <div class="number" id="total-items">0</div>
+        <div class="label">总藏品数</div>
+      </div>
+      <div class="stat-card">
+        <div class="number" id="total-images">0</div>
+        <div class="label">图片数量</div>
+      </div>
+      <div class="stat-card">
+        <div class="number">100%</div>
+        <div class="label">数据完整度</div>
+      </div>
+    </div>
+
+    <!-- 标签页导航 -->
+    <div class="admin-tabs">
+      <button class="tab-btn active" data-tab="categories">分类管理</button>
+      <button class="tab-btn" data-tab="items">藏品管理</button>
+      <button class="tab-btn" data-tab="export">数据导出</button>
+    </div>
+
+    <!-- 分类管理 -->
+    <div id="categories-tab" class="tab-content active">
+      <div class="admin-card">
+        <div class="list-header">
+          <h2>分类列表</h2>
+          <button class="btn btn-primary" id="add-category-btn">+ 添加分类</button>
+        </div>
+        <div id="categories-list" class="item-list"></div>
+      </div>
+    </div>
+
+    <!-- 藏品管理 -->
+    <div id="items-tab" class="tab-content">
+      <div class="admin-card">
+        <div class="list-header">
+          <h2>藏品列表</h2>
+          <button class="btn btn-primary" id="add-item-btn">+ 添加藏品</button>
+        </div>
+
+        <div class="search-bar">
+          <input type="text" id="item-search" placeholder="搜索藏品名称或描述...">
+          <select id="item-filter-category">
+            <option value="all">所有分类</option>
+          </select>
+        </div>
+
+        <div id="items-list" class="item-list"></div>
+      </div>
+    </div>
+
+    <!-- 数据导出 -->
+    <div id="export-tab" class="tab-content">
+      <div class="admin-card">
+        <h2>数据导出</h2>
+        <p>导出数据为 JSON 格式，便于备份和编辑。</p>
+        <div class="btn-group" style="margin-top: 1.5rem;">
+          <button class="btn btn-primary" id="export-categories-btn">导出分类数据</button>
+          <button class="btn btn-secondary" id="export-items-btn">导出藏品数据</button>
+          <button class="btn btn-success" id="export-all-btn">导出全部数据</button>
+        </div>
+        <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--admin-border);">
+          <h3 style="margin-bottom: 1rem; color: var(--admin-primary);">数据导入</h3>
+          <p style="margin-bottom: 1rem; color: var(--admin-text-light);">导入本地 JSON 文件更新数据</p>
+          <input type="file" id="import-file" accept=".json" style="margin-top: 1rem;">
+          <div class="btn-group" style="margin-top: 1rem;">
+            <button class="btn btn-primary" id="import-data-btn">导入数据</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 添加/编辑分类模态框 -->
+  <div id="category-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="category-modal-title">添加分类</h2>
+        <button class="modal-close" id="close-category-modal">&times;</button>
+      </div>
+      <form id="category-form">
+        <input type="hidden" id="category-id">
+        <div class="form-group">
+          <label>分类ID</label>
+          <input type="text" id="category-form-id" placeholder="例如: jade, wood" required>
+        </div>
+        <div class="form-group">
+          <label>分类名称</label>
+          <input type="text" id="category-form-name" placeholder="例如: 大元藏玉" required>
+        </div>
+        <div class="form-group">
+          <label>分类描述</label>
+          <textarea id="category-form-description" rows="3" placeholder="描述这个分类..."></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>类型标签</label>
+            <input type="text" id="category-form-type" placeholder="例如: 玉器">
+          </div>
+          <div class="form-group">
+            <label>年代</label>
+            <input type="text" id="category-form-period" placeholder="例如: 唐宋元明清">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>封面图片路径</label>
+          <input type="text" id="category-form-image" placeholder="例如: images/jade-cover.jpg">
+        </div>
+        <div class="btn-group" style="margin-top: 1.5rem;">
+          <button type="submit" class="btn btn-primary">保存分类</button>
+          <button type="button" class="btn btn-secondary" id="cancel-category-btn">取消</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 添加/编辑藏品模态框 -->
+  <div id="item-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="item-modal-title">添加藏品</h2>
+        <button class="modal-close" id="close-item-modal">&times;</button>
+      </div>
+      <form id="item-form">
+        <input type="hidden" id="item-id">
+        <div class="form-row">
+          <div class="form-group">
+            <label>藏品ID</label>
+            <input type="text" id="item-form-id" placeholder="例如: jade-001" required>
+          </div>
+          <div class="form-group">
+            <label>所属分类</label>
+            <select id="item-form-category" required></select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>藏品名称</label>
+          <input type="text" id="item-form-name" placeholder="藏品名称" required>
+        </div>
+        <div class="form-group">
+          <label>藏品描述</label>
+          <textarea id="item-form-description" rows="4" placeholder="详细描述..."></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>材质</label>
+            <input type="text" id="item-form-material" placeholder="例如: 和田白玉">
+          </div>
+          <div class="form-group">
+            <label>工艺</label>
+            <input type="text" id="item-form-craft" placeholder="例如: 浮雕">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>年代</label>
+            <input type="text" id="item-form-period" placeholder="例如: 清代">
+          </div>
+          <div class="form-group">
+            <label>尺寸</label>
+            <input type="text" id="item-form-dimensions" placeholder="例如: 高10cm, 宽5cm">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>备注</label>
+          <textarea id="item-form-notes" rows="3" placeholder="其他备注信息..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>图片路径（一行一个）</label>
+          <textarea id="item-form-images" rows="4" placeholder="images/item-001-1.jpg&#10;images/item-001-2.jpg"></textarea>
+        </div>
+        <div class="btn-group" style="margin-top: 1.5rem;">
+          <button type="submit" class="btn btn-primary">保存藏品</button>
+          <button type="button" class="btn btn-secondary" id="cancel-item-btn">取消</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 删除确认模态框 -->
+  <div id="delete-modal" class="modal">
+    <div class="modal-content" style="max-width: 500px;">
+      <div class="modal-header">
+        <h2>确认删除</h2>
+        <button class="modal-close" id="close-delete-modal">&times;</button>
+      </div>
+      <p style="margin-bottom: 2rem; font-size: 1.1rem;">确定要删除这个项目吗？此操作无法撤销。</p>
+      <div class="btn-group">
+        <button class="btn btn-danger" id="confirm-delete-btn">确认删除</button>
+        <button class="btn btn-secondary" id="cancel-delete-btn">取消</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 通知消息 -->
+  <div id="notification" class="notification"></div>
+
+  <!-- 引入必要脚本 -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    // 初始化 Supabase 客户端
+    const supabaseUrl = 'https://yykqbhuzsnwdrlyhbwdu.supabase.co';
+    const supabaseKey = 'sb_publishable_cwKH3e5N24GE65spjuz8aQ_lQp78Hol';
+    const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+    // 数据管理器
+    let categories = [];
+    let items = [];
+    let deleteTarget = null;
+
+    // 通知函数
+    function showNotification(message, type = 'success') {
+      const notification = document.getElementById('notification');
+      notification.textContent = message;
+      notification.className = `notification ${type} show`;
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 3000);
+    }
+
+    // 加载数据
+    async function loadData() {
+      try {
+        // 只从 Supabase 加载
+        const { data: catData, error: catError } = await supabase
+          .from('categories')
+          .select('*');
+
+        const { data: itemData, error: itemError } = await supabase
+          .from('items')
+          .select('*');
+
+        if (catError || itemError) {
+          console.error('从数据库加载失败:', catError, itemError);
+          showNotification('数据加载失败，请检查网络连接', 'error');
+          return;
+        }
+
+        categories = catData;
+        items = itemData;
+      } catch (error) {
+        console.error('数据加载失败:', error);
+        showNotification('数据加载失败，请检查网络连接', 'error');
+        return;
+      }
+
+      updateStats();
+      renderCategories();
+      renderItems();
+      populateCategorySelects();
+    }
+
+    // 更新统计数据
+    function updateStats() {
+      document.getElementById('total-categories').textContent = categories.length;
+      document.getElementById('total-items').textContent = items.length;
+      const imageCount = items.reduce((sum, item) => {
+        return sum + (item.images ? item.images.length : 0);
+      }, 0);
+      document.getElementById('total-images').textContent = imageCount;
+    }
+
+    // 填充分类选择下拉框
+    function populateCategorySelects() {
+      const filterSelect = document.getElementById('item-filter-category');
+      const formSelect = document.getElementById('item-form-category');
+
+      const filterOptions = '<option value="all">所有分类</option>' + 
+        categories.map(cat => `<option value="${cat.id}">${cat.name}</option>`).join('');
+      filterSelect.innerHTML = filterOptions;
+
+      const formOptions = categories.map(cat => `<option value="${cat.id}">${cat.name}</option>`).join('');
+      formSelect.innerHTML = formOptions;
+    }
+
+    // 渲染分类列表
+    function renderCategories() {
+      const container = document.getElementById('categories-list');
+      container.innerHTML = categories.map(cat => `
+        <div class="list-item">
+          <div class="item-info">
+            <h4>${cat.name}</h4>
+            <p>${cat.description || '暂无描述'} · 类型: ${cat.type || '未分类'}</p>
+          </div>
+          <div class="item-actions">
+            <button class="btn btn-secondary" onclick="editCategory('${cat.id}')">编辑</button>
+            <button class="btn btn-danger" onclick="confirmDelete('category', '${cat.id}')">删除</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // 渲染藏品列表
+    function renderItems(searchKeyword = '', categoryId = 'all') {
+      let filteredItems = items;
+
+      if (categoryId !== 'all') {
+        filteredItems = filteredItems.filter(item => item.category_id === categoryId);
+      }
+
+      if (searchKeyword) {
+        const lowerKeyword = searchKeyword.toLowerCase();
+        filteredItems = filteredItems.filter(item =>
+          item.name.toLowerCase().includes(lowerKeyword) ||
+          (item.description && item.description.toLowerCase().includes(lowerKeyword))
+        );
+      }
+
+      const container = document.getElementById('items-list');
+      container.innerHTML = filteredItems.map(item => {
+        const category = categories.find(c => c.id === item.category_id);
+        return `
+          <div class="list-item">
+            <div class="item-info">
+              <h4>${item.name}</h4>
+              <p>${category ? category.name : '未分类'} · ${item.material || '材质未知'} · ${item.period || '年代未知'}</p>
+            </div>
+            <div class="item-actions">
+              <button class="btn btn-secondary" onclick="editItem('${item.id}')">编辑</button>
+              <button class="btn btn-danger" onclick="confirmDelete('item', '${item.id}')">删除</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // 标签页切换
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tabId = btn.dataset.tab;
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(`${tabId}-tab`).classList.add('active');
+      });
+    });
+
+    // 分类相关功能
+    document.getElementById('add-category-btn').addEventListener('click', () => {
+      document.getElementById('category-modal-title').textContent = '添加分类';
+      document.getElementById('category-form').reset();
+      document.getElementById('category-id').value = '';
+      document.getElementById('category-modal').classList.add('active');
+    });
+
+    function editCategory(id) {
+      const category = categories.find(c => c.id === id);
+      if (!category) return;
+
+      document.getElementById('category-modal-title').textContent = '编辑分类';
+      document.getElementById('category-id').value = category.id;
+      document.getElementById('category-form-id').value = category.id;
+      document.getElementById('category-form-name').value = category.name;
+      document.getElementById('category-form-description').value = category.description || '';
+      document.getElementById('category-form-type').value = category.type || '';
+      document.getElementById('category-form-period').value = category.period || '';
+      document.getElementById('category-form-image').value = category.image || '';
+      document.getElementById('category-modal').classList.add('active');
+    }
+
+    document.getElementById('category-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const id = document.getElementById('category-id').value;
+      const newId = document.getElementById('category-form-id').value;
+      const categoryData = {
+        id: newId,
+        name: document.getElementById('category-form-name').value,
+        description: document.getElementById('category-form-description').value,
+        type: document.getElementById('category-form-type').value,
+        period: document.getElementById('category-form-period').value,
+        image: document.getElementById('category-form-image').value
+      };
+
+      try {
+        if (id) {
+          // 编辑
+          if (id !== newId) {
+            // 如果ID变了，删除旧的
+            categories = categories.filter(c => c.id !== id);
+            await supabase.from('categories').delete().eq('id', id);
+          }
+          const existingIdx = categories.findIndex(c => c.id === newId);
+          if (existingIdx >= 0) {
+            categories[existingIdx] = categoryData;
+          } else {
+            categories.push(categoryData);
+          }
+          await supabase.from('categories').upsert(categoryData, { onConflict: 'id' });
+        } else {
+          // 添加
+          categories.push(categoryData);
+          await supabase.from('categories').insert(categoryData);
+        }
+
+        document.getElementById('category-modal').classList.remove('active');
+        updateStats();
+        renderCategories();
+        populateCategorySelects();
+        showNotification('分类保存成功！');
+      } catch (err) {
+        console.error(err);
+        showNotification('保存失败，请重试', 'error');
+      }
+    });
+
+    // 藏品相关功能
+    document.getElementById('add-item-btn').addEventListener('click', () => {
+      document.getElementById('item-modal-title').textContent = '添加藏品';
+      document.getElementById('item-form').reset();
+      document.getElementById('item-id').value = '';
+      document.getElementById('item-modal').classList.add('active');
+    });
+
+    function editItem(id) {
+      const item = items.find(i => i.id === id);
+      if (!item) return;
+
+      document.getElementById('item-modal-title').textContent = '编辑藏品';
+      document.getElementById('item-id').value = item.id;
+      document.getElementById('item-form-id').value = item.id;
+      document.getElementById('item-form-name').value = item.name;
+      document.getElementById('item-form-description').value = item.description || '';
+      document.getElementById('item-form-material').value = item.material || '';
+      document.getElementById('item-form-craft').value = item.craft || '';
+      document.getElementById('item-form-period').value = item.period || '';
+      document.getElementById('item-form-dimensions').value = item.dimensions || '';
+      document.getElementById('item-form-notes').value = item.notes || '';
+      document.getElementById('item-form-category').value = item.category_id;
+      document.getElementById('item-form-images').value = item.images ? item.images.join('\n') : '';
+      document.getElementById('item-modal').classList.add('active');
+    }
+
+    document.getElementById('item-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const id = document.getElementById('item-id').value;
+      const newId = document.getElementById('item-form-id').value;
+      const imagesText = document.getElementById('item-form-images').value;
+      const images = imagesText.split('\n').map(img => img.trim()).filter(img => img);
+
+      const itemData = {
+        id: newId,
+        name: document.getElementById('item-form-name').value,
+        category_id: document.getElementById('item-form-category').value,
+        description: document.getElementById('item-form-description').value,
+        material: document.getElementById('item-form-material').value,
+        craft: document.getElementById('item-form-craft').value,
+        period: document.getElementById('item-form-period').value,
+        dimensions: document.getElementById('item-form-dimensions').value,
+        notes: document.getElementById('item-form-notes').value,
+        images: images
+      };
+
+      try {
+        if (id) {
+          if (id !== newId) {
+            items = items.filter(i => i.id !== id);
+            await supabase.from('items').delete().eq('id', id);
+          }
+          const existingIdx = items.findIndex(i => i.id === newId);
+          if (existingIdx >= 0) {
+            items[existingIdx] = itemData;
+          } else {
+            items.push(itemData);
+          }
+          await supabase.from('items').upsert(itemData, { onConflict: 'id' });
+        } else {
+          items.push(itemData);
+          await supabase.from('items').insert(itemData);
+        }
+
+        document.getElementById('item-modal').classList.remove('active');
+        updateStats();
+        renderItems();
+        showNotification('藏品保存成功！');
+      } catch (err) {
+        console.error(err);
+        showNotification('保存失败，请重试', 'error');
+      }
+    });
+
+    // 搜索和筛选
+    let searchTimeout;
+    document.getElementById('item-search').addEventListener('input', (e) => {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
+        const keyword = e.target.value;
+        const categoryId = document.getElementById('item-filter-category').value;
+        renderItems(keyword, categoryId);
+      }, 300);
+    });
+
+    document.getElementById('item-filter-category').addEventListener('change', (e) => {
+      const keyword = document.getElementById('item-search').value;
+      const categoryId = e.target.value;
+      renderItems(keyword, categoryId);
+    });
+
+    // 删除确认
+    function confirmDelete(type, id) {
+      deleteTarget = { type, id };
+      document.getElementById('delete-modal').classList.add('active');
+    }
+
+    document.getElementById('confirm-delete-btn').addEventListener('click', async () => {
+      if (!deleteTarget) return;
+
+      try {
+        if (deleteTarget.type === 'category') {
+          categories = categories.filter(c => c.id !== deleteTarget.id);
+          await supabase.from('categories').delete().eq('id', deleteTarget.id);
+          renderCategories();
+          populateCategorySelects();
+        } else {
+          items = items.filter(i => i.id !== deleteTarget.id);
+          await supabase.from('items').delete().eq('id', deleteTarget.id);
+          renderItems(document.getElementById('item-search').value, document.getElementById('item-filter-category').value);
+        }
+
+        updateStats();
+        document.getElementById('delete-modal').classList.remove('active');
+        showNotification('删除成功！');
+      } catch (err) {
+        console.error(err);
+        showNotification('删除失败，请重试', 'error');
+      } finally {
+        deleteTarget = null;
+      }
+    });
+
+    // 关闭模态框
+    document.getElementById('close-category-modal').addEventListener('click', () => 
+      document.getElementById('category-modal').classList.remove('active'));
+    document.getElementById('close-item-modal').addEventListener('click', () => 
+      document.getElementById('item-modal').classList.remove('active'));
+    document.getElementById('close-delete-modal').addEventListener('click', () => 
+      document.getElementById('delete-modal').classList.remove('active'));
+    document.getElementById('cancel-category-btn').addEventListener('click', () => 
+      document.getElementById('category-modal').classList.remove('active'));
+    document.getElementById('cancel-item-btn').addEventListener('click', () => 
+      document.getElementById('item-modal').classList.remove('active'));
+    document.getElementById('cancel-delete-btn').addEventListener('click', () => 
+      document.getElementById('delete-modal').classList.remove('active'));
+
+    // 数据导出
+    function downloadJSON(data, filename) {
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    document.getElementById('export-categories-btn').addEventListener('click', () => {
+      downloadJSON(categories, 'categories.json');
+      showNotification('分类数据导出成功！');
+    });
+
+    document.getElementById('export-items-btn').addEventListener('click', () => {
+      downloadJSON(items, 'items.json');
+      showNotification('藏品数据导出成功！');
+    });
+
+    document.getElementById('export-all-btn').addEventListener('click', () => {
+      downloadJSON({ categories, items }, 'dayuan-collection-data.json');
+      showNotification('全部数据导出成功！');
+    });
+
+    // 数据导入
+    document.getElementById('import-data-btn').addEventListener('click', () => {
+      const fileInput = document.getElementById('import-file');
+      if (!fileInput.files[0]) {
+        showNotification('请先选择文件', 'warning');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = async (e) => {
+        try {
+          const data = JSON.parse(e.target.result);
+
+          if (data.categories && data.items) {
+            categories = data.categories;
+            items = data.items;
+          } else if (Array.isArray(data)) {
+            if (data[0] && data[0].category_id) {
+              items = data;
+            } else {
+              categories = data;
+            }
+          }
+
+          // 更新数据库
+          for (const cat of categories) {
+            await supabase.from('categories').upsert(cat, { onConflict: 'id' });
+          }
+          for (const item of items) {
+            await supabase.from('items').upsert(item, { onConflict: 'id' });
+          }
+
+          updateStats();
+          renderCategories();
+          renderItems();
+          populateCategorySelects();
+          showNotification('数据导入成功！');
+        } catch (err) {
+          console.error(err);
+          showNotification('导入失败，文件格式不正确', 'error');
+        }
+      };
+      reader.readAsText(fileInput.files[0]);
+    });
+
+    // 初始化
+    loadData();
+  </script>
+</body>
+</html>

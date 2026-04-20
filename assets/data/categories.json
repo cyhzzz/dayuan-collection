@@ -36,6 +36,15 @@
         "items_count": 30
     },
     {
+        "id": "bronze",
+        "name": "大元藏铜",
+        "description": "收藏各种铜器精品，包括香炉、铜镜、错银铜器等，展现中国传统铜器艺术的魅力。",
+        "type": "铜器",
+        "period": "明清时期",
+        "image": "images/002_错银香瓶_1.jpg",
+        "items_count": 15
+    },
+    {
         "id": "tiantai",
         "name": "天台山文化",
         "description": "收藏与天台山文化相关的特色藏品，包括一根藤、床神等，展现天台地方文化的独特魅力。",
