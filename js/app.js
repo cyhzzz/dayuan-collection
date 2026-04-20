@@ -1,5 +1,5 @@
 // 主应用逻辑
-import DataManager from './data.js';
+// 使用全局的DataManager变量
 
 class App {
     constructor() {

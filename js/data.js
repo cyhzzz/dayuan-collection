@@ -177,4 +177,4 @@ const DataManager = {
 };
 
 // 导出数据管理器
-export default DataManager;
+window.DataManager = DataManager;
