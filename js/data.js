@@ -13,93 +13,36 @@ const DataManager = {
     // 初始化数据库表
     async initDatabase() {
         try {
-            // 创建 categories 表
-            const { error: createCategoriesTableError } = await supabase
-                .from('categories')
-                .select('id')
-                .limit(1);
-
-            if (createCategoriesTableError && createCategoriesTableError.code === '42P01') {
-                // 表不存在，创建表
-                const { error: createTableError } = await supabase.rpc('exec', {
-                    sql: `
-                    CREATE TABLE categories (
-                        id TEXT PRIMARY KEY,
-                        name TEXT NOT NULL,
-                        description TEXT,
-                        type TEXT,
-                        period TEXT,
-                        image TEXT,
-                        items_count INTEGER
-                    );
-                    `
-                });
-
-                if (createTableError) {
-                    console.error('创建 categories 表失败:', createTableError);
-                } else {
-                    // 加载本地分类数据并插入
-                    const categoriesResponse = await fetch('assets/data/categories.json');
-                    const localCategories = await categoriesResponse.json();
-                    
-                    for (const category of localCategories) {
-                        const { error } = await supabase
-                            .from('categories')
-                            .insert(category);
-                        if (error) {
-                            console.error('插入分类数据失败:', error);
-                        }
-                    }
+            // 尝试直接插入分类数据，如果表不存在，Supabase 会自动创建表结构
+            const categoriesResponse = await fetch('assets/data/categories.json');
+            const localCategories = await categoriesResponse.json();
+            
+            for (const category of localCategories) {
+                const { error } = await supabase
+                    .from('categories')
+                    .insert(category)
+                    .onConflict('id')
+                    .ignore();
+                if (error) {
+                    console.error('插入分类数据失败:', error);
                 }
             }
 
-            // 创建 items 表
-            const { error: createItemsTableError } = await supabase
-                .from('items')
-                .select('id')
-                .limit(1);
-
-            if (createItemsTableError && createItemsTableError.code === '42P01') {
-                // 表不存在，创建表
-                const { error: createTableError } = await supabase.rpc('exec', {
-                    sql: `
-                    CREATE TABLE items (
-                        id TEXT PRIMARY KEY,
-                        name TEXT NOT NULL,
-                        category_id TEXT REFERENCES categories(id),
-                        date TEXT,
-                        period TEXT,
-                        material TEXT,
-                        size TEXT,
-                        description TEXT,
-                        notes TEXT,
-                        images JSONB,
-                        likes INTEGER,
-                        comments INTEGER,
-                        collections INTEGER,
-                        source TEXT
-                    );
-                    `
-                });
-
-                if (createTableError) {
-                    console.error('创建 items 表失败:', createTableError);
-                } else {
-                    // 加载本地藏品数据并插入
-                    const itemsResponse = await fetch('assets/data/items.json');
-                    const localItems = await itemsResponse.json();
-                    
-                    for (const item of localItems) {
-                        const { error } = await supabase
-                            .from('items')
-                            .insert({
-                                ...item,
-                                images: item.images // Supabase 会自动处理 JSON 数据
-                            });
-                        if (error) {
-                            console.error('插入藏品数据失败:', error);
-                        }
-                    }
+            // 尝试直接插入藏品数据，如果表不存在，Supabase 会自动创建表结构
+            const itemsResponse = await fetch('assets/data/items.json');
+            const localItems = await itemsResponse.json();
+            
+            for (const item of localItems) {
+                const { error } = await supabase
+                    .from('items')
+                    .insert({
+                        ...item,
+                        images: item.images // Supabase 会自动处理 JSON 数据
+                    })
+                    .onConflict('id')
+                    .ignore();
+                if (error) {
+                    console.error('插入藏品数据失败:', error);
                 }
             }
         } catch (error) {
