@@ -1,7 +1,11 @@
 // 初始化 Supabase 客户端
 const supabaseUrl = 'https://yykqbhuzsnwdrlyhbwdu.supabase.co';
 const supabaseKey = 'sb_publishable_cwKH3e5N24GE65spjuz8aQ_lQp78Hol';
-const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+// 使用全局的 supabase 变量
+if (!window.supabase) {
+    window.supabase = supabase.createClient(supabaseUrl, supabaseKey);
+}
+const supabase = window.supabase;
 
 // 数据管理模块
 const DataManager = {
