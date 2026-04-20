@@ -667,7 +667,8 @@
     // 初始化 Supabase 客户端
     const supabaseUrl = 'https://yykqbhuzsnwdrlyhbwdu.supabase.co';
     const supabaseKey = 'sb_publishable_cwKH3e5N24GE65spjuz8aQ_lQp78Hol';
-    const supabase = createClient(supabaseUrl, supabaseKey);
+    const { createClient } = supabase;
+    const supabaseClient = createClient(supabaseUrl, supabaseKey);
 
     // 数据管理器
     let categories = [
@@ -742,35 +743,66 @@
     // 加载数据
     async function loadData() {
       try {
-        // 先使用默认的分类数据
-        showNotification('使用默认分类数据', 'success');
-        
-        // 尝试加载藏品数据
+        // 尝试从 Supabase 加载分类数据
         try {
-          const itemResponse = await fetch('assets/data/items.json');
-          if (itemResponse.ok) {
-            const itemData = await itemResponse.json();
-            items = itemData || [];
-            showNotification('从本地JSON加载藏品数据成功！', 'success');
+          const { data: categoryData, error: categoryError } = await supabaseClient
+            .from('categories')
+            .select('*');
+
+          if (!categoryError && categoryData && categoryData.length > 0) {
+            categories = categoryData;
+            showNotification('从Supabase加载分类数据成功！', 'success');
           } else {
-            console.log('本地藏品数据加载失败，使用空数组');
+            showNotification('使用默认分类数据', 'success');
           }
-        } catch (error) {
-          console.error('加载藏品数据失败:', error);
+        } catch (supabaseError) {
+          console.error('Supabase分类加载失败:', supabaseError);
+          showNotification('使用默认分类数据', 'success');
         }
         
-        // 尝试从 Supabase 加载作为备份
+        // 尝试从 Supabase 加载藏品数据
         try {
-          const { data: itemData, error: itemError } = await supabase
+          const { data: itemData, error: itemError } = await supabaseClient
             .from('items')
             .select('*');
 
           if (!itemError && itemData && itemData.length > 0) {
             items = itemData;
             showNotification('从Supabase加载藏品数据成功！', 'success');
+          } else {
+            // 尝试加载本地JSON作为备份
+            try {
+              const itemResponse = await fetch('assets/data/items.json');
+              if (itemResponse.ok) {
+                const itemData = await itemResponse.json();
+                items = itemData || [];
+                showNotification('从本地JSON加载藏品数据成功！', 'success');
+              } else {
+                console.log('本地藏品数据加载失败，使用空数组');
+                items = [];
+              }
+            } catch (error) {
+              console.error('加载藏品数据失败:', error);
+              items = [];
+            }
           }
         } catch (supabaseError) {
-          console.error('Supabase加载失败:', supabaseError);
+          console.error('Supabase藏品加载失败:', supabaseError);
+          // 尝试加载本地JSON作为备份
+          try {
+            const itemResponse = await fetch('assets/data/items.json');
+            if (itemResponse.ok) {
+              const itemData = await itemResponse.json();
+              items = itemData || [];
+              showNotification('从本地JSON加载藏品数据成功！', 'success');
+            } else {
+              console.log('本地藏品数据加载失败，使用空数组');
+              items = [];
+            }
+          } catch (error) {
+            console.error('加载藏品数据失败:', error);
+            items = [];
+          }
         }
       } catch (error) {
         console.error('数据加载失败:', error);
@@ -937,7 +969,7 @@
           if (id !== newId) {
             // 如果ID变了，删除旧的
             categories = categories.filter(c => c.id !== id);
-            await supabase.from('categories').delete().eq('id', id);
+            await supabaseClient.from('categories').delete().eq('id', id);
           }
           const existingIdx = categories.findIndex(c => c.id === newId);
           if (existingIdx >= 0) {
@@ -945,11 +977,11 @@
           } else {
             categories.push(categoryData);
           }
-          await supabase.from('categories').upsert(categoryData, { onConflict: 'id' });
+          await supabaseClient.from('categories').upsert(categoryData, { onConflict: 'id' });
         } else {
           // 添加
           categories.push(categoryData);
-          await supabase.from('categories').insert(categoryData);
+          await supabaseClient.from('categories').insert(categoryData);
         }
 
         document.getElementById('category-modal').classList.remove('active');
@@ -1015,7 +1047,7 @@
         if (id) {
           if (id !== newId) {
             items = items.filter(i => i.id !== id);
-            await supabase.from('items').delete().eq('id', id);
+            await supabaseClient.from('items').delete().eq('id', id);
           }
           const existingIdx = items.findIndex(i => i.id === newId);
           if (existingIdx >= 0) {
@@ -1023,10 +1055,10 @@
           } else {
             items.push(itemData);
           }
-          await supabase.from('items').upsert(itemData, { onConflict: 'id' });
+          await supabaseClient.from('items').upsert(itemData, { onConflict: 'id' });
         } else {
           items.push(itemData);
-          await supabase.from('items').insert(itemData);
+          await supabaseClient.from('items').insert(itemData);
         }
 
         document.getElementById('item-modal').classList.remove('active');
@@ -1068,12 +1100,12 @@
       try {
         if (deleteTarget.type === 'category') {
           categories = categories.filter(c => c.id !== deleteTarget.id);
-          await supabase.from('categories').delete().eq('id', deleteTarget.id);
+          await supabaseClient.from('categories').delete().eq('id', deleteTarget.id);
           renderCategories();
           populateCategorySelects();
         } else {
           items = items.filter(i => i.id !== deleteTarget.id);
-          await supabase.from('items').delete().eq('id', deleteTarget.id);
+          await supabaseClient.from('items').delete().eq('id', deleteTarget.id);
           renderItems(document.getElementById('item-search').value, document.getElementById('item-filter-category').value);
         }
 
@@ -1154,10 +1186,10 @@
 
           // 更新数据库
           for (const cat of categories) {
-            await supabase.from('categories').upsert(cat, { onConflict: 'id' });
+            await supabaseClient.from('categories').upsert(cat, { onConflict: 'id' });
           }
           for (const item of items) {
-            await supabase.from('items').upsert(item, { onConflict: 'id' });
+            await supabaseClient.from('items').upsert(item, { onConflict: 'id' });
           }
 
           updateStats();
