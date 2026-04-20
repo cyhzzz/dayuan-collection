@@ -9,24 +9,80 @@ class App {
     
     // 初始化应用
     async init() {
-        // 加载数据
-        const dataLoaded = await DataManager.loadData();
+        // 立即渲染页面骨架，提供即时视觉反馈
+        this.renderPageSkeleton();
+        
+        // 并行执行初始化任务
+        const initPromises = [
+            // 加载数据
+            DataManager.loadData(),
+            // 初始化导航
+            Promise.resolve(this.initNavigation()),
+            // 初始化搜索功能
+            Promise.resolve(this.initSearch()),
+            // 初始化分类下拉菜单
+            Promise.resolve(this.initCategoryDropdown())
+        ];
+        
+        // 等待数据加载完成后渲染内容
+        const [dataLoaded] = await Promise.all(initPromises);
+        
         if (!dataLoaded) {
             console.error('数据加载失败，应用无法启动');
             return;
         }
         
-        // 初始化导航
-        this.initNavigation();
-        
-        // 初始化搜索功能
-        this.initSearch();
-        
-        // 渲染首页
+        // 渲染首页内容
         this.renderHome();
-        
-        // 初始化分类下拉菜单
-        this.initCategoryDropdown();
+    }
+    
+    // 渲染页面骨架
+    renderPageSkeleton() {
+        // 显示页面骨架，提供即时视觉反馈
+        const categoriesGrid = document.getElementById('categories-grid');
+        if (categoriesGrid) {
+            categoriesGrid.innerHTML = `
+                <div class="category-card fade-in-up skeleton">
+                    <div class="category-image">
+                        <div class="skeleton-placeholder"></div>
+                    </div>
+                    <div class="category-info">
+                        <h3 class="skeleton-text"></h3>
+                        <p class="skeleton-text"></p>
+                        <div class="category-meta">
+                            <span class="tag skeleton-tag"></span>
+                            <span class="tag skeleton-tag"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="category-card fade-in-up skeleton">
+                    <div class="category-image">
+                        <div class="skeleton-placeholder"></div>
+                    </div>
+                    <div class="category-info">
+                        <h3 class="skeleton-text"></h3>
+                        <p class="skeleton-text"></p>
+                        <div class="category-meta">
+                            <span class="tag skeleton-tag"></span>
+                            <span class="tag skeleton-tag"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="category-card fade-in-up skeleton">
+                    <div class="category-image">
+                        <div class="skeleton-placeholder"></div>
+                    </div>
+                    <div class="category-info">
+                        <h3 class="skeleton-text"></h3>
+                        <p class="skeleton-text"></p>
+                        <div class="category-meta">
+                            <span class="tag skeleton-tag"></span>
+                            <span class="tag skeleton-tag"></span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
     }
     
     // 初始化导航
@@ -166,15 +222,30 @@ class App {
     initLazyLoading() {
         const lazyImages = document.querySelectorAll('.lazy-image');
         
+        // 优化观察器配置，提高性能
         const imageObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const image = entry.target;
-                    image.src = image.dataset.src;
-                    image.classList.remove('lazy-image');
+                    // 预加载图片
+                    const img = new Image();
+                    img.onload = () => {
+                        image.src = image.dataset.src;
+                        image.classList.add('loaded');
+                        // 延迟移除懒加载类，确保过渡效果
+                        setTimeout(() => {
+                            image.classList.remove('lazy-image');
+                        }, 100);
+                    };
+                    img.src = image.dataset.src;
                     imageObserver.unobserve(image);
                 }
             });
+        }, {
+            // 提前50px开始加载
+            rootMargin: '50px 0px',
+            // 降低阈值，提高性能
+            threshold: 0.01
         });
         
         lazyImages.forEach(image => {
