@@ -1074,7 +1074,7 @@
     }
 
     // 图片上传处理
-    document.getElementById('item-upload-btn').addEventListener('click', () => {
+    document.getElementById('item-upload-btn').addEventListener('click', async () => {
       const fileInput = document.getElementById('item-image-upload');
       const files = fileInput.files;
       
@@ -1083,19 +1083,42 @@
         return;
       }
       
-      // 模拟上传过程
       showNotification('正在上传图片...', 'success');
       
-      setTimeout(() => {
+      try {
         const imagesText = document.getElementById('item-form-images').value;
         const existingPaths = imagesText.split('\n').map(img => img.trim()).filter(img => img);
+        const newPaths = [];
         
-        // 生成模拟的图片路径
-        const newPaths = Array.from(files).map((file, index) => {
+        // 上传每个文件到 Supabase Storage
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i];
           const timestamp = Date.now();
-          const filename = `images/item-${timestamp}-${index + 1}.${file.name.split('.').pop()}`;
-          return filename;
-        });
+          const filename = `items/${timestamp}-${i + 1}.${file.name.split('.').pop()}`;
+          
+          // 上传到 Supabase Storage
+          const { data, error } = await supabaseClient
+            .storage
+            .from('dayuan-collection')
+            .upload(filename, file, {
+              cacheControl: '3600',
+              upsert: false
+            });
+          
+          if (error) {
+            console.error('上传图片失败:', error);
+            showNotification(`上传图片 ${i + 1} 失败: ${error.message}`, 'error');
+            continue;
+          }
+          
+          // 获取公开访问 URL
+          const { data: urlData } = supabaseClient
+            .storage
+            .from('dayuan-collection')
+            .getPublicUrl(filename);
+          
+          newPaths.push(urlData.publicUrl);
+        }
         
         const allPaths = [...existingPaths, ...newPaths];
         document.getElementById('item-form-images').value = allPaths.join('\n');
@@ -1105,7 +1128,10 @@
         fileInput.value = '';
         
         showNotification(`成功上传 ${newPaths.length} 张图片`, 'success');
-      }, 1000);
+      } catch (error) {
+        console.error('上传过程出错:', error);
+        showNotification('上传失败，请重试', 'error');
+      }
     });
 
     // 监听文件选择变化，自动预览

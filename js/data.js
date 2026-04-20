@@ -35,6 +35,8 @@ const DataManager = {
             const localItems = await itemsResponse.json();
             
             for (const item of localItems) {
+                // 检查图片路径是否为本地路径，如果是则保持不变
+                // 后续可以添加逻辑将本地图片上传到 Supabase Storage
                 const { error } = await window.supabase
                     .from('items')
                     .upsert({
