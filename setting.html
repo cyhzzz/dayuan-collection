@@ -687,28 +687,37 @@
     // 加载数据
     async function loadData() {
       try {
-        // 尝试从 Supabase 加载
-        const { data: catData, error: catError } = await supabase
-          .from('categories')
-          .select('*');
-
-        const { data: itemData, error: itemError } = await supabase
-          .from('items')
-          .select('*');
-
-        if ((catError || itemError) || (!catData || catData.length === 0) || (!itemData || itemData.length === 0)) {
-          console.log('Supabase加载失败，尝试从本地JSON加载');
-          // 从本地JSON加载作为备份
-          await loadFromLocalJSON();
-        } else {
-          categories = catData || [];
-          items = itemData || [];
-        }
-      } catch (error) {
-        console.error('数据加载失败:', error);
-        showNotification('数据加载失败，尝试从本地JSON加载', 'warning');
-        // 从本地JSON加载作为备份
+        // 优先从本地JSON加载数据
         await loadFromLocalJSON();
+      } catch (error) {
+        console.error('本地JSON加载失败:', error);
+        showNotification('本地JSON加载失败，尝试从Supabase加载', 'warning');
+        
+        // 尝试从 Supabase 加载作为备份
+        try {
+          const { data: catData, error: catError } = await supabase
+            .from('categories')
+            .select('*');
+
+          const { data: itemData, error: itemError } = await supabase
+            .from('items')
+            .select('*');
+
+          if (!catError && catData && catData.length > 0) {
+            categories = catData;
+          }
+
+          if (!itemError && itemData && itemData.length > 0) {
+            items = itemData;
+          }
+
+          showNotification('从Supabase加载数据成功！', 'success');
+        } catch (supabaseError) {
+          console.error('Supabase加载失败:', supabaseError);
+          showNotification('Supabase加载失败，请检查网络连接', 'error');
+          categories = [];
+          items = [];
+        }
       }
 
       updateStats();
