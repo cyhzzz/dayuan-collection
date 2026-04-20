@@ -137,7 +137,8 @@ class App {
             
             categoryCard.innerHTML = `
                 <div class="category-image">
-                    <img src="${imagePath}" alt="${category.name}">
+                    <div class="image-placeholder"></div>
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3Ctext x='200' y='150' font-family='Arial' font-size='14' text-anchor='middle' fill='%23999'%3E加载中...%3C/text%3E%3C/svg%3E" data-src="${imagePath}" alt="${category.name}" class="lazy-image">
                 </div>
                 <div class="category-info">
                     <h3>${category.name}</h3>
@@ -155,6 +156,29 @@ class App {
             });
             
             categoriesGrid.appendChild(categoryCard);
+        });
+        
+        // 初始化懒加载
+        this.initLazyLoading();
+    }
+    
+    // 初始化图片懒加载
+    initLazyLoading() {
+        const lazyImages = document.querySelectorAll('.lazy-image');
+        
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const image = entry.target;
+                    image.src = image.dataset.src;
+                    image.classList.remove('lazy-image');
+                    imageObserver.unobserve(image);
+                }
+            });
+        });
+        
+        lazyImages.forEach(image => {
+            imageObserver.observe(image);
         });
     }
     
@@ -189,7 +213,8 @@ class App {
         categoryDetail.innerHTML = `
             <div class="category-detail-header">
                 <div class="category-detail-image">
-                    <img src="${imagePath}" alt="${category.name}">
+                    <div class="image-placeholder"></div>
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3Ctext x='200' y='150' font-family='Arial' font-size='14' text-anchor='middle' fill='%23999'%3E加载中...%3C/text%3E%3C/svg%3E" data-src="${imagePath}" alt="${category.name}" class="lazy-image">
                 </div>
                 <div class="category-detail-info">
                     <h2>${category.name}</h2>
@@ -203,6 +228,9 @@ class App {
                 </div>
             </div>
         `;
+        
+        // 初始化懒加载
+        this.initLazyLoading();
     }
     
     // 渲染分类下的藏品
@@ -224,7 +252,8 @@ class App {
             
             itemCard.innerHTML = `
                 <div class="item-image">
-                    <img src="${imagePath}" alt="${item.name}">
+                    <div class="image-placeholder"></div>
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='200' viewBox='0 0 280 200'%3E%3Crect width='280' height='200' fill='%23f0f0f0'/%3E%3Ctext x='140' y='100' font-family='Arial' font-size='12' text-anchor='middle' fill='%23999'%3E加载中...%3C/text%3E%3C/svg%3E" data-src="${imagePath}" alt="${item.name}" class="lazy-image">
                 </div>
                 <div class="item-info">
                     <h4>${item.name}</h4>
@@ -243,6 +272,9 @@ class App {
             
             itemsGrid.appendChild(itemCard);
         });
+        
+        // 初始化懒加载
+        this.initLazyLoading();
     }
     
     // 切换到藏品详情
@@ -279,7 +311,8 @@ class App {
         const thumbsHtml = item.images && item.images.length > 0 
             ? item.images.map((img, index) => `
                 <div class="gallery-thumb ${index === 0 ? 'active' : ''}" data-index="${index}">
-                    <img src="${img}" alt="${item.name}">
+                    <div class="image-placeholder"></div>
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23f0f0f0'/%3E%3Ctext x='50' y='50' font-family='Arial' font-size='10' text-anchor='middle' fill='%23999'%3E加载中...%3C/text%3E%3C/svg%3E" data-src="${img}" alt="${item.name}" class="lazy-image">
                 </div>
             `).join('')
             : '';
@@ -287,7 +320,8 @@ class App {
         itemDetail.innerHTML = `
             <div class="item-gallery">
                 <div class="gallery-main">
-                    <img src="${mainImage}" alt="${item.name}">
+                    <div class="image-placeholder"></div>
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='400' viewBox='0 0 500 400'%3E%3Crect width='500' height='400' fill='%23f0f0f0'/%3E%3Ctext x='250' y='200' font-family='Arial' font-size='14' text-anchor='middle' fill='%23999'%3E加载中...%3C/text%3E%3C/svg%3E" data-src="${mainImage}" alt="${item.name}" class="lazy-image">
                     <div class="seal">大元收藏</div>
                 </div>
                 ${thumbsHtml ? `
@@ -354,6 +388,9 @@ class App {
                 thumb.classList.add('active');
             });
         });
+        
+        // 初始化懒加载
+        this.initLazyLoading();
     }
     
     // 渲染搜索页面
@@ -406,7 +443,8 @@ class App {
             
             itemCard.innerHTML = `
                 <div class="item-image">
-                    <img src="${imagePath}" alt="${item.name}">
+                    <div class="image-placeholder"></div>
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='200' viewBox='0 0 280 200'%3E%3Crect width='280' height='200' fill='%23f0f0f0'/%3E%3Ctext x='140' y='100' font-family='Arial' font-size='12' text-anchor='middle' fill='%23999'%3E加载中...%3C/text%3E%3C/svg%3E" data-src="${imagePath}" alt="${item.name}" class="lazy-image">
                 </div>
                 <div class="item-info">
                     <h4>${item.name}</h4>
@@ -425,6 +463,9 @@ class App {
             
             resultsContainer.appendChild(itemCard);
         });
+        
+        // 初始化懒加载
+        this.initLazyLoading();
     }
     
     // 渲染关于页面
