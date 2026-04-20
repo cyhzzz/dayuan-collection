@@ -670,7 +670,62 @@
     const supabase = createClient(supabaseUrl, supabaseKey);
 
     // 数据管理器
-    let categories = [];
+    let categories = [
+        {
+            "id": "wood",
+            "name": "大元藏木",
+            "description": "收藏各种精美的木器藏品，包括花窗、床神、木雕等，展现中国传统木工艺的精湛技艺。",
+            "type": "木器",
+            "period": "明清时期",
+            "image": "images/284_朱红贴金花板_1.jpg",
+            "items_count": 50
+        },
+        {
+            "id": "jade",
+            "name": "大元藏玉",
+            "description": "收藏各种玉器珍品，包括玉璧、玉带钩、玉牌等，展现中国传统玉文化的魅力。",
+            "type": "玉器",
+            "period": "唐宋元明清",
+            "image": "images/005_籽料白玉红沁藕片_1.jpg",
+            "items_count": 120
+        },
+        {
+            "id": "coin",
+            "name": "大元藏币",
+            "description": "收藏各种古钱币，包括铜币、银币等，展现中国货币发展的历史轨迹。",
+            "type": "钱币",
+            "period": "唐宋元明清",
+            "image": "images/256_6个版别大观折十_1.jpg",
+            "items_count": 40
+        },
+        {
+            "id": "porcelain",
+            "name": "大元藏瓷",
+            "description": "收藏各种瓷器精品，包括青花瓷、五彩瓷等，展现中国陶瓷艺术的辉煌成就。",
+            "type": "瓷器",
+            "period": "明清时期",
+            "image": "images/251_室无瓷不雅_1.jpg",
+            "items_count": 30
+        },
+        {
+            "id": "bronze",
+            "name": "大元藏铜",
+            "description": "收藏各种铜器精品，包括香炉、铜镜、错银铜器等，展现中国传统铜器艺术的魅力。",
+            "type": "铜器",
+            "period": "明清时期",
+            "image": "images/002_错银香瓶_1.jpg",
+            "items_count": 15
+        },
+        {
+            "id": "tiantai",
+            "name": "天台山文化",
+            "description": "收藏与天台山文化相关的特色藏品，包括一根藤、床神等，展现天台地方文化的独特魅力。",
+            "type": "地方文化",
+            "period": "明清时期",
+            "image": "images/247_一根藤。天台特产一根藤，古有东阳雕天台条之说，天台一根藤软条，由数百节弯曲小木条_1.jpg",
+            "items_count": 54
+        }
+    ];
     let items = [];
     let deleteTarget = null;
 
@@ -687,37 +742,38 @@
     // 加载数据
     async function loadData() {
       try {
-        // 优先从本地JSON加载数据
-        await loadFromLocalJSON();
-      } catch (error) {
-        console.error('本地JSON加载失败:', error);
-        showNotification('本地JSON加载失败，尝试从Supabase加载', 'warning');
+        // 先使用默认的分类数据
+        showNotification('使用默认分类数据', 'success');
+        
+        // 尝试加载藏品数据
+        try {
+          const itemResponse = await fetch('assets/data/items.json');
+          if (itemResponse.ok) {
+            const itemData = await itemResponse.json();
+            items = itemData || [];
+            showNotification('从本地JSON加载藏品数据成功！', 'success');
+          } else {
+            console.log('本地藏品数据加载失败，使用空数组');
+          }
+        } catch (error) {
+          console.error('加载藏品数据失败:', error);
+        }
         
         // 尝试从 Supabase 加载作为备份
         try {
-          const { data: catData, error: catError } = await supabase
-            .from('categories')
-            .select('*');
-
           const { data: itemData, error: itemError } = await supabase
             .from('items')
             .select('*');
 
-          if (!catError && catData && catData.length > 0) {
-            categories = catData;
-          }
-
           if (!itemError && itemData && itemData.length > 0) {
             items = itemData;
+            showNotification('从Supabase加载藏品数据成功！', 'success');
           }
-
-          showNotification('从Supabase加载数据成功！', 'success');
         } catch (supabaseError) {
           console.error('Supabase加载失败:', supabaseError);
-          showNotification('Supabase加载失败，请检查网络连接', 'error');
-          categories = [];
-          items = [];
         }
+      } catch (error) {
+        console.error('数据加载失败:', error);
       }
 
       updateStats();
