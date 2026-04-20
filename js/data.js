@@ -24,9 +24,7 @@ const DataManager = {
             for (const category of localCategories) {
                 const { error } = await window.supabase
                     .from('categories')
-                    .insert(category)
-                    .onConflict('id')
-                    .ignore();
+                    .upsert(category, { onConflict: 'id' });
                 if (error) {
                     console.error('插入分类数据失败:', error);
                 }
@@ -39,12 +37,10 @@ const DataManager = {
             for (const item of localItems) {
                 const { error } = await window.supabase
                     .from('items')
-                    .insert({
+                    .upsert({
                         ...item,
                         images: item.images // Supabase 会自动处理 JSON 数据
-                    })
-                    .onConflict('id')
-                    .ignore();
+                    }, { onConflict: 'id' });
                 if (error) {
                     console.error('插入藏品数据失败:', error);
                 }
