@@ -21,9 +21,10 @@
   --shadow: 0 10px 30px rgba(92, 61, 46, 0.08);
   --shadow-hover: 0 15px 40px rgba(92, 61, 46, 0.14);
   
-  /* 字体 */
-  --font-serif: 'ZCOOL XiaoWei', 'Noto Serif SC', serif;
-  --font-sans: 'ZCOOL XiaoWei', 'Noto Sans SC', sans-serif;
+  /* 字体 — 基于品牌视觉规范 v1.0 */
+  --font-serif: 'Noto Serif SC', serif;
+  --font-sans: 'Noto Sans SC', sans-serif;
+  --font-display: 'ZCOOL XiaoWei', serif;
   --font-calligraphy: 'ZCOOL XiaoWei', cursive;
   
   /* 间距 */
@@ -50,14 +51,26 @@
 }
 
 body {
-  font-family: var(--font-serif);
-  line-height: 1.6;
+  font-family: var(--font-sans);
+  line-height: 1.7;
   color: var(--text-color);
   background-color: var(--background-color);
-  /* 宣纸纹理背景 */
-  background-image: 
-    linear-gradient(rgba(250, 247, 242, 0.9), rgba(250, 247, 242, 0.9)),
-    url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23d2b48c' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+  /* 宣纸纹理背景 — 基于品牌视觉规范 v1.0 */
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 50px,
+      rgba(92, 61, 46, 0.015) 50px,
+      rgba(92, 61, 46, 0.015) 51px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 50px,
+      rgba(92, 61, 46, 0.01) 50px,
+      rgba(92, 61, 46, 0.01) 51px
+    );
   /* 金色光晕装饰 */
   position: relative;
 }
@@ -69,8 +82,8 @@ body::before {
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(circle at 20% 20%, rgba(209, 180, 140, 0.1) 0%, transparent 50%),
-              radial-gradient(circle at 80% 80%, rgba(209, 180, 140, 0.1) 0%, transparent 50%);
+  background: radial-gradient(circle at 20% 20%, rgba(184, 115, 51, 0.06) 0%, transparent 50%),
+              radial-gradient(circle at 80% 80%, rgba(184, 115, 51, 0.06) 0%, transparent 50%);
   pointer-events: none;
   z-index: -1;
 }
@@ -494,7 +507,7 @@ body::before {
 .chinese-divider {
   width: 100%;
   height: 20px;
-  background-image: url("data:image/svg+xml,%3Csvg width='400' height='20' viewBox='0 0 400 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,10 H400' stroke='%23d2b48c' stroke-width='1' stroke-dasharray='10,10'/%3E%3Ccircle cx='200' cy='10' r='3' fill='%238b4513'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg width='400' height='20' viewBox='0 0 400 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,10 H400' stroke='%23d2b48c' stroke-width='1' stroke-dasharray='10,10'/%3E%3Ccircle cx='200' cy='10' r='3' fill='%235C3D2E'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 400px 20px;
@@ -706,7 +719,7 @@ body::before {
   right: 20px;
   width: 80px;
   height: 80px;
-  background: rgba(139, 69, 19, 0.8);
+  background: rgba(92, 61, 46, 0.8);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -763,7 +776,7 @@ body::before {
 .gallery-thumb.active {
   opacity: 1;
   border-color: var(--primary-color);
-  box-shadow: 0 6px 15px rgba(139, 69, 19, 0.2);
+  box-shadow: 0 6px 15px rgba(92, 61, 46, 0.2);
 }
 
 .gallery-thumb img {
@@ -900,7 +913,7 @@ body::before {
 .search-input:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+  box-shadow: 0 0 0 3px rgba(92, 61, 46, 0.1);
 }
 
 .search-filter {
@@ -918,7 +931,7 @@ body::before {
 .search-filter:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+  box-shadow: 0 0 0 3px rgba(92, 61, 46, 0.1);
 }
 
 .search-btn {
@@ -954,7 +967,7 @@ body::before {
 
 .search-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(139, 69, 19, 0.4);
+  box-shadow: 0 8px 25px rgba(92, 61, 46, 0.4);
 }
 
 .search-placeholder {
@@ -1370,11 +1383,11 @@ body::before {
 /* 自定义光标 */
 @media (pointer: fine) {
   html {
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%238b4513' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'%3E%3C/circle%3E%3Cline x1='12' y1='8' x2='12' y2='12'%3E%3C/line%3E%3Cline x1='12' y1='16' x2='12.01' y2='16'%3E%3C/line%3E%3C/svg%3E"), auto;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%235C3D2E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'%3E%3C/circle%3E%3Cline x1='12' y1='8' x2='12' y2='12'%3E%3C/line%3E%3Cline x1='12' y1='16' x2='12.01' y2='16'%3E%3C/line%3E%3C/svg%3E"), auto;
   }
   
   a, button, .category-card, .item-card, .gallery-thumb {
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%238b4513' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'%3E%3C/path%3E%3Cpolyline points='15 3 21 3 21 9'%3E%3C/polyline%3E%3Cline x1='10' y1='14' x2='21' y2='3'%3E%3C/line%3E%3C/svg%3E"), pointer;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%235C3D2E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'%3E%3C/path%3E%3Cpolyline points='15 3 21 3 21 9'%3E%3C/polyline%3E%3Cline x1='10' y1='14' x2='21' y2='3'%3E%3C/line%3E%3C/svg%3E"), pointer;
   }
 }
 
@@ -1406,7 +1419,7 @@ body::before {
 .chinese-button {
   display: inline-block;
   padding: 0.75rem 1.5rem;
-  background: linear-gradient(135deg, var(--primary-color) 0%, #654321 100%);
+  background: linear-gradient(135deg, var(--primary-color) 0%, #3D2819 100%);
   color: #fff;
   font-family: var(--font-serif);
   font-size: 1rem;
