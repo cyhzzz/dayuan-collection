@@ -443,8 +443,9 @@ body::before {
 }
 
 .about-portrait {
-  width: 220px;
-  height: auto;
+  width: 200px;
+  max-width: 200px;
+  max-height: 280px;
   border-radius: var(--border-radius-md);
   overflow: hidden;
   box-shadow: var(--shadow);
@@ -455,6 +456,7 @@ body::before {
 .about-portrait img {
   width: 100%;
   height: auto;
+  max-height: 280px;
   display: block;
   object-fit: contain;
 }
