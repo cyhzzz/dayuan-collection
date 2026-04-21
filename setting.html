@@ -821,7 +821,7 @@
   <!-- 通知消息 -->
   <div id="notification" class="notification"></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://unpkg.com/@supabase/supabase-js@2.39.7/dist/umd/supabase.min.js"></script>
   <script>
     // ========== 配置 ==========
     const SUPABASE_URL = 'https://yykqbhuzsnwdrlyhbwdu.supabase.co';
@@ -914,57 +914,36 @@
       }
     }
 
-    // ========== 数据加载 ==========
+    // ========== 数据加载（仅 Supabase） ==========
     async function loadData() {
       try {
-        // 优先从 Supabase 加载
+        // 第一步：只查数量
+        const [catCountRes, itemCountRes] = await Promise.all([
+          supabaseClient.from('categories').select('id', { count: 'exact', head: true }),
+          supabaseClient.from('items').select('id', { count: 'exact', head: true })
+        ]);
+
+        const catCount = catCountRes.count || 0;
+        const itemCount = itemCountRes.count || 0;
+
+        // 第二步：加载实际数据
         const [catRes, itemRes] = await Promise.all([
           supabaseClient.from('categories').select('*'),
           supabaseClient.from('items').select('*')
         ]);
 
-        if (catRes.data && catRes.data.length > 0) {
-          categories = catRes.data;
-        } else {
-          // 回退到本地 JSON
-          const resp = await fetch('assets/data/categories.json');
-          categories = await resp.json();
-          // 同步到 Supabase
-          for (const cat of categories) {
-            await supabaseAdmin.from('categories').upsert(cat, { onConflict: 'id' });
-          }
-        }
+        categories = catRes.data || [];
+        items = itemRes.data || [];
 
-        if (itemRes.data && itemRes.data.length > 0) {
-          items = itemRes.data;
-        } else {
-          const resp = await fetch('assets/data/items.json');
-          items = await resp.json();
-          // 同步到 Supabase
-          for (const item of items) {
-            await supabaseAdmin.from('items').upsert(item, { onConflict: 'id' });
-          }
-        }
-
-        const source = (catRes.data?.length > 0 && itemRes.data?.length > 0) ? 'Supabase' : '本地JSON';
-        document.getElementById('storage-status').textContent = source;
-        showNotification(`数据加载成功（${source}）`, 'success');
+        document.getElementById('storage-status').textContent = 'Supabase';
+        showNotification(`数据加载成功（${categories.length} 分类 / ${items.length} 藏品）`, 'success');
 
       } catch (error) {
         console.error('数据加载失败:', error);
-        // 最终回退
-        try {
-          const [catResp, itemResp] = await Promise.all([
-            fetch('assets/data/categories.json'),
-            fetch('assets/data/items.json')
-          ]);
-          categories = await catResp.json();
-          items = await itemResp.json();
-          document.getElementById('storage-status').textContent = '本地JSON';
-          showNotification('从本地JSON加载数据', 'warning');
-        } catch (e) {
-          showNotification('数据加载失败', 'error');
-        }
+        categories = [];
+        items = [];
+        document.getElementById('storage-status').textContent = '加载失败';
+        showNotification('从 Supabase 加载数据失败，请检查网络连接', 'error');
       }
 
       updateStats();

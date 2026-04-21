@@ -5,49 +5,26 @@ class App {
     constructor() {
         this.currentView = 'home';
         this.supabaseStorageUrl = 'https://yykqbhuzsnwdrlyhbwdu.supabase.co/storage/v1/object/public/images';
-        this.imageNameMap = null; // 原始文件名 -> Storage路径映射
         this.init();
     }
 
-    // 解析图片URL：优先 Supabase Storage，回退本地路径
+    // 解析图片URL：Supabase Storage 路径转完整 URL
     resolveImageUrl(path) {
         if (!path) return this.getDefaultItemImage();
-        // 已经是完整URL
         if (path.startsWith('http')) return path;
-        // 已经是 Storage 路径 (items/xxx.jpg 或 categories/xxx.jpg)
         if (path.startsWith('items/') || path.startsWith('categories/')) {
             return `${this.supabaseStorageUrl}/${path}`;
         }
-        // 本地路径 images/xxx.jpg — 尝试用映射表转为 Storage 路径
+        // 本地路径兼容（含#等特殊字符时编码）
         if (path.startsWith('images/')) {
             const filename = path.replace('images/', '');
-            if (this.imageNameMap && this.imageNameMap[filename]) {
-                return `${this.supabaseStorageUrl}/${this.imageNameMap[filename]}`;
-            }
-            // 没有映射就直接返回本地路径（作为最终回退）
-            return path;
+            return 'images/' + encodeURIComponent(filename);
         }
         return path;
-    }
-
-    // 加载图片映射表
-    async loadImageNameMap() {
-        try {
-            const resp = await fetch('assets/data/image-name-map.json');
-            if (resp.ok) {
-                this.imageNameMap = await resp.json();
-                console.log(`已加载 ${Object.keys(this.imageNameMap).length} 条图片映射`);
-            }
-        } catch (e) {
-            console.log('图片映射表加载失败，将使用原始路径');
-        }
     }
     
     // 初始化应用
     async init() {
-        // 加载图片映射表
-        await this.loadImageNameMap();
-
         // 加载数据
         const dataLoaded = await DataManager.loadData();
         if (!dataLoaded) {
