@@ -671,7 +671,15 @@
     const supabaseUrl = 'https://yykqbhuzsnwdrlyhbwdu.supabase.co';
     const supabaseKey = 'sb_publishable_cwKH3e5N24GE65spjuz8aQ_lQp78Hol';
     const { createClient } = supabase;
-    const supabaseClient = createClient(supabaseUrl, supabaseKey);
+    
+    // 配置 Supabase 客户端，禁用存储以避免跟踪预防问题
+    const supabaseClient = createClient(supabaseUrl, supabaseKey, {
+      auth: {
+        storageKey: 'supabase_auth',
+        autoRefreshToken: false,
+        persistSession: false
+      }
+    });
 
     // 数据管理器
     let categories = [
@@ -1208,8 +1216,53 @@
       reader.readAsText(fileInput.files[0]);
     });
 
+    // 测试 Supabase 连接和表结构
+    async function testSupabaseConnection() {
+      try {
+        console.log('测试 Supabase 连接...');
+        
+        // 测试 categories 表
+        console.log('测试 categories 表...');
+        const { data: categoriesData, error: categoriesError } = await supabaseClient
+          .from('categories')
+          .select('*')
+          .limit(1);
+        
+        if (categoriesError) {
+          console.error('categories 表测试失败:', categoriesError);
+          showNotification('categories 表测试失败: ' + categoriesError.message, 'error');
+        } else {
+          console.log('categories 表测试成功:', categoriesData);
+        }
+        
+        // 测试 items 表
+        console.log('测试 items 表...');
+        const { data: itemsData, error: itemsError } = await supabaseClient
+          .from('items')
+          .select('*')
+          .limit(1);
+        
+        if (itemsError) {
+          console.error('items 表测试失败:', itemsError);
+          showNotification('items 表测试失败: ' + itemsError.message, 'error');
+        } else {
+          console.log('items 表测试成功:', itemsData);
+        }
+        
+        if (!categoriesError && !itemsError) {
+          showNotification('Supabase 连接和表结构测试成功！', 'success');
+        }
+        
+      } catch (error) {
+        console.error('Supabase 连接测试异常:', error);
+        showNotification('Supabase 连接异常: ' + error.message, 'error');
+      }
+    }
+
     // 初始化
     loadData();
+    // 测试连接
+    testSupabaseConnection();
   </script>
 </body>
 </html>
