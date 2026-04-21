@@ -1,20 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-  <!-- 背景圆形 -->
-  <circle cx="50" cy="50" r="45" fill="#8b4513"/>
-  
-  <!-- 内圈 -->
-  <circle cx="50" cy="50" r="40" fill="#d2b48c"/>
-  
-  <!-- 印章效果 -->
-  <circle cx="50" cy="50" r="35" fill="#8b4513"/>
-  
-  <!-- 中式花纹装饰 -->
-  <path d="M50 15 L65 30 L50 45 L35 30 Z" fill="#d2b48c"/>
-  <path d="M15 50 L30 65 L15 80 L0 65 Z" fill="#d2b48c"/>
-  <path d="M85 50 L70 65 L85 80 L100 65 Z" fill="#d2b48c"/>
-  <path d="M50 85 L65 70 L50 55 L35 70 Z" fill="#d2b48c"/>
-  
-  <!-- 中心印章文字 -->
-  <text x="50" y="50" font-family="ZCOOL XiaoWei" font-size="12" text-anchor="middle" dominant-baseline="middle" fill="#d2b48c">大元</text>
-  <text x="50" y="65" font-family="ZCOOL XiaoWei" font-size="8" text-anchor="middle" dominant-baseline="middle" fill="#d2b48c">收藏</text>
+  <!-- 圆形边框 -->
+  <circle cx="50" cy="50" r="38" fill="none" stroke="#5C3D2E" stroke-width="2.5"/>
+  <!-- 内圆 -->
+  <circle cx="50" cy="50" r="35" fill="none" stroke="#5C3D2E" stroke-width="0.6" opacity="0.3"/>
+  <!-- 远山 -->
+  <path d="M18,62 Q28,42 38,52 Q44,44 50,50"
+        fill="none" stroke="#5C3D2E" stroke-width="1.5"
+        stroke-linecap="round" opacity="0.3"/>
+  <!-- 主山 - 天台山 -->
+  <path d="M24,68 Q32,48 40,56 Q46,38 54,52 Q58,46 62,56"
+        fill="none" stroke="#5C3D2E" stroke-width="2.5"
+        stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- 近山 -->
+  <path d="M48,68 Q54,56 60,62 Q64,54 68,62"
+        fill="none" stroke="#B87333" stroke-width="1.5"
+        stroke-linecap="round" opacity="0.5"/>
+  <!-- 水纹 -->
+  <path d="M22,72 Q28,70 34,72 Q40,74 46,72 Q52,70 58,72"
+        fill="none" stroke="#5C3D2E" stroke-width="1.2"
+        stroke-linecap="round" opacity="0.35"/>
+  <path d="M26,76 Q32,74 38,76 Q44,78 50,76"
+        fill="none" stroke="#5C3D2E" stroke-width="0.8"
+        stroke-linecap="round" opacity="0.25"/>
+  <!-- 竖排「大元」 -->
+  <text x="70" y="42" text-anchor="middle" dominant-baseline="central"
+        font-family="'Noto Serif SC', 'SimSun', serif" font-size="13"
+        font-weight="700" fill="#5C3D2E" writing-mode="vertical-rl"
+        letter-spacing="5">大元</text>
+  <!-- 小印 -->
+  <rect x="73" y="60" width="7" height="7" rx="0.5"
+        fill="none" stroke="#B87333" stroke-width="1" opacity="0.6"/>
+  <text x="76.5" y="64" text-anchor="middle" dominant-baseline="central"
+        font-family="'Noto Serif SC', serif" font-size="4.5"
+        fill="#B87333" opacity="0.6">藏</text>
 </svg>
