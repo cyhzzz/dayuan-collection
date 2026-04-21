@@ -136,6 +136,7 @@ class App {
             const imagePath = category.image || this.getDefaultCategoryImage(category.id);
             
             categoryCard.innerHTML = `
+                <div class="corner-decor"></div>
                 <div class="category-image">
                     <img src="${imagePath}" alt="${category.name}">
                 </div>
@@ -194,7 +195,7 @@ class App {
                 <div class="category-detail-info">
                     <h2>${category.name}</h2>
                     <p>${category.description}</p>
-                    <div class="chinese-divider"></div>
+                    <div class="chinese-divider"><span class="dot"></span></div>
                     <div class="category-meta">
                         <span class="tag">${category.items_count} 件藏品</span>
                         <span class="tag">${category.type}</span>
@@ -223,6 +224,7 @@ class App {
                 : this.getDefaultItemImage();
             
             itemCard.innerHTML = `
+                <div class="corner-decor"></div>
                 <div class="item-image">
                     <img src="${imagePath}" alt="${item.name}">
                 </div>
@@ -235,16 +237,16 @@ class App {
                     </div>
                 </div>
             `;
-            
+
             // 添加点击事件
             itemCard.addEventListener('click', () => {
                 this.switchToItem(item.id, categoryId);
             });
-            
+
             itemsGrid.appendChild(itemCard);
         });
     }
-    
+
     // 切换到藏品详情
     switchToItem(itemId, categoryId) {
         const item = DataManager.getItemById(itemId);
@@ -405,6 +407,7 @@ class App {
             const category = DataManager.getCategoryById(item.category_id);
             
             itemCard.innerHTML = `
+                <div class="corner-decor"></div>
                 <div class="item-image">
                     <img src="${imagePath}" alt="${item.name}">
                 </div>
