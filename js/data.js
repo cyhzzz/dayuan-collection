@@ -1,24 +1,32 @@
-// 初始化 Supabase 客户端
-const supabaseUrl = 'https://yykqbhuzsnwdrlyhbwdu.supabase.co';
-const supabaseKey = 'sb_publishable_cwKH3e5N24GE65spjuz8aQ_lQp78Hol';
-
-if (!window.supabase) {
-    window.supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
-}
-
-// 数据管理模块 — 仅从 Supabase 加载
+// 数据管理模块 — 等待 Supabase SDK 加载后初始化
 const DataManager = {
     categories: [],
     items: [],
     currentCategory: null,
     currentItem: null,
+    _ready: false,
+
+    // 等待 SDK 就绪
+    async _waitForSDK() {
+        if (window.supabase && window.supabase.createClient) return;
+        return new Promise((resolve) => {
+            window.addEventListener('supabase-ready', resolve, { once: true });
+        });
+    },
 
     // 加载所有数据（仅 Supabase）
     async loadData() {
+        await this._waitForSDK();
+        const { createClient } = window.supabase;
+
+        const supabaseUrl = 'https://yykqbhuzsnwdrlyhbwdu.supabase.co';
+        const supabaseKey = 'sb_publishable_cwKH3e5N24GE65spjuz8aQ_lQp78Hol';
+        const client = createClient(supabaseUrl, supabaseKey);
+
         try {
             const [catRes, itemRes] = await Promise.all([
-                window.supabase.from('categories').select('*'),
-                window.supabase.from('items').select('*')
+                client.from('categories').select('*'),
+                client.from('items').select('*')
             ]);
 
             if (catRes.error) throw catRes.error;
@@ -26,6 +34,7 @@ const DataManager = {
 
             this.categories = catRes.data || [];
             this.items = itemRes.data || [];
+            this._ready = true;
 
             console.log('数据加载成功:', {
                 categories: this.categories.length,
@@ -82,12 +91,6 @@ const DataManager = {
     getLatestItems(limit = 6) {
         return [...this.items]
             .sort((a, b) => new Date(b.date) - new Date(a.date))
-            .slice(0, limit);
-    },
-
-    getItemsByType(type, limit = 6) {
-        return this.items
-            .filter(item => item.type === type)
             .slice(0, limit);
     },
 

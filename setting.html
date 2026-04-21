@@ -821,14 +821,34 @@
   <!-- 通知消息 -->
   <div id="notification" class="notification"></div>
 
-  <script src="js/supabase.min.js"></script>
+  <script type="module">
+    // 动态导入 Supabase SDK（ESM 格式，避免 Tracking Prevention 拦截 CDN）
+    const { createClient } = await import('https://esm.sh/@supabase/supabase-js@2.39.7');
+    window.supabase = { createClient };
+    // 触发自定义事件通知主脚本 SDK 已加载
+    window.dispatchEvent(new Event('supabase-ready'));
+  </script>
   <script>
     // ========== 配置 ==========
     const SUPABASE_URL = 'https://yykqbhuzsnwdrlyhbwdu.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_cwKH3e5N24GE65spjuz8aQ_lQp78Hol';
     const SUPABASE_SERVICE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl5a3FiaHV6c253ZHJseWhid2R1Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NjY2ODc0NSwiZXhwIjoyMDkyMjQ0NzQ1fQ.Sg10ZQWNX6JBsaNvPXPFPrwkVY5orKhGrpQPtz0Bg3M';
     const STORAGE_BUCKET = 'images';
-    const { createClient } = supabase;
+
+    // 等待 SDK 加载完成
+    function waitForSupabase() {
+      return new Promise((resolve) => {
+        if (window.supabase && window.supabase.createClient) {
+          resolve();
+        } else {
+          window.addEventListener('supabase-ready', resolve, { once: true });
+        }
+      });
+    }
+
+    async function initApp() {
+      await waitForSupabase();
+      const { createClient } = window.supabase;
 
     // 公开客户端（读取数据）
     const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY, {
@@ -1444,7 +1464,7 @@
     });
 
     // ========== 初始化 ==========
-    loadData();
+    initApp();
   </script>
 </body>
 </html>

@@ -148,8 +148,12 @@
         </div>
     </footer>
 
-    <!-- Supabase 客户端库 -->
-    <script src="js/supabase.min.js"></script>
+    <!-- Supabase 客户端库（ESM 动态导入，避免 Tracking Prevention 拦截） -->
+    <script type="module">
+      const { createClient } = await import('https://esm.sh/@supabase/supabase-js@2.39.7');
+      window.supabase = { createClient };
+      window.dispatchEvent(new Event('supabase-ready'));
+    </script>
     <!-- JavaScript 文件 -->
     <script src="js/data.js"></script>
     <script src="js/app.js"></script>
