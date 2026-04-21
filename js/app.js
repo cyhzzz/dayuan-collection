@@ -290,7 +290,7 @@ class App {
             <div class="item-gallery">
                 <div class="gallery-main">
                     <img src="${mainImage}" alt="${item.name}">
-                    <div class="seal">大元收藏</div>
+                    <div class="seal">藏</div>
                 </div>
                 ${thumbsHtml ? `
                     <div class="gallery-thumbs">
