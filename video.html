@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920">
+<title>大元收藏品集</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --primary-brown: #5C3D2E;
+    --bronze: #B87333;
+    --dark-brown: #3D2B1F;
+    --cream: #F5F0E8;
+    --light-brown: #8B6914;
+    --gold-accent: #C9A96E;
+    --secondary-light-brown: #A0896C;
+  }
+
+  html, body {
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: var(--dark-brown);
+    font-family: 'Noto Sans SC', sans-serif;
+  }
+
+  .stage {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: var(--dark-brown);
+  }
+
+  /* ==================== SCENE 1: OPENING ==================== */
+  .scene-opening {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--dark-brown);
+    opacity: 0;
+    z-index: 10;
+    pointer-events: none;
+  }
+  .scene-opening.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .opening-circle {
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    border: 2px solid var(--bronze);
+    border-radius: 50%;
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  .scene-opening.active .opening-circle {
+    animation: circleIn 1.8s ease-out 0.5s forwards;
+  }
+  .opening-circle::before {
+    content: '';
+    position: absolute;
+    inset: 12px;
+    border: 1px solid var(--gold-accent);
+    border-radius: 50%;
+    opacity: 0.5;
+  }
+
+  .opening-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 4rem;
+    font-weight: 600;
+    color: var(--cream);
+    letter-spacing: 0.6em;
+    text-indent: 0.6em;
+    opacity: 0;
+    z-index: 2;
+  }
+  .scene-opening.active .opening-title {
+    animation: fadeSlideUp 1.5s ease-out 0.8s forwards;
+  }
+
+  .opening-subtitle {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 300;
+    color: var(--gold-accent);
+    letter-spacing: 0.3em;
+    text-indent: 0.3em;
+    margin-top: 24px;
+    opacity: 0;
+    z-index: 2;
+  }
+  .scene-opening.active .opening-subtitle {
+    animation: fadeSlideUp 1.2s ease-out 1.6s forwards;
+  }
+
+  .opening-line {
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--bronze), transparent);
+    margin-top: 32px;
+    opacity: 0;
+    z-index: 2;
+  }
+  .scene-opening.active .opening-line {
+    animation: fadeIn 1s ease-out 2.2s forwards;
+  }
+
+  /* ==================== SCENE 2: CATEGORY SHOWCASE ==================== */
+  .scene-showcase {
+    position: absolute;
+    inset: 0;
+    background: var(--dark-brown);
+    opacity: 0;
+    z-index: 5;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .scene-showcase.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .group-container {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+  }
+  .group-container.active {
+    opacity: 1;
+  }
+
+  .group-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--gold-accent);
+    letter-spacing: 0.4em;
+    text-indent: 0.4em;
+    margin-bottom: 48px;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  .group-container.active .group-title {
+    animation: fadeSlideUp 0.8s ease-out 0.2s forwards;
+  }
+
+  .group-title-line {
+    width: 60px;
+    height: 2px;
+    background: var(--bronze);
+    margin-bottom: 40px;
+    opacity: 0;
+  }
+  .group-container.active .group-title-line {
+    animation: fadeIn 0.6s ease-out 0.6s forwards;
+  }
+
+  .items-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    max-width: 1600px;
+    padding: 0 40px;
+  }
+
+  .item-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  .item-card.visible {
+    animation: itemFadeIn 0.7s ease-out forwards;
+  }
+
+  .item-img-wrap {
+    width: 280px;
+    height: 280px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(92, 61, 46, 0.08), 0 8px 30px rgba(92, 61, 46, 0.15);
+    position: relative;
+    background: #2a1d14;
+  }
+  .item-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Ken Burns effect variants */
+  .kenburns-1 img { animation: kb1 6s ease-in-out infinite alternate; }
+  .kenburns-2 img { animation: kb2 6s ease-in-out infinite alternate; }
+  .kenburns-3 img { animation: kb3 6s ease-in-out infinite alternate; }
+  .kenburns-4 img { animation: kb4 6s ease-in-out infinite alternate; }
+
+  .item-name {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--cream);
+    margin-top: 14px;
+    letter-spacing: 0.1em;
+    opacity: 0.85;
+  }
+
+  /* Large item for 2-item groups */
+  .items-grid.large-items .item-img-wrap {
+    width: 360px;
+    height: 360px;
+  }
+
+  /* Flowing gallery for 6 items */
+  .items-grid.gallery {
+    gap: 24px;
+  }
+  .items-grid.gallery .item-img-wrap {
+    width: 240px;
+    height: 240px;
+  }
+
+  /* Transition divider */
+  .divider-line {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--cream), var(--bronze), var(--cream), transparent);
+    z-index: 20;
+    opacity: 0;
+  }
+  .divider-line.active {
+    animation: dividerExpand 0.8s ease-out forwards;
+  }
+
+  /* ==================== SCENE 3: STATS ==================== */
+  .scene-stats {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--dark-brown);
+    opacity: 0;
+    z-index: 5;
+    pointer-events: none;
+  }
+  .scene-stats.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .stats-number {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--cream);
+    letter-spacing: 0.05em;
+    opacity: 0;
+  }
+  .scene-stats.active .stats-number {
+    animation: fadeSlideUp 1s ease-out 0.3s forwards;
+  }
+
+  .stats-label {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--gold-accent);
+    letter-spacing: 0.2em;
+    margin-top: 12px;
+    opacity: 0;
+  }
+  .scene-stats.active .stats-label {
+    animation: fadeSlideUp 0.8s ease-out 0.6s forwards;
+  }
+
+  .stats-divider {
+    width: 80px;
+    height: 1px;
+    background: var(--bronze);
+    margin: 36px 0;
+    opacity: 0;
+  }
+  .scene-stats.active .stats-divider {
+    animation: fadeIn 0.6s ease-out 0.9s forwards;
+  }
+
+  .stats-tags {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .stats-tag {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--secondary-light-brown);
+    letter-spacing: 0.15em;
+    padding: 8px 20px;
+    border: 1px solid rgba(184, 115, 51, 0.3);
+    border-radius: 8px;
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  .scene-stats.active .stats-tag {
+    animation: tagIn 0.6s ease-out forwards;
+  }
+  .scene-stats.active .stats-tag:nth-child(1) { animation-delay: 1.2s; }
+  .scene-stats.active .stats-tag:nth-child(2) { animation-delay: 1.35s; }
+  .scene-stats.active .stats-tag:nth-child(3) { animation-delay: 1.5s; }
+  .scene-stats.active .stats-tag:nth-child(4) { animation-delay: 1.65s; }
+  .scene-stats.active .stats-tag:nth-child(5) { animation-delay: 1.8s; }
+  .scene-stats.active .stats-tag:nth-child(6) { animation-delay: 1.95s; }
+
+  /* ==================== SCENE 4: CLOSING ==================== */
+  .scene-closing {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--dark-brown);
+    opacity: 0;
+    z-index: 5;
+    pointer-events: none;
+  }
+  .scene-closing.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .closing-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 3.2rem;
+    font-weight: 600;
+    color: var(--cream);
+    letter-spacing: 0.5em;
+    text-indent: 0.5em;
+    opacity: 0;
+  }
+  .scene-closing.active .closing-title {
+    animation: fadeSlideUp 1.2s ease-out 0.3s forwards;
+  }
+
+  .closing-line {
+    width: 160px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--bronze), transparent);
+    margin: 28px 0;
+    opacity: 0;
+  }
+  .scene-closing.active .closing-line {
+    animation: fadeIn 0.8s ease-out 0.8s forwards;
+  }
+
+  .closing-url {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--gold-accent);
+    letter-spacing: 0.15em;
+    opacity: 0;
+  }
+  .scene-closing.active .closing-url {
+    animation: fadeSlideUp 0.8s ease-out 1.1s forwards;
+  }
+
+  .closing-sub {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--secondary-light-brown);
+    letter-spacing: 0.1em;
+    margin-top: 16px;
+    opacity: 0;
+  }
+  .scene-closing.active .closing-sub {
+    animation: fadeIn 0.8s ease-out 1.5s forwards;
+  }
+
+  /* ==================== KEYFRAMES ==================== */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes circleIn {
+    from { opacity: 0; transform: scale(0.6); }
+    to { opacity: 0.7; transform: scale(1); }
+  }
+  @keyframes itemFadeIn {
+    from { opacity: 0; transform: translateY(30px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes dividerExpand {
+    0% { width: 0; opacity: 0; }
+    50% { width: 600px; opacity: 0.8; }
+    100% { width: 600px; opacity: 0; }
+  }
+  @keyframes tagIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Ken Burns variants */
+  @keyframes kb1 {
+    0% { transform: scale(1) translate(0, 0); }
+    100% { transform: scale(1.12) translate(-2%, -1%); }
+  }
+  @keyframes kb2 {
+    0% { transform: scale(1.05) translate(0, 0); }
+    100% { transform: scale(1) translate(2%, -2%); }
+  }
+  @keyframes kb3 {
+    0% { transform: scale(1) translate(-1%, 0); }
+    100% { transform: scale(1.1) translate(1%, 1%); }
+  }
+  @keyframes kb4 {
+    0% { transform: scale(1.08) translate(1%, 1%); }
+    100% { transform: scale(1) translate(-1%, -1%); }
+  }
+
+  /* Background texture overlay */
+  .stage::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 30%, rgba(92, 61, 46, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Vignette */
+  .stage::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    box-shadow: inset 0 0 200px rgba(0,0,0,0.4);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .scene-opening, .scene-showcase, .scene-stats, .scene-closing {
+    z-index: 3;
+  }
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+
+  <!-- SCENE 1: OPENING -->
+  <div class="scene-opening" id="scene-opening">
+    <div class="opening-circle"></div>
+    <div class="opening-title">大元收藏品集</div>
+    <div class="opening-subtitle">天台收藏家陈辛宏古玩珍藏</div>
+    <div class="opening-line"></div>
+  </div>
+
+  <!-- SCENE 2: CATEGORY SHOWCASE -->
+  <div class="scene-showcase" id="scene-showcase">
+
+    <!-- Group 1: 玉器·带饰 (4 items) -->
+    <div class="group-container" id="group-1">
+      <div class="group-title">玉器 · 带饰</div>
+      <div class="group-title-line"></div>
+      <div class="items-grid">
+        <div class="item-card" data-delay="0">
+          <div class="item-img-wrap kenburns-1"><img src="./images/001_二月二龙抬头_1.jpg" alt="明代龙纹玉带板"></div>
+          <div class="item-name">明代龙纹玉带板</div>
+        </div>
+        <div class="item-card" data-delay="300">
+          <div class="item-img-wrap kenburns-2"><img src="./images/022_又是苍龙教子_1.jpg" alt="苍龙教子玉带钩"></div>
+          <div class="item-name">苍龙教子玉带钩</div>
+        </div>
+        <div class="item-card" data-delay="600">
+          <div class="item-img-wrap kenburns-3"><img src="./images/024_螭_1.jpg" alt="螭龙纹玉带板"></div>
+          <div class="item-name">螭龙纹玉带板</div>
+        </div>
+        <div class="item-card" data-delay="900">
+          <div class="item-img-wrap kenburns-4"><img src="./images/057_带钩_1.jpg" alt="白玉带钩"></div>
+          <div class="item-name">白玉带钩</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Group 2: 玉雕·人物花鸟 (4 items) -->
+    <div class="group-container" id="group-2">
+      <div class="group-title">玉雕 · 人物花鸟</div>
+      <div class="group-title-line"></div>
+      <div class="items-grid">
+        <div class="item-card" data-delay="0">
+          <div class="item-img-wrap kenburns-2"><img src="./images/050_高士_1.jpg" alt="白玉高士"></div>
+          <div class="item-name">白玉高士</div>
+        </div>
+        <div class="item-card" data-delay="300">
+          <div class="item-img-wrap kenburns-3"><img src="./images/053_瑶林琼树_1.jpg" alt="白玉簪"></div>
+          <div class="item-name">白玉簪</div>
+        </div>
+        <div class="item-card" data-delay="600">
+          <div class="item-img-wrap kenburns-1"><img src="./images/058_凤_1.jpg" alt="白玉凤"></div>
+          <div class="item-name">白玉凤</div>
+        </div>
+        <div class="item-card" data-delay="900">
+          <div class="item-img-wrap kenburns-4"><img src="./images/031_花_1.jpg" alt="玉雕花"></div>
+          <div class="item-name">玉雕花</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Group 3: 铜器 (4 items) -->
+    <div class="group-container" id="group-3">
+      <div class="group-title">铜 器</div>
+      <div class="group-title-line"></div>
+      <div class="items-grid">
+        <div class="item-card" data-delay="0">
+          <div class="item-img-wrap kenburns-4"><img src="./images/002_错银香瓶_1.jpg" alt="错银铜香瓶"></div>
+          <div class="item-name">错银铜香瓶</div>
+        </div>
+        <div class="item-card" data-delay="300">
+          <div class="item-img-wrap kenburns-1"><img src="./images/007_37厘米，霸气_1.jpg" alt="青铜鼎"></div>
+          <div class="item-name">青铜鼎</div>
+        </div>
+        <div class="item-card" data-delay="600">
+          <div class="item-img-wrap kenburns-3"><img src="./images/019_石叟_1.jpg" alt="石叟错银铜炉"></div>
+          <div class="item-name">石叟错银铜炉</div>
+        </div>
+        <div class="item-card" data-delay="900">
+          <div class="item-img-wrap kenburns-2"><img src="./images/014_炉_1.jpg" alt="青铜三足炉"></div>
+          <div class="item-name">青铜三足炉</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Group 4: 铜镜·古钱 (4 items) -->
+    <div class="group-container" id="group-4">
+      <div class="group-title">铜镜 · 古钱</div>
+      <div class="group-title-line"></div>
+      <div class="items-grid">
+        <div class="item-card" data-delay="0">
+          <div class="item-img-wrap kenburns-3"><img src="./images/013_镜_1.jpg" alt="汉代铜镜"></div>
+          <div class="item-name">汉代铜镜</div>
+        </div>
+        <div class="item-card" data-delay="300">
+          <div class="item-img-wrap kenburns-1"><img src="./images/008_金玉满堂_1.jpg" alt="三多花钱"></div>
+          <div class="item-name">三多花钱</div>
+        </div>
+        <div class="item-card" data-delay="600">
+          <div class="item-img-wrap kenburns-4"><img src="./images/009_将军剑_1.jpg" alt="永通万国"></div>
+          <div class="item-name">永通万国</div>
+        </div>
+        <div class="item-card" data-delay="900">
+          <div class="item-img-wrap kenburns-2"><img src="./images/015_周元龙凤_1.jpg" alt="周元通宝"></div>
+          <div class="item-name">周元通宝</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Group 5: 瓷器·木雕 (2 items) -->
+    <div class="group-container" id="group-5">
+      <div class="group-title">瓷器 · 木雕</div>
+      <div class="group-title-line"></div>
+      <div class="items-grid large-items">
+        <div class="item-card" data-delay="0">
+          <div class="item-img-wrap kenburns-1"><img src="./images/004_松鹤牡丹_1.jpg" alt="松鹤牡丹粉彩盘"></div>
+          <div class="item-name">松鹤牡丹粉彩盘</div>
+        </div>
+        <div class="item-card" data-delay="400">
+          <div class="item-img-wrap kenburns-3"><img src="./images/018_正月初五迎财神_1.jpg" alt="贴金木雕武将"></div>
+          <div class="item-name">贴金木雕武将</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Divider line for transitions -->
+  <div class="divider-line" id="divider-line"></div>
+
+  <!-- SCENE 3: STATS -->
+  <div class="scene-stats" id="scene-stats">
+    <div class="stats-number" id="stats-number">294件藏品 · 828张图片</div>
+    <div class="stats-label">天台收藏家陈辛宏古玩珍藏</div>
+    <div class="stats-divider"></div>
+    <div class="stats-tags">
+      <span class="stats-tag">玉器</span>
+      <span class="stats-tag">铜器</span>
+      <span class="stats-tag">瓷器</span>
+      <span class="stats-tag">花钱</span>
+      <span class="stats-tag">木雕</span>
+      <span class="stats-tag">铜镜</span>
+    </div>
+  </div>
+
+  <!-- SCENE 4: CLOSING -->
+  <div class="scene-closing" id="scene-closing">
+    <div class="closing-title">大元收藏品集</div>
+    <div class="closing-line"></div>
+    <div class="closing-url">cyhzzz.github.io/dayuan-collection</div>
+    <div class="closing-sub">天台收藏家陈辛宏古玩珍藏</div>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  window.__ready = true;
+
+  var TOTAL_DURATION = 45000;
+  var shouldLoop = !window.__recording;
+
+  // Timeline
+  // 0-5000: Opening
+  // 5000-10000: Group 1 (玉器·带饰)
+  // 10000-15000: Group 2 (玉雕·人物花鸟)
+  // 15000-20000: Group 3 (铜器)
+  // 20000-25000: Group 4 (铜镜·古钱)
+  // 25000-30000: Group 5 (瓷器·木雕)
+  // 30000-35000: Stats
+  // 35000-40000: Closing
+  // 40000-45000: Fade out
+
+  var scenes = {
+    opening: document.getElementById('scene-opening'),
+    showcase: document.getElementById('scene-showcase'),
+    stats: document.getElementById('scene-stats'),
+    closing: document.getElementById('scene-closing')
+  };
+
+  var groups = [
+    document.getElementById('group-1'),
+    document.getElementById('group-2'),
+    document.getElementById('group-3'),
+    document.getElementById('group-4'),
+    document.getElementById('group-5')
+  ];
+
+  var divider = document.getElementById('divider-line');
+
+  function hideAll() {
+    scenes.opening.classList.remove('active');
+    scenes.showcase.classList.remove('active');
+    scenes.stats.classList.remove('active');
+    scenes.closing.classList.remove('active');
+    groups.forEach(function(g) { g.classList.remove('active'); });
+    divider.classList.remove('active');
+    // Reset item cards
+    document.querySelectorAll('.item-card').forEach(function(card) {
+      card.classList.remove('visible');
+    });
+  }
+
+  function showScene(name) {
+    hideAll();
+    scenes[name].classList.add('active');
+  }
+
+  function showGroup(idx) {
+    scenes.showcase.classList.add('active');
+    groups.forEach(function(g, i) {
+      g.classList.remove('active');
+      if (i === idx) {
+        g.classList.add('active');
+        // Stagger item cards
+        var cards = g.querySelectorAll('.item-card');
+        cards.forEach(function(card) {
+          var delay = parseInt(card.getAttribute('data-delay')) || 0;
+          setTimeout(function() {
+            card.classList.add('visible');
+          }, 400 + delay);
+        });
+      }
+    });
+  }
+
+  function flashDivider(callback) {
+    divider.classList.remove('active');
+    // Force reflow
+    void divider.offsetWidth;
+    divider.classList.add('active');
+    setTimeout(function() {
+      divider.classList.remove('active');
+      if (callback) callback();
+    }, 800);
+  }
+
+  var timeline = [
+    { time: 0,    action: function() { showScene('opening'); } },
+    { time: 5000, action: function() { flashDivider(function() { showGroup(0); }); } },
+    { time: 10000, action: function() { flashDivider(function() { showGroup(1); }); } },
+    { time: 15000, action: function() { flashDivider(function() { showGroup(2); }); } },
+    { time: 20000, action: function() { flashDivider(function() { showGroup(3); }); } },
+    { time: 25000, action: function() { flashDivider(function() { showGroup(4); }); } },
+    { time: 30000, action: function() { flashDivider(function() { showScene('stats'); }); } },
+    { time: 35000, action: function() { flashDivider(function() { showScene('closing'); }); } },
+    { time: 44000, action: function() { hideAll(); } }
+  ];
+
+  var startTime = null;
+  var animFrame = null;
+
+  function tick(ts) {
+    if (!startTime) startTime = ts;
+    var elapsed = ts - startTime;
+
+    for (var i = timeline.length - 1; i >= 0; i--) {
+      if (elapsed >= timeline[i].time) {
+        if (!timeline[i].fired) {
+          timeline[i].fired = true;
+          timeline[i].action();
+        }
+        break;
+      }
+    }
+
+    if (elapsed < TOTAL_DURATION) {
+      animFrame = requestAnimationFrame(tick);
+    } else {
+      if (shouldLoop) {
+        resetAndRestart();
+      }
+    }
+  }
+
+  function resetAndRestart() {
+    startTime = null;
+    timeline.forEach(function(entry) { entry.fired = false; });
+    hideAll();
+    animFrame = requestAnimationFrame(tick);
+  }
+
+  // Start
+  animFrame = requestAnimationFrame(tick);
+
+})();
+</script>
+</body>
+</html>
