@@ -9,7 +9,7 @@ const DataManager = {
     async loadData() {
         const client = new SupabaseClient(
             'https://yykqbhuzsnwdrlyhbwdu.supabase.co',
-            'sb_publishable_cwKH3e5N24GE65spjuz8aQ_lQp78Hol'
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl5a3FiaHV6c253ZHJseWhid2R1Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NjY2ODc0NSwiZXhwIjoyMDkyMjQ0NzQ1fQ.Sg10ZQWNX6JBsaNvPXPFPrwkVY5orKhGrpQPtz0Bg3M'
         );
 
         try {
