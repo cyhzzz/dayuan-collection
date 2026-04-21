@@ -427,6 +427,102 @@ body::before {
   font-weight: 500;
 }
 
+/* ========== 关于页面 — 人像展示布局 ========== */
+.about-header {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--spacing-lg);
+  background: var(--card-bg);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow);
+  margin-bottom: var(--spacing-lg);
+  align-items: center;
+  position: relative;
+  border: 1px solid var(--border-color);
+}
+
+.about-portrait {
+  width: 220px;
+  height: auto;
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  position: relative;
+  z-index: 1;
+}
+
+.about-portrait img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.about-info {
+  position: relative;
+  z-index: 1;
+}
+
+.about-info h2 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--primary-color);
+  margin-bottom: 1.25rem;
+  font-weight: 400;
+  letter-spacing: 4px;
+}
+
+.about-info p {
+  color: var(--text-light);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+  font-family: var(--font-serif);
+}
+
+.about-section {
+  background: var(--card-bg);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow);
+  margin-bottom: var(--spacing-lg);
+  position: relative;
+  border: 1px solid var(--border-color);
+}
+
+.about-section h3 {
+  font-family: var(--font-serif);
+  color: var(--primary-color);
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.about-section p {
+  color: var(--text-color);
+  line-height: 1.8;
+  font-size: 0.95rem;
+  font-family: var(--font-serif);
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .about-header {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .about-portrait {
+    width: 180px;
+  }
+
+  .about-info h2 {
+    font-size: 1.5rem;
+  }
+}
+
 /* ========== 分类详情页 ========== */
 .category-detail-header {
   display: grid;
