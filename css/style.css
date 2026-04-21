@@ -200,28 +200,33 @@ body::before {
   box-shadow: var(--shadow);
 }
 
-/* 右上角圆形装饰 */
+/* 右上角 — 半透明回纹纹理 */
 .hero::before {
   content: '';
   position: absolute;
-  top: 20px;
-  right: 30px;
-  width: 120px;
-  height: 120px;
-  border: 1px solid rgba(184, 115, 51, 0.15);
-  border-radius: 50%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%235C3D2E' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
 }
 
-/* 左下角圆形装饰 */
+/* 左下角 — 半透明云纹纹理 */
 .hero::after {
   content: '';
   position: absolute;
-  bottom: 20px;
-  left: 40px;
-  width: 80px;
-  height: 80px;
-  border: 1px solid rgba(92, 61, 46, 0.08);
-  border-radius: 50%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background-image: url("data:image/svg+xml,%3Csvg width='120' height='40' viewBox='0 0 120 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,20 C15,10 30,8 45,14 C55,8 70,5 85,12 C95,6 110,10 120,16' stroke='%23B87333' stroke-width='0.8' fill='none' opacity='0.12'/%3E%3Cpath d='M0,28 C20,20 40,18 60,24 C80,18 100,16 120,22' stroke='%23B87333' stroke-width='0.5' fill='none' opacity='0.08'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 120px 40px;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .hero .container {
@@ -245,38 +250,6 @@ body::before {
   letter-spacing: 2px;
   max-width: 600px;
   margin: 0 auto;
-}
-
-/* 银杏叶装饰 */
-.hero-leaf {
-  position: absolute;
-  font-size: 2rem;
-  opacity: 0.12;
-  color: var(--brand-copper);
-  pointer-events: none;
-  z-index: 1;
-}
-
-.hero-leaf--left {
-  top: 25%;
-  left: 8%;
-  transform: rotate(-30deg);
-  font-size: 2.5rem;
-}
-
-.hero-leaf--right {
-  top: 15%;
-  right: 10%;
-  transform: rotate(25deg);
-  font-size: 2rem;
-}
-
-.hero-leaf--bottom {
-  bottom: 15%;
-  left: 50%;
-  transform: translateX(-50%) rotate(10deg);
-  font-size: 1.8rem;
-  opacity: 0.08;
 }
 
 /* ========== Section Title — 基于视觉规范 ========== */
@@ -638,6 +611,7 @@ body::before {
   margin-bottom: var(--spacing-lg);
   position: relative;
   border: 1px solid var(--border-color);
+  overflow: hidden;
 }
 
 /* 回纹边框装饰 */
@@ -659,6 +633,8 @@ body::before {
   gap: 1.5rem;
   position: relative;
   z-index: 1;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .gallery-main {
@@ -734,6 +710,8 @@ body::before {
   padding-bottom: 1rem;
   scrollbar-width: thin;
   scrollbar-color: var(--secondary-color) var(--background-color);
+  flex-shrink: 0;
+  min-width: 0;
 }
 
 .gallery-thumbs::-webkit-scrollbar {
@@ -1119,15 +1097,12 @@ body::before {
 }
 
 @media (max-width: 768px) {
-  .header {
-    height: auto;
-    padding: 1rem;
-  }
-
   .header .container {
     flex-direction: column;
-    align-items: center;
-    text-align: center;
+    align-items: flex-start;
+    text-align: left;
+    height: auto;
+    padding: 0.75rem 0;
   }
 
   .logo {
