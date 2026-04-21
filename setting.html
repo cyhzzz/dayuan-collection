@@ -931,7 +931,7 @@
           categories = await resp.json();
           // 同步到 Supabase
           for (const cat of categories) {
-            await supabaseClient.from('categories').upsert(cat, { onConflict: 'id' });
+            await supabaseAdmin.from('categories').upsert(cat, { onConflict: 'id' });
           }
         }
 
@@ -942,7 +942,7 @@
           items = await resp.json();
           // 同步到 Supabase
           for (const item of items) {
-            await supabaseClient.from('items').upsert(item, { onConflict: 'id' });
+            await supabaseAdmin.from('items').upsert(item, { onConflict: 'id' });
           }
         }
 
@@ -1150,13 +1150,13 @@
       try {
         if (id && id !== newId) {
           categories = categories.filter(c => c.id !== id);
-          await supabaseClient.from('categories').delete().eq('id', id);
+          await supabaseAdmin.from('categories').delete().eq('id', id);
         }
         const idx = categories.findIndex(c => c.id === newId);
         if (idx >= 0) categories[idx] = categoryData;
         else categories.push(categoryData);
 
-        await supabaseClient.from('categories').upsert(categoryData, { onConflict: 'id' });
+        await supabaseAdmin.from('categories').upsert(categoryData, { onConflict: 'id' });
 
         document.getElementById('category-modal').classList.remove('active');
         updateStats();
@@ -1319,13 +1319,13 @@
       try {
         if (id && id !== newId) {
           items = items.filter(i => i.id !== id);
-          await supabaseClient.from('items').delete().eq('id', id);
+          await supabaseAdmin.from('items').delete().eq('id', id);
         }
         const idx = items.findIndex(i => i.id === newId);
         if (idx >= 0) items[idx] = itemData;
         else items.push(itemData);
 
-        await supabaseClient.from('items').upsert(itemData, { onConflict: 'id' });
+        await supabaseAdmin.from('items').upsert(itemData, { onConflict: 'id' });
 
         document.getElementById('item-modal').classList.remove('active');
         updateStats();
@@ -1362,7 +1362,7 @@
       try {
         if (deleteTarget.type === 'category') {
           categories = categories.filter(c => c.id !== deleteTarget.id);
-          await supabaseClient.from('categories').delete().eq('id', deleteTarget.id);
+          await supabaseAdmin.from('categories').delete().eq('id', deleteTarget.id);
           renderCategories();
           populateCategorySelects();
         } else {
@@ -1374,7 +1374,7 @@
             }
           }
           items = items.filter(i => i.id !== deleteTarget.id);
-          await supabaseClient.from('items').delete().eq('id', deleteTarget.id);
+          await supabaseAdmin.from('items').delete().eq('id', deleteTarget.id);
           renderItems(document.getElementById('item-search').value, document.getElementById('item-filter-category').value);
         }
 
@@ -1445,10 +1445,10 @@
           }
 
           for (const cat of categories) {
-            await supabaseClient.from('categories').upsert(cat, { onConflict: 'id' });
+            await supabaseAdmin.from('categories').upsert(cat, { onConflict: 'id' });
           }
           for (const item of items) {
-            await supabaseClient.from('items').upsert(item, { onConflict: 'id' });
+            await supabaseAdmin.from('items').upsert(item, { onConflict: 'id' });
           }
 
           updateStats();
