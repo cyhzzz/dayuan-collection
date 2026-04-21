@@ -1,0 +1,1912 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>大元藏馆 · 视觉规范 v1.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;500;600;700&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+<style>
+/* ========== CSS Variables ========== */
+:root {
+  /* Primary Colors */
+  --color-primary-brown: #5C3D2E;
+  --color-primary-bronze: #B87333;
+  --color-primary-cream: #F5F0E8;
+
+  /* Secondary Colors */
+  --color-secondary-light-brown: #8B7355;
+  --color-secondary-warm-gray: #E0D6C2;
+  --color-secondary-dark-brown: #654321;
+  --color-secondary-tan: #D2B48C;
+
+  /* Functional Colors */
+  --color-success: #4A7C59;
+  --color-warning: #C19A6B;
+  --color-error: #8B4513;
+
+  /* Typography */
+  --font-display: 'ZCOOL XiaoWei', serif;
+  --font-heading: 'Noto Serif SC', serif;
+  --font-body: 'Noto Sans SC', sans-serif;
+
+  /* Spacing */
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 32px;
+  --space-lg: 48px;
+  --space-xl: 80px;
+
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+
+  /* Shadows */
+  --shadow-default: 0 2px 12px rgba(92, 61, 46, 0.08);
+  --shadow-hover: 0 8px 30px rgba(92, 61, 46, 0.15);
+}
+
+/* ========== Reset & Base ========== */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--color-primary-brown);
+  background-color: var(--color-primary-cream);
+  /* 宣纸纹理 */
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 50px,
+      rgba(92, 61, 46, 0.015) 50px,
+      rgba(92, 61, 46, 0.015) 51px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 50px,
+      rgba(92, 61, 46, 0.01) 50px,
+      rgba(92, 61, 46, 0.01) 51px
+    );
+}
+
+/* ========== Fixed Navigation ========== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  background: linear-gradient(135deg, #5C3D2E 0%, #654321 100%);
+  box-shadow: 0 2px 20px rgba(92, 61, 46, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--color-primary-cream);
+}
+
+.navbar-brand svg {
+  width: 36px;
+  height: 36px;
+}
+
+.navbar-brand span {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  white-space: nowrap;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 6px;
+  list-style: none;
+}
+
+.navbar-links a {
+  color: rgba(245, 240, 232, 0.8);
+  text-decoration: none;
+  font-size: 0.85rem;
+  padding: 6px 14px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  font-family: var(--font-body);
+}
+
+.navbar-links a:hover {
+  color: #F5F0E8;
+  background: rgba(184, 115, 51, 0.25);
+}
+
+/* ========== Container ========== */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* ========== Cover Section ========== */
+.cover {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 6rem 2rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.cover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(184, 115, 51, 0.06) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 30%, rgba(92, 61, 46, 0.04) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.cover-logo {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 2rem;
+  animation: fadeInDown 1s ease;
+}
+
+.cover h1 {
+  font-family: var(--font-display);
+  font-size: 4rem;
+  color: var(--color-primary-brown);
+  letter-spacing: 12px;
+  margin-bottom: 0.5rem;
+  animation: fadeInUp 1s ease 0.2s both;
+}
+
+.cover .subtitle {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  color: var(--color-secondary-light-brown);
+  letter-spacing: 4px;
+  margin-bottom: 0.75rem;
+  animation: fadeInUp 1s ease 0.4s both;
+}
+
+.cover .date {
+  font-size: 0.9rem;
+  color: var(--color-secondary-light-brown);
+  opacity: 0.7;
+  margin-bottom: 2rem;
+  animation: fadeInUp 1s ease 0.5s both;
+}
+
+.cover .description {
+  max-width: 600px;
+  font-size: 1rem;
+  color: var(--color-secondary-light-brown);
+  line-height: 1.9;
+  animation: fadeInUp 1s ease 0.6s both;
+}
+
+.cover-divider {
+  width: 60px;
+  height: 2px;
+  background: var(--color-primary-bronze);
+  margin: 2rem auto;
+  animation: fadeInUp 1s ease 0.55s both;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ========== Section Styles ========== */
+.section {
+  padding: 5rem 0;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(92, 61, 46, 0.1);
+}
+
+.section-title::before {
+  content: '';
+  display: block;
+  width: 4px;
+  height: 28px;
+  background: var(--color-primary-brown);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.section-title h2 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--color-primary-brown);
+  letter-spacing: 4px;
+}
+
+.section-title .en {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--color-secondary-light-brown);
+  opacity: 0.6;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+/* ========== Color Palette ========== */
+.color-group {
+  margin-bottom: 2.5rem;
+}
+
+.color-group-title {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--color-primary-brown);
+  margin-bottom: 1rem;
+  padding-left: 12px;
+  border-left: 3px solid var(--color-primary-bronze);
+}
+
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.25rem;
+}
+
+.color-swatch {
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  box-shadow: var(--shadow-default);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.color-swatch:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+}
+
+.color-swatch-preview {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.color-swatch-preview .label {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+}
+
+.color-swatch-info {
+  padding: 12px 14px;
+  background: #fff;
+}
+
+.color-swatch-info .name {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  color: var(--color-primary-brown);
+  margin-bottom: 2px;
+}
+
+.color-swatch-info .hex {
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  color: var(--color-secondary-light-brown);
+}
+
+.color-swatch-info .usage {
+  font-size: 0.78rem;
+  color: var(--color-secondary-light-brown);
+  opacity: 0.7;
+  margin-top: 4px;
+}
+
+/* ========== Typography ========== */
+.type-scale {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.type-item {
+  padding: 1.5rem;
+  background: #fff;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-default);
+  display: flex;
+  align-items: baseline;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.type-item .spec {
+  min-width: 140px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.type-item .spec .tag {
+  display: inline-block;
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  background: rgba(92, 61, 46, 0.08);
+  color: var(--color-primary-brown);
+  padding: 3px 10px;
+  border-radius: 4px;
+  margin-bottom: 4px;
+}
+
+.type-item .spec .detail {
+  font-size: 0.78rem;
+  color: var(--color-secondary-light-brown);
+  line-height: 1.6;
+}
+
+.type-item .sample {
+  flex: 1;
+  min-width: 200px;
+  line-height: 1.5;
+}
+
+.type-item .sample.h1-sample {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  letter-spacing: 6px;
+}
+
+.type-item .sample.h2-sample {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  letter-spacing: 4px;
+}
+
+.type-item .sample.h3-sample {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  letter-spacing: 3px;
+}
+
+.type-item .sample.h4-sample {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.type-item .sample.body-sample {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #4a3a2e;
+}
+
+.type-item .sample.small-sample {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--color-secondary-light-brown);
+}
+
+.type-item .sample.tiny-sample {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--color-secondary-light-brown);
+  opacity: 0.8;
+}
+
+/* ========== Spacing ========== */
+.spacing-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.spacing-item {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.spacing-item .label {
+  min-width: 80px;
+  text-align: right;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  color: var(--color-secondary-light-brown);
+}
+
+.spacing-item .bar-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.spacing-item .bar {
+  height: 24px;
+  background: linear-gradient(90deg, var(--color-primary-brown), var(--color-primary-bronze));
+  border-radius: 4px;
+  transition: width 0.6s ease;
+}
+
+.spacing-item .value {
+  min-width: 60px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  color: var(--color-secondary-light-brown);
+  padding-left: 8px;
+}
+
+/* ========== Border Radius ========== */
+.radius-grid {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.radius-item {
+  text-align: center;
+}
+
+.radius-item .shape {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, var(--color-primary-brown), var(--color-secondary-dark-brown));
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.radius-item .shape:hover {
+  transform: scale(1.05);
+}
+
+.radius-item .label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  color: var(--color-secondary-light-brown);
+}
+
+/* ========== Shadows ========== */
+.shadow-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.shadow-card {
+  background: #fff;
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  transition: all 0.4s ease;
+}
+
+.shadow-card .inner {
+  text-align: center;
+}
+
+.shadow-card .inner .icon-placeholder {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 1rem;
+  background: var(--color-primary-cream);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.shadow-card .inner h4 {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.shadow-card .inner p {
+  font-size: 0.85rem;
+  color: var(--color-secondary-light-brown);
+  line-height: 1.6;
+}
+
+.shadow-card .css-value {
+  margin-top: 1rem;
+  padding: 8px 12px;
+  background: rgba(92, 61, 46, 0.05);
+  border-radius: 6px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  color: var(--color-secondary-light-brown);
+  text-align: center;
+  word-break: break-all;
+}
+
+.shadow-default {
+  box-shadow: 0 2px 12px rgba(92, 61, 46, 0.08);
+}
+
+.shadow-hover-demo {
+  box-shadow: 0 8px 30px rgba(92, 61, 46, 0.15);
+}
+
+/* ========== Components ========== */
+
+/* --- Navbar Demo --- */
+.component-demo {
+  margin-bottom: 3rem;
+}
+
+.component-demo-title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--color-secondary-light-brown);
+  margin-bottom: 1rem;
+  padding-left: 10px;
+  border-left: 2px solid var(--color-primary-bronze);
+}
+
+.demo-frame {
+  border: 1px solid rgba(92, 61, 46, 0.1);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: #fff;
+}
+
+.demo-frame-label {
+  padding: 6px 14px;
+  background: rgba(92, 61, 46, 0.04);
+  font-size: 0.75rem;
+  color: var(--color-secondary-light-brown);
+  border-bottom: 1px solid rgba(92, 61, 46, 0.08);
+}
+
+.demo-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 60px;
+  background: linear-gradient(135deg, #5C3D2E 0%, #654321 100%);
+}
+
+.demo-navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-primary-cream);
+}
+
+.demo-navbar-brand svg {
+  width: 30px;
+  height: 30px;
+}
+
+.demo-navbar-brand span {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  letter-spacing: 2px;
+}
+
+.demo-navbar-links {
+  display: flex;
+  gap: 4px;
+}
+
+.demo-navbar-links a {
+  color: rgba(245, 240, 232, 0.8);
+  text-decoration: none;
+  font-size: 0.82rem;
+  padding: 6px 14px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.demo-navbar-links a:hover {
+  color: #F5F0E8;
+  background: rgba(184, 115, 51, 0.25);
+}
+
+.demo-navbar-links a.active {
+  color: #F5F0E8;
+  background: rgba(184, 115, 51, 0.3);
+}
+
+/* --- Hero Demo --- */
+.demo-hero {
+  position: relative;
+  padding: 4rem 2rem;
+  background: linear-gradient(180deg, #F5F0E8 0%, #E8DFD0 100%);
+  text-align: center;
+  overflow: hidden;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.demo-hero::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  width: 120px;
+  height: 120px;
+  border: 1px solid rgba(184, 115, 51, 0.15);
+  border-radius: 50%;
+}
+
+.demo-hero::after {
+  content: '';
+  position: absolute;
+  bottom: 20px;
+  left: 40px;
+  width: 80px;
+  height: 80px;
+  border: 1px solid rgba(92, 61, 46, 0.08);
+  border-radius: 50%;
+}
+
+.demo-hero h2 {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  color: var(--color-primary-brown);
+  letter-spacing: 8px;
+  margin-bottom: 0.75rem;
+}
+
+.demo-hero p {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--color-secondary-light-brown);
+  letter-spacing: 2px;
+}
+
+.demo-hero .cloud-pattern {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  opacity: 0.1;
+  font-size: 3rem;
+  color: var(--color-primary-brown);
+}
+
+/* --- Category Card Demo --- */
+.demo-cards-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding: 1.5rem;
+}
+
+.category-card {
+  background: #fff;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-default);
+  transition: all 0.4s ease;
+  position: relative;
+}
+
+.category-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.category-card .corner-decor {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  border-top: 2px solid var(--color-primary-bronze);
+  border-right: 2px solid var(--color-primary-bronze);
+  border-radius: 0 var(--radius-md) 0 0;
+  opacity: 0.5;
+}
+
+.category-card .card-image {
+  height: 160px;
+  background: linear-gradient(135deg, #E0D6C2, #D2B48C);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(92, 61, 46, 0.3);
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+}
+
+.category-card .card-body {
+  padding: 1.25rem;
+}
+
+.category-card .card-body h4 {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-primary-brown);
+}
+
+.category-card .card-body p {
+  font-size: 0.85rem;
+  color: var(--color-secondary-light-brown);
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+}
+
+.category-card .card-body .tag {
+  display: inline-block;
+  padding: 3px 10px;
+  background: rgba(184, 115, 51, 0.1);
+  color: var(--color-primary-bronze);
+  font-size: 0.75rem;
+  border-radius: 4px;
+}
+
+/* --- Collection Card Demo --- */
+.collection-card {
+  background: #fff;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-default);
+  transition: all 0.4s ease;
+  position: relative;
+}
+
+.collection-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.collection-card .corner-decor {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  border-top: 2px solid var(--color-primary-bronze);
+  border-right: 2px solid var(--color-primary-bronze);
+  border-radius: 0 var(--radius-md) 0 0;
+  opacity: 0.5;
+  z-index: 1;
+}
+
+.collection-card .card-image {
+  height: 180px;
+  background: linear-gradient(135deg, #D2B48C, #E0D6C2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(92, 61, 46, 0.25);
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+}
+
+.collection-card .card-body {
+  padding: 1rem 1.25rem;
+}
+
+.collection-card .card-body h4 {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  margin-bottom: 0.4rem;
+  color: var(--color-primary-brown);
+}
+
+.collection-card .card-body .meta {
+  font-size: 0.78rem;
+  color: var(--color-secondary-light-brown);
+  display: flex;
+  gap: 12px;
+}
+
+/* --- Breadcrumb Demo --- */
+.demo-breadcrumb {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+}
+
+.demo-breadcrumb a {
+  color: var(--color-primary-bronze);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.demo-breadcrumb a:hover {
+  color: var(--color-primary-brown);
+}
+
+.demo-breadcrumb .separator {
+  color: var(--color-secondary-light-brown);
+  opacity: 0.5;
+}
+
+.demo-breadcrumb .current {
+  color: var(--color-primary-brown);
+  font-weight: 500;
+}
+
+/* --- Search Demo --- */
+.demo-search {
+  padding: 1.5rem;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.demo-search input[type="text"] {
+  flex: 1;
+  min-width: 200px;
+  padding: 10px 16px;
+  border: 1px solid var(--color-secondary-warm-gray);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--color-primary-brown);
+  background: #fff;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.demo-search input[type="text"]:focus {
+  border-color: var(--color-primary-bronze);
+}
+
+.demo-search input[type="text"]::placeholder {
+  color: var(--color-secondary-light-brown);
+  opacity: 0.6;
+}
+
+.demo-search select {
+  padding: 10px 16px;
+  border: 1px solid var(--color-secondary-warm-gray);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--color-primary-brown);
+  background: #fff;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+
+.demo-search select:focus {
+  border-color: var(--color-primary-bronze);
+}
+
+.demo-search button {
+  padding: 10px 24px;
+  background: linear-gradient(135deg, var(--color-primary-brown), var(--color-secondary-dark-brown));
+  color: var(--color-primary-cream);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 1px;
+}
+
+.demo-search button:hover {
+  background: linear-gradient(135deg, var(--color-secondary-dark-brown), var(--color-primary-brown));
+  box-shadow: 0 4px 12px rgba(92, 61, 46, 0.2);
+}
+
+/* --- Chinese Divider Demo --- */
+.demo-divider {
+  padding: 2rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chinese-divider {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+.chinese-divider::before,
+.chinese-divider::after {
+  content: '';
+  flex: 1;
+  border-top: 1px dashed rgba(92, 61, 46, 0.2);
+}
+
+.chinese-divider .dot {
+  width: 8px;
+  height: 8px;
+  background: var(--color-primary-bronze);
+  border-radius: 50%;
+  margin: 0 16px;
+  opacity: 0.5;
+}
+
+/* --- Seal Demo --- */
+.demo-seal {
+  padding: 2rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.seal {
+  width: 72px;
+  height: 72px;
+  border: 3px solid #C0392B;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 700;
+  color: #C0392B;
+  transform: rotate(-8deg);
+  position: relative;
+  opacity: 0.85;
+}
+
+.seal::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border: 1px solid rgba(192, 57, 43, 0.3);
+  border-radius: 50%;
+}
+
+.seal-label {
+  font-size: 0.85rem;
+  color: var(--color-secondary-light-brown);
+}
+
+/* --- Footer Demo --- */
+.demo-footer {
+  background: linear-gradient(135deg, #5C3D2E 0%, #654321 100%);
+  padding: 2.5rem 2rem;
+  color: rgba(245, 240, 232, 0.8);
+}
+
+.demo-footer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.demo-footer-col h5 {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  color: var(--color-primary-cream);
+  margin-bottom: 0.75rem;
+  letter-spacing: 1px;
+}
+
+.demo-footer-col p,
+.demo-footer-col a {
+  font-size: 0.82rem;
+  line-height: 1.8;
+  color: rgba(245, 240, 232, 0.65);
+  text-decoration: none;
+  display: block;
+}
+
+.demo-footer-col a:hover {
+  color: var(--color-primary-cream);
+}
+
+.demo-footer-bottom {
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(245, 240, 232, 0.1);
+  text-align: center;
+  font-size: 0.78rem;
+  color: rgba(245, 240, 232, 0.4);
+}
+
+/* ========== Interaction Demo ========== */
+.interaction-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.interaction-card {
+  background: #fff;
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  box-shadow: var(--shadow-default);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  cursor: pointer;
+  text-align: center;
+}
+
+.interaction-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+}
+
+.interaction-card h4 {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.interaction-card p {
+  font-size: 0.85rem;
+  color: var(--color-secondary-light-brown);
+  line-height: 1.6;
+}
+
+.interaction-btn {
+  display: inline-block;
+  padding: 12px 32px;
+  background: linear-gradient(135deg, var(--color-primary-brown), var(--color-secondary-dark-brown));
+  color: var(--color-primary-cream);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 2px;
+}
+
+.interaction-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(92, 61, 46, 0.25);
+  background: linear-gradient(135deg, var(--color-secondary-dark-brown), #4a3020);
+}
+
+.interaction-hint {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  color: var(--color-secondary-light-brown);
+  opacity: 0.7;
+}
+
+/* ========== Code Block ========== */
+.code-block {
+  background: #2D2926;
+  border-radius: var(--radius-sm);
+  padding: 1.75rem 2rem;
+  overflow-x: auto;
+  margin-top: 1rem;
+}
+
+.code-block pre {
+  font-family: 'Courier New', 'Consolas', monospace;
+  font-size: 0.82rem;
+  line-height: 1.8;
+  color: #E0D6C2;
+  white-space: pre;
+  margin: 0;
+}
+
+.code-block .comment {
+  color: #8B7355;
+}
+
+.code-block .property {
+  color: #D2B48C;
+}
+
+.code-block .value {
+  color: #B87333;
+}
+
+.code-block .selector {
+  color: #C19A6B;
+}
+
+.code-block .punctuation {
+  color: #8B7355;
+}
+
+/* ========== Footer ========== */
+.page-footer {
+  padding: 3rem 0;
+  text-align: center;
+  border-top: 1px solid rgba(92, 61, 46, 0.1);
+}
+
+.page-footer p {
+  font-size: 0.85rem;
+  color: var(--color-secondary-light-brown);
+  opacity: 0.6;
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 1rem;
+  }
+
+  .navbar-brand span {
+    font-size: 0.9rem;
+  }
+
+  .navbar-links {
+    gap: 2px;
+  }
+
+  .navbar-links a {
+    font-size: 0.75rem;
+    padding: 5px 8px;
+  }
+
+  .container {
+    padding: 0 1rem;
+  }
+
+  .cover h1 {
+    font-size: 2.5rem;
+    letter-spacing: 6px;
+  }
+
+  .cover .subtitle {
+    font-size: 1rem;
+  }
+
+  .section-title h2 {
+    font-size: 1.5rem;
+  }
+
+  .type-item {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .type-item .spec {
+    text-align: left;
+    min-width: auto;
+  }
+
+  .type-item .sample.h1-sample {
+    font-size: 2.5rem;
+  }
+
+  .type-item .sample.h2-sample {
+    font-size: 1.75rem;
+  }
+
+  .demo-footer-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .demo-search {
+    flex-direction: column;
+  }
+
+  .demo-search input[type="text"],
+  .demo-search select,
+  .demo-search button {
+    width: 100%;
+  }
+
+  .color-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+
+  .demo-cards-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-links {
+    display: none;
+  }
+
+  .cover h1 {
+    font-size: 2rem;
+  }
+
+  .radius-grid {
+    gap: 1rem;
+  }
+
+  .radius-item .shape {
+    width: 70px;
+    height: 70px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ========== Fixed Navigation ========== -->
+<nav class="navbar">
+  <a href="#top" class="navbar-brand">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="38" fill="none" stroke="#F5F0E8" stroke-width="2.5"/>
+      <path d="M18 58 Q28 42 38 52 Q44 46 50 50" fill="none" stroke="#F5F0E8" stroke-width="1.5" opacity="0.4"/>
+      <path d="M14 65 Q24 38 34 55 Q40 45 48 52 L48 65" fill="none" stroke="#F5F0E8" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M20 68 Q30 56 40 64 Q46 58 52 62" fill="none" stroke="#F5F0E8" stroke-width="2" opacity="0.7"/>
+      <path d="M16 72 Q26 69 36 72 Q46 75 56 72" fill="none" stroke="#B87333" stroke-width="1.2" opacity="0.5"/>
+      <path d="M20 76 Q30 73 40 76 Q50 79 60 76" fill="none" stroke="#B87333" stroke-width="1" opacity="0.3"/>
+      <text x="70" y="42" text-anchor="middle" dominant-baseline="central"
+            font-family="'Noto Serif SC', 'SimSun', serif" font-size="13"
+            font-weight="700" fill="#F5F0E8" writing-mode="vertical-rl"
+            letter-spacing="5">大元</text>
+      <rect x="73" y="60" width="7" height="7" rx="0.5"
+            fill="none" stroke="#B87333" stroke-width="1" opacity="0.6"/>
+      <text x="76.5" y="64" text-anchor="middle" dominant-baseline="central"
+            font-family="'Noto Serif SC', serif" font-size="4.5"
+            fill="#B87333" opacity="0.6">藏</text>
+    </svg>
+    <span>大元藏馆 · 视觉规范</span>
+  </a>
+  <ul class="navbar-links">
+    <li><a href="#colors">色彩</a></li>
+    <li><a href="#typography">字体</a></li>
+    <li><a href="#spacing">间距</a></li>
+    <li><a href="#components">组件</a></li>
+    <li><a href="#interactions">动效</a></li>
+  </ul>
+</nav>
+
+<!-- ========== Cover Section ========== -->
+<section class="cover" id="top">
+  <svg class="cover-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="50" cy="50" r="38" fill="none" stroke="#5C3D2E" stroke-width="2.5"/>
+    <path d="M18 58 Q28 42 38 52 Q44 46 50 50" fill="none" stroke="#5C3D2E" stroke-width="1.5" opacity="0.4"/>
+    <path d="M14 65 Q24 38 34 55 Q40 45 48 52 L48 65" fill="none" stroke="#5C3D2E" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M20 68 Q30 56 40 64 Q46 58 52 62" fill="none" stroke="#5C3D2E" stroke-width="2" opacity="0.7"/>
+    <path d="M16 72 Q26 69 36 72 Q46 75 56 72" fill="none" stroke="#B87333" stroke-width="1.2" opacity="0.5"/>
+    <path d="M20 76 Q30 73 40 76 Q50 79 60 76" fill="none" stroke="#B87333" stroke-width="1" opacity="0.3"/>
+    <text x="70" y="42" text-anchor="middle" dominant-baseline="central"
+          font-family="'Noto Serif SC', 'SimSun', serif" font-size="13"
+          font-weight="700" fill="#5C3D2E" writing-mode="vertical-rl"
+          letter-spacing="5">大元</text>
+    <rect x="73" y="60" width="7" height="7" rx="0.5"
+          fill="none" stroke="#B87333" stroke-width="1" opacity="0.6"/>
+    <text x="76.5" y="64" text-anchor="middle" dominant-baseline="central"
+          font-family="'Noto Serif SC', serif" font-size="4.5"
+          fill="#B87333" opacity="0.6">藏</text>
+  </svg>
+  <h1>大元藏馆</h1>
+  <p class="subtitle">Visual Design Guidelines v1.0</p>
+  <p class="date">2026年4月</p>
+  <div class="cover-divider"></div>
+  <p class="description">
+    本文档定义了大元藏馆网站的完整视觉设计规范，涵盖色彩体系、字体排版、间距系统、组件样式与交互动效，旨在为所有页面提供统一、优雅且富有中国传统文化韵味的视觉体验。
+  </p>
+</section>
+
+<!-- ========== 1. Color Palette ========== -->
+<section class="section" id="colors">
+  <div class="container">
+    <div class="section-title">
+      <div>
+        <h2>色彩系统</h2>
+        <span class="en">Color Palette</span>
+      </div>
+    </div>
+
+    <!-- Primary Colors -->
+    <div class="color-group">
+      <h3 class="color-group-title">主色 Primary</h3>
+      <div class="color-grid">
+        <div class="color-swatch">
+          <div class="color-swatch-preview" style="background: #5C3D2E;">
+            <span class="label" style="color: #F5F0E8;">沉稳棕</span>
+          </div>
+          <div class="color-swatch-info">
+            <div class="name">沉稳棕</div>
+            <div class="hex">#5C3D2E</div>
+            <div class="usage">主文字、导航栏、标题</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-preview" style="background: #B87333;">
+            <span class="label" style="color: #F5F0E8;">古铜色</span>
+          </div>
+          <div class="color-swatch-info">
+            <div class="name">古铜色</div>
+            <div class="hex">#B87333</div>
+            <div class="usage">强调色、装饰线、链接</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-preview" style="background: #F5F0E8; border: 1px solid #E0D6C2;">
+            <span class="label" style="color: #5C3D2E;">米白色</span>
+          </div>
+          <div class="color-swatch-info">
+            <div class="name">米白色</div>
+            <div class="hex">#F5F0E8</div>
+            <div class="usage">页面背景、卡片背景</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Secondary Colors -->
+    <div class="color-group">
+      <h3 class="color-group-title">辅助色 Secondary</h3>
+      <div class="color-grid">
+        <div class="color-swatch">
+          <div class="color-swatch-preview" style="background: #8B7355;">
+            <span class="label" style="color: #F5F0E8;">浅棕</span>
+          </div>
+          <div class="color-swatch-info">
+            <div class="name">浅棕</div>
+            <div class="hex">#8B7355</div>
+            <div class="usage">副标题、辅助文字</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-preview" style="background: #E0D6C2; border: 1px solid #D2B48C;">
+            <span class="label" style="color: #5C3D2E;">暖灰</span>
+          </div>
+          <div class="color-swatch-info">
+            <div class="name">暖灰</div>
+            <div class="hex">#E0D6C2</div>
+            <div class="usage">分割线、边框、占位背景</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-preview" style="background: #654321;">
+            <span class="label" style="color: #F5F0E8;">深棕</span>
+          </div>
+          <div class="color-swatch-info">
+            <div class="name">深棕</div>
+            <div class="hex">#654321</div>
+            <div class="usage">深色背景、渐变终止</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-preview" style="background: #D2B48C; border: 1px solid #C4A67A;">
+            <span class="label" style="color: #5C3D2E;">浅米</span>
+          </div>
+          <div class="color-swatch-info">
+            <div class="name">浅米</div>
+            <div class="hex">#D2B48C</div>
+            <div class="usage">标签背景、装饰色块</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Functional Colors -->
+    <div class="color-group">
+      <h3 class="color-group-title">功能色 Functional</h3>
+      <div class="color-grid">
+        <div class="color-swatch">
+          <div class="color-swatch-preview" style="background: #4A7C59;">
+            <span class="label" style="color: #F5F0E8;">成功</span>
+          </div>
+          <div class="color-swatch-info">
+            <div class="name">成功</div>
+            <div class="hex">#4A7C59</div>
+            <div class="usage">操作成功、正向提示</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-preview" style="background: #C19A6B;">
+            <span class="label" style="color: #F5F0E8;">警告</span>
+          </div>
+          <div class="color-swatch-info">
+            <div class="name">警告</div>
+            <div class="hex">#C19A6B</div>
+            <div class="usage">注意提示、待处理状态</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-preview" style="background: #8B4513;">
+            <span class="label" style="color: #F5F0E8;">错误</span>
+          </div>
+          <div class="color-swatch-info">
+            <div class="name">错误</div>
+            <div class="hex">#8B4513</div>
+            <div class="usage">错误提示、必填校验</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 2. Typography ========== -->
+<section class="section" id="typography">
+  <div class="container">
+    <div class="section-title">
+      <div>
+        <h2>字体系统</h2>
+        <span class="en">Typography</span>
+      </div>
+    </div>
+
+    <div class="type-scale">
+      <div class="type-item">
+        <div class="spec">
+          <span class="tag">H1</span>
+          <div class="detail">3.5rem / 56px<br>ZCOOL XiaoWei</div>
+        </div>
+        <div class="sample h1-sample">大元收藏品集</div>
+      </div>
+
+      <div class="type-item">
+        <div class="spec">
+          <span class="tag">H2</span>
+          <div class="detail">2.5rem / 40px<br>ZCOOL XiaoWei</div>
+        </div>
+        <div class="sample h2-sample">藏品分类</div>
+      </div>
+
+      <div class="type-item">
+        <div class="spec">
+          <span class="tag">H3</span>
+          <div class="detail">1.75rem / 28px<br>ZCOOL XiaoWei</div>
+        </div>
+        <div class="sample h3-sample">收藏理念</div>
+      </div>
+
+      <div class="type-item">
+        <div class="spec">
+          <span class="tag">H4</span>
+          <div class="detail">1.5rem / 24px<br>Noto Serif SC / 600</div>
+        </div>
+        <div class="sample h4-sample">苍龙教子玉带钩</div>
+      </div>
+
+      <div class="type-item">
+        <div class="spec">
+          <span class="tag">Body</span>
+          <div class="detail">1rem / 16px<br>Noto Sans SC</div>
+        </div>
+        <div class="sample body-sample">传承文化，珍藏历史，展示天台县收藏家大元的珍贵藏品。多年来致力于收藏和保护中国传统文物，收藏领域涵盖木器、玉器、钱币、瓷器等多个类别。</div>
+      </div>
+
+      <div class="type-item">
+        <div class="spec">
+          <span class="tag">Small</span>
+          <div class="detail">0.9rem / 14.4px<br>Noto Sans SC</div>
+        </div>
+        <div class="sample small-sample">浙江省天台县 · 抖音：@dywm122308</div>
+      </div>
+
+      <div class="type-item">
+        <div class="spec">
+          <span class="tag">Tiny</span>
+          <div class="detail">0.85rem / 13.6px<br>Noto Sans SC</div>
+        </div>
+        <div class="sample tiny-sample">玉器 · 明代 · 带钩</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 3. Spacing System ========== -->
+<section class="section" id="spacing">
+  <div class="container">
+    <div class="section-title">
+      <div>
+        <h2>间距与圆角</h2>
+        <span class="en">Spacing &amp; Border Radius</span>
+      </div>
+    </div>
+
+    <h3 class="color-group-title" style="margin-bottom: 1.5rem;">间距 Spacing</h3>
+    <div class="spacing-list">
+      <div class="spacing-item">
+        <span class="label">--space-xs</span>
+        <div class="bar-wrapper">
+          <div class="bar" style="width: 8px;"></div>
+        </div>
+        <span class="value">8px</span>
+      </div>
+      <div class="spacing-item">
+        <span class="label">--space-sm</span>
+        <div class="bar-wrapper">
+          <div class="bar" style="width: 16px;"></div>
+        </div>
+        <span class="value">16px</span>
+      </div>
+      <div class="spacing-item">
+        <span class="label">--space-md</span>
+        <div class="bar-wrapper">
+          <div class="bar" style="width: 32px;"></div>
+        </div>
+        <span class="value">32px</span>
+      </div>
+      <div class="spacing-item">
+        <span class="label">--space-lg</span>
+        <div class="bar-wrapper">
+          <div class="bar" style="width: 48px;"></div>
+        </div>
+        <span class="value">48px</span>
+      </div>
+      <div class="spacing-item">
+        <span class="label">--space-xl</span>
+        <div class="bar-wrapper">
+          <div class="bar" style="width: 80px;"></div>
+        </div>
+        <span class="value">80px</span>
+      </div>
+    </div>
+
+    <h3 class="color-group-title" style="margin-top: 3rem; margin-bottom: 1.5rem;">圆角 Border Radius</h3>
+    <div class="radius-grid">
+      <div class="radius-item">
+        <div class="shape" style="border-radius: 8px;"></div>
+        <div class="label">--radius-sm<br>8px</div>
+      </div>
+      <div class="radius-item">
+        <div class="shape" style="border-radius: 12px;"></div>
+        <div class="label">--radius-md<br>12px</div>
+      </div>
+      <div class="radius-item">
+        <div class="shape" style="border-radius: 20px;"></div>
+        <div class="label">--radius-lg<br>20px</div>
+      </div>
+    </div>
+
+    <h3 class="color-group-title" style="margin-top: 3rem; margin-bottom: 1.5rem;">阴影 Shadows</h3>
+    <div class="shadow-grid">
+      <div class="shadow-card shadow-default">
+        <div class="inner">
+          <div class="icon-placeholder">&#9733;</div>
+          <h4>默认阴影</h4>
+          <p>卡片默认状态下的柔和阴影</p>
+        </div>
+        <div class="css-value">box-shadow: 0 2px 12px rgba(92, 61, 46, 0.08);</div>
+      </div>
+      <div class="shadow-card shadow-hover-demo">
+        <div class="inner">
+          <div class="icon-placeholder">&#9733;</div>
+          <h4>悬停阴影</h4>
+          <p>鼠标悬停时的增强阴影效果</p>
+        </div>
+        <div class="css-value">box-shadow: 0 8px 30px rgba(92, 61, 46, 0.15);</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 4. Components ========== -->
+<section class="section" id="components">
+  <div class="container">
+    <div class="section-title">
+      <div>
+        <h2>组件示例</h2>
+        <span class="en">Components</span>
+      </div>
+    </div>
+
+    <!-- Navbar Demo -->
+    <div class="component-demo">
+      <div class="component-demo-title">导航栏 Navigation Bar</div>
+      <div class="demo-frame">
+        <div class="demo-frame-label">预览</div>
+        <div class="demo-navbar">
+          <div class="demo-navbar-brand">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="30" height="30">
+              <circle cx="50" cy="50" r="38" fill="none" stroke="#F5F0E8" stroke-width="2.5"/>
+              <path d="M14 65 Q24 38 34 55 Q40 45 48 52 L48 65" fill="none" stroke="#F5F0E8" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M20 68 Q30 56 40 64 Q46 58 52 62" fill="none" stroke="#F5F0E8" stroke-width="2" opacity="0.7"/>
+              <text x="70" y="42" text-anchor="middle" dominant-baseline="central"
+                    font-family="'Noto Serif SC', serif" font-size="13"
+                    font-weight="700" fill="#F5F0E8" writing-mode="vertical-rl"
+                    letter-spacing="5">大元</text>
+            </svg>
+            <span>大元藏馆</span>
+          </div>
+          <div class="demo-navbar-links">
+            <a href="#" class="active">首页</a>
+            <a href="#">藏品</a>
+            <a href="#">分类</a>
+            <a href="#">关于</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero Demo -->
+    <div class="component-demo">
+      <div class="component-demo-title">Hero 区域 Hero Section</div>
+      <div class="demo-frame">
+        <div class="demo-frame-label">预览</div>
+        <div class="demo-hero">
+          <div class="cloud-pattern">&#9752;</div>
+          <h2>大元藏馆</h2>
+          <p>传承文化 · 珍藏历史 · 品味古今</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Category Card Demo -->
+    <div class="component-demo">
+      <div class="component-demo-title">分类卡片 Category Card</div>
+      <div class="demo-frame">
+        <div class="demo-frame-label">预览</div>
+        <div class="demo-cards-row">
+          <div class="category-card">
+            <div class="corner-decor"></div>
+            <div class="card-image">图片占位 320 x 200</div>
+            <div class="card-body">
+              <h4>玉器收藏</h4>
+              <p>精选历代玉器珍品，从良渚文化到明清玉雕，展现中华玉文化的博大精深。</p>
+              <span class="tag">128 件藏品</span>
+            </div>
+          </div>
+          <div class="category-card">
+            <div class="corner-decor"></div>
+            <div class="card-image">图片占位 320 x 200</div>
+            <div class="card-body">
+              <h4>瓷器鉴赏</h4>
+              <p>涵盖宋元明清各朝名窑精品，青花、粉彩、单色釉等品类齐全。</p>
+              <span class="tag">96 件藏品</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Collection Card Demo -->
+    <div class="component-demo">
+      <div class="component-demo-title">藏品卡片 Collection Card</div>
+      <div class="demo-frame">
+        <div class="demo-frame-label">预览</div>
+        <div class="demo-cards-row">
+          <div class="collection-card">
+            <div class="corner-decor"></div>
+            <div class="card-image">藏品图片占位</div>
+            <div class="card-body">
+              <h4>苍龙教子玉带钩</h4>
+              <div class="meta">
+                <span>玉器</span>
+                <span>明代</span>
+                <span>带钩</span>
+              </div>
+            </div>
+          </div>
+          <div class="collection-card">
+            <div class="corner-decor"></div>
+            <div class="card-image">藏品图片占位</div>
+            <div class="card-body">
+              <h4>青花缠枝莲纹碗</h4>
+              <div class="meta">
+                <span>瓷器</span>
+                <span>清代</span>
+                <span>碗</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Breadcrumb Demo -->
+    <div class="component-demo">
+      <div class="component-demo-title">面包屑导航 Breadcrumb</div>
+      <div class="demo-frame">
+        <div class="demo-frame-label">预览</div>
+        <div class="demo-breadcrumb">
+          <a href="#">首页</a>
+          <span class="separator">/</span>
+          <a href="#">玉器</a>
+          <span class="separator">/</span>
+          <span class="current">苍龙教子玉带钩</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search Demo -->
+    <div class="component-demo">
+      <div class="component-demo-title">搜索控件 Search Control</div>
+      <div class="demo-frame">
+        <div class="demo-frame-label">预览</div>
+        <div class="demo-search">
+          <input type="text" placeholder="搜索藏品名称、年代、材质...">
+          <select>
+            <option>全部分类</option>
+            <option>玉器</option>
+            <option>瓷器</option>
+            <option>木器</option>
+            <option>钱币</option>
+          </select>
+          <button>搜索</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chinese Divider Demo -->
+    <div class="component-demo">
+      <div class="component-demo-title">中式分隔线 Chinese Divider</div>
+      <div class="demo-frame">
+        <div class="demo-frame-label">预览</div>
+        <div class="demo-divider">
+          <div class="chinese-divider">
+            <span class="dot"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Seal Demo -->
+    <div class="component-demo">
+      <div class="component-demo-title">印章效果 Seal Stamp</div>
+      <div class="demo-frame">
+        <div class="demo-frame-label">预览</div>
+        <div class="demo-seal">
+          <div class="seal">藏</div>
+          <span class="seal-label">圆形印章 · 印章红 #C0392B · 微旋转 -8deg</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Demo -->
+    <div class="component-demo">
+      <div class="component-demo-title">页脚 Footer</div>
+      <div class="demo-frame">
+        <div class="demo-frame-label">预览</div>
+        <div class="demo-footer">
+          <div class="demo-footer-grid">
+            <div class="demo-footer-col">
+              <h5>大元藏馆</h5>
+              <p>传承文化，珍藏历史。<br>展示天台县收藏家大元的珍贵藏品。</p>
+            </div>
+            <div class="demo-footer-col">
+              <h5>快速导航</h5>
+              <a href="#">首页</a>
+              <a href="#">藏品展示</a>
+              <a href="#">分类浏览</a>
+              <a href="#">关于我们</a>
+            </div>
+            <div class="demo-footer-col">
+              <h5>联系方式</h5>
+              <p>浙江省天台县</p>
+              <p>抖音：@dywm122308</p>
+            </div>
+          </div>
+          <div class="demo-footer-bottom">
+            &copy; 2026 大元藏馆 All Rights Reserved.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 5. Interactions ========== -->
+<section class="section" id="interactions">
+  <div class="container">
+    <div class="section-title">
+      <div>
+        <h2>动效演示</h2>
+        <span class="en">Interaction &amp; Animation</span>
+      </div>
+    </div>
+
+    <div class="interaction-grid">
+      <div class="interaction-card">
+        <h4>卡片悬停效果</h4>
+        <p>鼠标悬停时卡片上移 6px，阴影从默认过渡到增强状态，过渡时间 0.4s，使用 ease-out 缓动曲线。</p>
+      </div>
+      <div class="interaction-card">
+        <h4>藏品详情卡片</h4>
+        <p>展示藏品核心信息的卡片组件，悬停时产生轻微上浮效果，引导用户点击查看详情。</p>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 2.5rem;">
+      <button class="interaction-btn">浏览全部藏品</button>
+    </div>
+
+    <p class="interaction-hint">请将鼠标悬停在上方卡片和按钮上查看交互效果</p>
+  </div>
+</section>
+
+<!-- ========== 6. CSS Variables Reference ========== -->
+<section class="section">
+  <div class="container">
+    <div class="section-title">
+      <div>
+        <h2>CSS 变量速查</h2>
+        <span class="en">CSS Variables Reference</span>
+      </div>
+    </div>
+
+    <div class="code-block"><pre><span class="selector">:root</span> <span class="punctuation">{</span>
+  <span class="comment">/* Primary Colors */</span>
+  <span class="property">--color-primary-brown</span><span class="punctuation">:</span> <span class="value">#5C3D2E</span><span class="punctuation">;</span>
+  <span class="property">--color-primary-bronze</span><span class="punctuation">:</span> <span class="value">#B87333</span><span class="punctuation">;</span>
+  <span class="property">--color-primary-cream</span><span class="punctuation">:</span> <span class="value">#F5F0E8</span><span class="punctuation">;</span>
+
+  <span class="comment">/* Secondary Colors */</span>
+  <span class="property">--color-secondary-light-brown</span><span class="punctuation">:</span> <span class="value">#8B7355</span><span class="punctuation">;</span>
+  <span class="property">--color-secondary-warm-gray</span><span class="punctuation">:</span> <span class="value">#E0D6C2</span><span class="punctuation">;</span>
+  <span class="property">--color-secondary-dark-brown</span><span class="punctuation">:</span> <span class="value">#654321</span><span class="punctuation">;</span>
+  <span class="property">--color-secondary-tan</span><span class="punctuation">:</span> <span class="value">#D2B48C</span><span class="punctuation">;</span>
+
+  <span class="comment">/* Functional Colors */</span>
+  <span class="property">--color-success</span><span class="punctuation">:</span> <span class="value">#4A7C59</span><span class="punctuation">;</span>
+  <span class="property">--color-warning</span><span class="punctuation">:</span> <span class="value">#C19A6B</span><span class="punctuation">;</span>
+  <span class="property">--color-error</span><span class="punctuation">:</span> <span class="value">#8B4513</span><span class="punctuation">;</span>
+
+  <span class="comment">/* Typography */</span>
+  <span class="property">--font-display</span><span class="punctuation">:</span> <span class="value">'ZCOOL XiaoWei', serif</span><span class="punctuation">;</span>
+  <span class="property">--font-heading</span><span class="punctuation">:</span> <span class="value">'Noto Serif SC', serif</span><span class="punctuation">;</span>
+  <span class="property">--font-body</span><span class="punctuation">:</span> <span class="value">'Noto Sans SC', sans-serif</span><span class="punctuation">;</span>
+
+  <span class="comment">/* Spacing */</span>
+  <span class="property">--space-xs</span><span class="punctuation">:</span> <span class="value">8px</span><span class="punctuation">;</span>
+  <span class="property">--space-sm</span><span class="punctuation">:</span> <span class="value">16px</span><span class="punctuation">;</span>
+  <span class="property">--space-md</span><span class="punctuation">:</span> <span class="value">32px</span><span class="punctuation">;</span>
+  <span class="property">--space-lg</span><span class="punctuation">:</span> <span class="value">48px</span><span class="punctuation">;</span>
+  <span class="property">--space-xl</span><span class="punctuation">:</span> <span class="value">80px</span><span class="punctuation">;</span>
+
+  <span class="comment">/* Border Radius */</span>
+  <span class="property">--radius-sm</span><span class="punctuation">:</span> <span class="value">8px</span><span class="punctuation">;</span>
+  <span class="property">--radius-md</span><span class="punctuation">:</span> <span class="value">12px</span><span class="punctuation">;</span>
+  <span class="property">--radius-lg</span><span class="punctuation">:</span> <span class="value">20px</span><span class="punctuation">;</span>
+
+  <span class="comment">/* Shadows */</span>
+  <span class="property">--shadow-default</span><span class="punctuation">:</span> <span class="value">0 2px 12px rgba(92, 61, 46, 0.08)</span><span class="punctuation">;</span>
+  <span class="property">--shadow-hover</span><span class="punctuation">:</span> <span class="value">0 8px 30px rgba(92, 61, 46, 0.15)</span><span class="punctuation">;</span>
+<span class="punctuation">}</span></pre></div>
+  </div>
+</section>
+
+<!-- ========== Page Footer ========== -->
+<footer class="page-footer">
+  <div class="container">
+    <p>大元藏馆 · 视觉规范 v1.0 &nbsp;|&nbsp; 2026年4月</p>
+  </div>
+</footer>
+
+</body>
+</html>

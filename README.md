@@ -1,8 +1,57 @@
-# 🏺 大元收藏品集（完整版）
+# 🏺 大元藏馆
 
-> 来源：抖音用户「大元」(@dywm122308) 主页作品
-> 整理时间：2026年4月20日
-> 共收录：**294件藏品**
+> 天台县收藏家大元的私人收藏展示平台  
+> Logo：圆融山水（Circular Landscape）  
+> 视觉规范：v1.0 · 2026年4月
+
+---
+
+## 📖 项目简介
+
+大元藏馆是一个展示天台县资深收藏家「大元」珍贵藏品的网站。收藏领域涵盖玉器、瓷器、铜器、木器花板、钱币等多个类别，尤其专注于天台山文化相关的历史文物。
+
+- **藏品数量**：294 件
+- **图片来源**：抖音用户「大元」主页作品
+- **数据存储**：Supabase
+- **技术栈**：HTML / CSS / JavaScript（原生）
+
+## 🎨 品牌视觉规范
+
+基于定稿 Logo「圆融山水」建立了完整的品牌视觉体系：
+
+| 项目 | 说明 |
+|------|------|
+| Logo | 圆融山水 — 圆形构图内天台山水极简呈现 |
+| 主色 | 沉稳棕 `#5C3D2E` · 古铜色 `#B87333` · 米白色 `#F5F0E8` |
+| 字体 | ZCOOL XiaoWei（标题）· Noto Serif SC（正文）· Noto Sans SC（辅助） |
+| 风格 | 中式文雅、沉稳内敛、文化底蕴 |
+
+📄 **完整规范文档**：[`docs/brand/visual-guidelines.md`](docs/brand/visual-guidelines.md)  
+🖼️ **在线演示页面**：[`docs/brand/visual-guidelines.html`](docs/brand/visual-guidelines.html)（浏览器打开即可预览）  
+🏷️ **Logo 文件**：[`assets/logo.svg`](assets/logo.svg)
+
+## 📁 项目结构
+
+```
+dayuan-collection/
+├── index.html              # 首页
+├── setting.html            # 设置页
+├── css/
+│   └── style.css           # 主样式（基于品牌视觉规范 v1.0）
+├── js/
+│   ├── data.js             # 数据层
+│   └── app.js              # 应用逻辑
+├── assets/
+│   ├── logo.svg            # 圆融山水 Logo
+│   └── data/               # 分类和藏品 JSON 数据
+├── images/                 # 藏品图片（828张）
+├── docs/
+│   └── brand/              # 品牌视觉规范
+│       ├── visual-guidelines.md    # 规范文档
+│       ├── visual-guidelines.html  # 在线演示页
+│       └── logo.svg                # Logo 源文件
+└── README.md               # 本文件
+```
 
 ---
 

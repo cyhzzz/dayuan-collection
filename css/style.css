@@ -2,19 +2,24 @@
 @import url('https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
 
-/* 全局变量 */
+/* 全局变量 — 基于品牌视觉规范 v1.0（圆融山水） */
 :root {
+  /* 品牌主色 */
+  --brand-brown: #5C3D2E;
+  --brand-copper: #B87333;
+  --brand-cream: #F5F0E8;
+
   /* 颜色 */
-  --primary-color: #8b4513;
-  --secondary-color: #d2b48c;
-  --accent-color: #c19a6b;
-  --text-color: #333333;
-  --text-light: #666666;
-  --background-color: #faf7f2;
+  --primary-color: #5C3D2E;
+  --secondary-color: #D2B48C;
+  --accent-color: #B87333;
+  --text-color: #5C3D2E;
+  --text-light: #8B7355;
+  --background-color: #F5F0E8;
   --card-bg: #ffffff;
-  --border-color: #e0d6c2;
-  --shadow: 0 10px 30px rgba(139, 69, 19, 0.1);
-  --shadow-hover: 0 15px 40px rgba(139, 69, 19, 0.15);
+  --border-color: #E0D6C2;
+  --shadow: 0 10px 30px rgba(92, 61, 46, 0.08);
+  --shadow-hover: 0 15px 40px rgba(92, 61, 46, 0.14);
   
   /* 字体 */
   --font-serif: 'ZCOOL XiaoWei', 'Noto Serif SC', serif;
@@ -79,7 +84,7 @@ body::before {
 
 /* 顶部导航 */
 .header {
-  background: linear-gradient(135deg, var(--primary-color) 0%, #654321 100%);
+  background: linear-gradient(135deg, #5C3D2E 0%, #3D2819 100%);
   color: #fff;
   padding: 1.5rem 0;
   position: sticky;
@@ -412,7 +417,7 @@ body::before {
 }
 
 .breadcrumb-link:hover {
-  color: #654321;
+  color: #3D2819;
   text-decoration: underline;
 }
 
@@ -918,7 +923,7 @@ body::before {
 
 .search-btn {
   padding: 1rem 2rem;
-  background: linear-gradient(135deg, var(--primary-color) 0%, #654321 100%);
+  background: linear-gradient(135deg, #5C3D2E 0%, #3D2819 100%);
   color: #fff;
   border: none;
   border-radius: var(--border-radius-md);
@@ -926,7 +931,7 @@ body::before {
   font-weight: 600;
   cursor: pointer;
   transition: var(--transition);
-  box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);
+  box-shadow: 0 4px 15px rgba(92, 61, 46, 0.3);
   font-family: var(--font-serif);
   position: relative;
   overflow: hidden;
@@ -989,7 +994,7 @@ body::before {
 
 /* 底部 */
 .footer {
-  background: linear-gradient(135deg, var(--primary-color) 0%, #654321 100%);
+  background: linear-gradient(135deg, #5C3D2E 0%, #3D2819 100%);
   color: #fff;
   padding: var(--spacing-lg) 0;
   margin-top: var(--spacing-xl);
