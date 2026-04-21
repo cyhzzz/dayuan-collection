@@ -912,19 +912,10 @@
     // ========== 数据加载（仅 Supabase） ==========
     async function loadData() {
       try {
-        // 第一步：只查数量
-        const [catCountRes, itemCountRes] = await Promise.all([
-          supabaseClient.from('categories').select('id', { count: 'exact', head: true }),
-          supabaseClient.from('items').select('id', { count: 'exact', head: true })
-        ]);
-
-        const catCount = catCountRes.count || 0;
-        const itemCount = itemCountRes.count || 0;
-
-        // 第二步：加载实际数据
+        // 直接加载数据
         const [catRes, itemRes] = await Promise.all([
-          supabaseClient.from('categories').select('*'),
-          supabaseClient.from('items').select('*')
+          supabaseClient.from('categories').select('*').fetch(),
+          supabaseClient.from('items').select('*').fetch()
         ]);
 
         categories = catRes.data || [];
