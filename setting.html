@@ -882,19 +882,13 @@
       const randomStr = Math.random().toString(36).substring(2, 8);
       const path = `${folder}/${timestamp}_${randomStr}.${ext}`;
 
-      const { data, error } = await supabaseAdmin.storage
-        .from(STORAGE_BUCKET)
-        .upload(path, file, {
-          cacheControl: '3600',
-          upsert: false
-        });
-
-      if (error) {
+      try {
+        await supabaseAdmin.upload(STORAGE_BUCKET, path, file);
+        return path; // 返回 Storage 路径
+      } catch (error) {
         console.error('上传失败:', error);
         throw error;
       }
-
-      return path; // 返回 Storage 路径
     }
 
     async function deleteImage(path) {
@@ -902,7 +896,7 @@
       // 只删除 Storage 中的文件，不删本地路径
       if (path.startsWith('items/') || path.startsWith('categories/')) {
         try {
-          await supabaseAdmin.storage.from(STORAGE_BUCKET).remove([path]);
+          await supabaseAdmin.remove(STORAGE_BUCKET, [path]);
         } catch (e) {
           console.warn('删除图片失败:', e);
         }
